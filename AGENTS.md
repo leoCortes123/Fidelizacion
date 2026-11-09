@@ -37,6 +37,7 @@ NO cargues todos los docs. Lee solo lo necesario:
 - API: `fidelizacionApi/AGENTS.md`
 
 ## Subagentes disponibles
+- `orchestrator` — orquestador primario: planifica, implementa y valida usando subagentes.
 - `reviewer` — revisión read-only de cambios.
 - `tester` — ejecuta pruebas focalizadas, no edita.
 - `db-auditor` — revisa SQL/migraciones/grants, read-only.
