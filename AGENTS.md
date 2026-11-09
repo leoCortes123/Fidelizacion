@@ -36,5 +36,10 @@ NO cargues todos los docs. Lee solo lo necesario:
 - Web: `fidelizacionWeb/AGENTS.md`
 - API: `fidelizacionApi/AGENTS.md`
 
-## Graphify
+## Subagentes disponibles
+- `reviewer` — revisión read-only de cambios.
+- `tester` — ejecuta pruebas focalizadas, no edita.
+- `db-auditor` — revisa SQL/migraciones/grants, read-only.
+
+Usar solo estos subagentes para mantenimiento; evitar redes amplias.
 Existe `graphify-out/graph.json`. Para cambios focalizados, consulta primero `graphify query "<concepto>"` antes de leer código. Regenerar con `graphify .` tras cambios grandes.
