@@ -1,0 +1,35 @@
+# Contrato RPC (resumen)
+
+Fuente: `documentacion/ARQUITECTURA.md`, `documentacion/ESTADO_PROYECTO.md`. Actualizar este archivo cuando cambie una firma.
+
+## Públicas (anon)
+- `business_public_get(slug)` — ficha pública del negocio.
+
+## Autenticación / perfil
+- `handle_new_user` (trigger) — crea profile y roles; bootstrap admin si está en `private.bootstrap_admins`.
+
+## Negocios y membresías
+- `business_create`, `business_join`, `business_members_list`, `business_dashboard_summary`, `business_recent_activity`.
+
+## Programa y carta
+- `business_program_upsert`, `product_*` (list/upsert/delete), `product_combo_set`, `reward_*`.
+
+## Compras
+- `purchase_qr_create`, `purchase_qr_create_with_items`, `purchase_qr_preview`, `purchase_qr_claim`, `purchase_list`, `purchase_detail`.
+
+## Puntos y canje
+- `customer_businesses_summary`, `reward_request_redemption`, `redemption_token_validate`, `redemption_approve`, `redemption_deliver`, `redemption_cancel`, `redemption_redeem_by_token`.
+
+## Cliente
+- `customer_redemptions_list`, `customer_purchases_list`.
+
+## Economía
+- `business_economic_profile_upsert`, `business_economic_summary`, `business_economic_snapshot`.
+
+## Auditoría
+- `business_audit_log_page` (paginada, filtros por operación/categoría/actor/fechas/texto).
+
+## Encargado / escaneo
+- `redemption_scan_deliver` (flujo `/scan/:token`).
+
+> Nota: nombres exactos y parámetros en las migraciones `fidelizacionApi/supabase/migrations/`. Para detalle, grep en la carpeta de migraciones.

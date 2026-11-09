@@ -1,0 +1,9 @@
+# Datos operativos y secretos locales
+privado/
+
+# Entornos y credenciales
+.env
+.env.*
+!.env.example
+
+.DS_Store

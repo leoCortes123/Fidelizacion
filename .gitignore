@@ -1,0 +1,31 @@
+# Subproyectos con repositorios Git propios (no anidar)
+fidelizacionWeb/
+fidelizacionApi/
+fidelizacionApp/
+
+# Artefactos y dependencias
+node_modules/
+dist/
+build/
+.next/
+.vercel/
+.playwright/
+test-results/
+playwright-report/
+
+# Entorno y secretos
+.env
+.env.*
+!.env.example
+
+# Documentacion privada
+documentacion/privado/
+
+# Graphify (solo se versiona el reporte resumen)
+graphify-out/cache/
+graphify-out/*.html
+graphify-out/*.json
+
+# Sistema
+.DS_Store
+*.log

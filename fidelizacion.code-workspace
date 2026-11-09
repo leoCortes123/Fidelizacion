@@ -1,0 +1,21 @@
+{
+  "folders": [
+    { "name": "Web", "path": "fidelizacionWeb" },
+    { "name": "API", "path": "fidelizacionApi" },
+    { "name": "App", "path": "fidelizacionApp" },
+    { "name": "Documentación", "path": "documentacion" }
+  ],
+  "settings": {
+    "files.exclude": {
+      "**/node_modules": true,
+      "**/dist": true,
+      "**/test-results": true,
+      "**/playwright-report": true
+    },
+    "search.exclude": {
+      "**/node_modules": true,
+      "**/dist": true,
+      "**/package-lock.json": true
+    }
+  }
+}
