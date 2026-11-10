@@ -1,0 +1,281 @@
+/* ==========================================================================
+   LOOPOINT PIXEL-APP DESIGN SYSTEM (MOBILE-FIRST & AFFORDANCE-CLEAR)
+   Estética de aplicación moderna con ADN Pixel Art gamificado (puntos/premios)
+   y diferenciación estricta entre elementos estáticos, inputs y botones.
+   ========================================================================== */
+
+:root {
+  /* Superficies de Aplicación (Limpias, neutras y legibles) */
+  --app-bg: #f3f6fa;
+  --app-surface: #ffffff;
+  --app-surface-muted: #eef2f7;
+  --app-border-static: #d5deeb;
+  --app-border-strong: #0f172a;
+
+  /* Texto */
+  --app-ink: #0f172a;
+  --app-ink-soft: #334155;
+  --app-ink-muted: #64748b;
+
+  /* Paleta Interactiva y de Gamificación (Inspirada en la moneda Loopoint) */
+  --lp-primary: #2563eb;       /* Azul cobalto para acciones primarias */
+  --lp-primary-hover: #1d4ed8;
+  --lp-cyan: #06b6d4;          /* Cian moneda Loopoint */
+  --lp-cyan-dark: #0e7490;
+  --lp-gold: #f59e0b;          /* Oro para puntos y niveles */
+  --lp-gold-soft: #fef3c7;
+  --lp-emerald: #059669;       /* Esmeralda para canjes listos y confirmaciones */
+  --lp-emerald-soft: #d1fae5;
+  --lp-coral: #e11d48;         /* Alerta / Acción destructiva */
+
+  /* Tipografía */
+  --font-pixel: "Press Start 2P", ui-monospace, monospace;
+  --font-mono: "DM Mono", ui-monospace, monospace;
+  --font-sans: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+
+  /* Ergonomía táctil móvil (WCAG 2.2 / Apple HIG / Material 3) */
+  --touch-min: 48px;
+  --touch-compact: 44px;
+}
+
+/* 1. SUPERFICIE GENERAL DE LA APLICACIÓN */
+.lp-app-canvas {
+  background-color: var(--app-bg);
+  background-image: radial-gradient(rgba(15, 23, 42, 0.06) 1px, transparent 1px);
+  background-size: 16px 16px;
+  color: var(--app-ink);
+  font-family: var(--font-sans);
+}
+
+.font-pixel {
+  font-family: var(--font-pixel);
+  line-height: 1.5;
+}
+
+.font-mono-code {
+  font-family: var(--font-mono);
+}
+
+/* 2. CONTENEDORES Y TÍTULOS ESTÁTICOS (SIN SOMBRA DE BOTÓN — NO PARECEN CLICABLES) */
+.lp-panel {
+  background: var(--app-surface);
+  border: 2px solid var(--app-border-static);
+  border-radius: 6px;
+}
+
+.lp-panel-muted {
+  background: var(--app-surface-muted);
+  border: 1.5px solid var(--app-border-static);
+  border-radius: 6px;
+}
+
+.lp-panel-header {
+  padding: 12px 16px;
+  border-bottom: 1.5px solid var(--app-border-static);
+  background: #f8fafc;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+/* Kicker de sección: solo texto e icono pixel, SIN caja ni borde para no confundir con botón */
+.lp-section-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-pixel);
+  font-size: 9px;
+  color: var(--lp-cyan-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* Etiquetas informativas (Estáticas: sin sombra dura ni relieve) */
+.lp-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.lp-tag-cyan { background: #cffafe; color: #155e75; }
+.lp-tag-gold { background: var(--lp-gold-soft); color: #92400e; }
+.lp-tag-emerald { background: var(--lp-emerald-soft); color: #065f46; }
+.lp-tag-neutral { background: #e2e8f0; color: #334155; }
+
+/* 3. CAMPOS DE TEXTO / INPUTS (RELIEVE HUNDIDO CLARO Y FOCO DE ALTO CONTRASTE) */
+.lp-field-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--app-ink);
+  margin-bottom: 5px;
+}
+
+.lp-input {
+  width: 100%;
+  min-height: var(--touch-min);
+  padding: 10px 14px;
+  background-color: #ffffff;
+  border: 2px solid #64748b;
+  border-left: 4px solid var(--lp-primary);
+  border-radius: 4px;
+  box-shadow: inset 0 2px 4px rgba(15, 23, 42, 0.08);
+  font-family: var(--font-sans);
+  font-size: 16px; /* Previene zoom automático en móviles iOS/Android */
+  font-weight: 600;
+  color: var(--app-ink);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+}
+
+.lp-input:hover:not(:disabled) {
+  border-color: var(--app-ink);
+  border-left-color: var(--lp-primary);
+}
+
+.lp-input:focus {
+  outline: none;
+  background-color: #ffffff;
+  border-color: var(--lp-primary);
+  border-left-width: 4px;
+  box-shadow:
+    0 0 0 3px rgba(37, 99, 235, 0.22),
+    inset 0 1px 2px rgba(15, 23, 42, 0.05);
+}
+
+.lp-input:disabled {
+  background-color: #e2e8f0;
+  border-color: #cbd5e1;
+  border-left-color: #94a3b8;
+  color: #64748b;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+/* 4. BOTONES INTERACTIVOS (ÚNICOS ELEMENTOS CON BISEL TÁCTIL Y SOMBRA PIXEL 3D) */
+.lp-btn {
+  min-height: var(--touch-min);
+  padding: 10px 18px;
+  border: 2px solid var(--app-border-strong);
+  border-radius: 4px;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  user-select: none;
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, 0.35),
+    0 3px 0 var(--app-border-strong);
+  transition: transform 0.08s ease, box-shadow 0.08s ease, background-color 0.12s ease;
+}
+
+.lp-btn-sm {
+  min-height: var(--touch-compact);
+  padding: 7px 13px;
+  font-size: 13px;
+}
+
+.lp-btn:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, 0.45),
+    0 4px 0 var(--app-border-strong);
+}
+
+.lp-btn:active {
+  transform: translateY(3px);
+  box-shadow: none;
+}
+
+.lp-btn-primary {
+  background-color: var(--lp-primary);
+  color: #ffffff;
+}
+.lp-btn-primary:hover {
+  background-color: var(--lp-primary-hover);
+}
+
+.lp-btn-emerald {
+  background-color: var(--lp-emerald);
+  color: #ffffff;
+}
+
+.lp-btn-secondary {
+  background-color: #ffffff;
+  color: var(--app-ink);
+}
+.lp-btn-secondary:hover {
+  background-color: #f8fafc;
+}
+
+.lp-btn-dark {
+  background-color: var(--app-ink);
+  color: #ffffff;
+}
+
+/* 5. ELEMENTOS DE GAMIFICACIÓN PIXEL (BARRAS DE PROGRESO Y TARJETA DE PUNTOS) */
+.lp-progress {
+  height: 16px;
+  border: 2px solid var(--app-border-strong);
+  border-radius: 3px;
+  background: #e2e8f0;
+  overflow: hidden;
+}
+
+.lp-progress-bar {
+  height: 100%;
+  background: repeating-linear-gradient(
+    to right,
+    var(--lp-cyan) 0px,
+    var(--lp-cyan) 12px,
+    #0891b2 12px,
+    #0891b2 15px
+  );
+  border-right: 2px solid var(--app-border-strong);
+  transition: width 0.25s steps(8, end);
+}
+
+.lp-progress-bar.bar-gold {
+  background: repeating-linear-gradient(
+    to right,
+    var(--lp-gold) 0px,
+    var(--lp-gold) 12px,
+    #d97706 12px,
+    #d97706 15px
+  );
+}
+
+/* Carruseles horizontales con scroll-snap para móvil */
+.lp-snap-row {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 4px;
+}
+
+.lp-snap-row > * {
+  scroll-snap-align: start;
+  flex-shrink: 0;
+}
+
+/* Barra inferior móvil (Zona del Pulgar) */
+.lp-bottom-nav {
+  position: sticky;
+  bottom: 0;
+  z-index: 40;
+  background: #ffffff;
+  border-top: 2px solid var(--app-border-strong);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}

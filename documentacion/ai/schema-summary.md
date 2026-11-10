@@ -2,7 +2,7 @@
 
 Tablas clave (multiempresa, todo lleva `business_id`):
 
-- `profiles` — nombre, correo, fechas.
+- `profiles` — nombre, correo, `nickname`, `account_type` (`customer` | `admin`), fechas.
 - `user_roles` — rol global legacy (`customer`, `admin`, `registrar`).
 - `businesses` — negocio, slug, logo, estado.
 - `business_memberships` — usuario ↔ negocio con rol (`admin`/`encargado`/`cliente`).

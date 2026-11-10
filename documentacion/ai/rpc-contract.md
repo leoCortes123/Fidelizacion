@@ -6,7 +6,9 @@ Fuente: `documentacion/ARQUITECTURA.md`, `documentacion/ESTADO_PROYECTO.md`. Act
 - `business_public_get(slug)` — ficha pública del negocio.
 
 ## Autenticación / perfil
-- `handle_new_user` (trigger) — crea profile y roles; bootstrap admin si está en `private.bootstrap_admins`.
+- `handle_new_user` (trigger) — crea profile (con `account_type` `customer` | `admin`) y roles; bootstrap admin si está en `private.bootstrap_admins`.
+- `profile_set_account_type(p_account_type)` — guarda el tipo de cuenta (`customer` | `admin`) en `profiles` tras OAuth/registro sin otorgar permisos globales legacy.
+- `get_my_app_roles()` — combina `user_roles`, `business_memberships` y `profiles.account_type = 'admin'`.
 
 ## Negocios y membresías
 - `business_create`, `business_join`, `business_members_list`, `business_dashboard_summary`, `business_recent_activity`.

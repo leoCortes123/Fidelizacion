@@ -1,0 +1,2383 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Loopoint · Mockup Pixel-App Mobile-First (Admin, Encargado, Cliente)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Press+Start+2P&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <link rel="stylesheet" href="./pixel-design-system.css" />
+  <style>
+    /* ========================================================================
+       LOOPOINT PIXEL-APP DESIGN SYSTEM
+       Equilibrio entre estética de Aplicación Moderna + Gamificación Pixel Art.
+       Diferenciación estricta entre:
+       1. Títulos / Tarjetas informativas (planos, sin sombra dura)
+       2. Campos de texto (hundidos con borde izquierdo azul e inner-shadow)
+       3. Botones clicables (únicos elementos con bisel 3D y sombra sólida)
+       ======================================================================== */
+    :root {
+      --app-bg: #f3f6fa;
+      --app-surface: #ffffff;
+      --app-surface-muted: #eef2f7;
+      --app-border-static: #d5deeb;
+      --app-border-strong: #0f172a;
+
+      --app-ink: #0f172a;
+      --app-ink-soft: #334155;
+      --app-ink-muted: #64748b;
+
+      --lp-primary: #2563eb;
+      --lp-primary-hover: #1d4ed8;
+      --lp-cyan: #06b6d4;
+      --lp-cyan-dark: #0e7490;
+      --lp-gold: #f59e0b;
+      --lp-gold-soft: #fef3c7;
+      --lp-emerald: #059669;
+      --lp-emerald-soft: #d1fae5;
+
+      --font-pixel: "Press Start 2P", ui-monospace, monospace;
+      --font-mono: "DM Mono", ui-monospace, monospace;
+      --font-sans: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+
+      --touch-min: 48px;
+      --touch-compact: 44px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background-color: #0f172a;
+      font-family: var(--font-sans);
+      color: var(--app-ink);
+      overflow-x: clip;
+    }
+
+    .lp-app-canvas {
+      background-color: var(--app-bg);
+      background-image: radial-gradient(rgba(15, 23, 42, 0.055) 1px, transparent 1px);
+      background-size: 16px 16px;
+      color: var(--app-ink);
+    }
+
+    .font-pixel {
+      font-family: var(--font-pixel);
+      line-height: 1.5;
+    }
+
+    .font-mono-code {
+      font-family: var(--font-mono);
+    }
+
+    /* 1. PANELES Y TÍTULOS ESTÁTICOS (NO PARECEN BOTONES) */
+    .lp-panel {
+      background: var(--app-surface);
+      border: 1.5px solid var(--app-border-static);
+      border-radius: 8px;
+      box-shadow: 0 1px 2px rgba(15, 23, 42, 0.03);
+    }
+
+    .lp-panel-muted {
+      background: var(--app-surface-muted);
+      border: 1.5px solid var(--app-border-static);
+      border-radius: 6px;
+    }
+
+    .lp-panel-header {
+      padding: 12px 16px;
+      border-bottom: 1.5px solid var(--app-border-static);
+      background: #f8fafc;
+      border-radius: 7px 7px 0 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    /* Subtítulos/Kickers: solo texto con icono pixel, sin caja para no parecer clicable */
+    .lp-section-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-pixel);
+      font-size: 9px;
+      color: var(--lp-cyan-dark);
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    /* Etiquetas de estado: planas y suaves, sin borde negro ni sombra */
+    .lp-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .lp-tag-cyan { background: #cffafe; color: #155e75; }
+    .lp-tag-gold { background: var(--lp-gold-soft); color: #92400e; }
+    .lp-tag-emerald { background: var(--lp-emerald-soft); color: #065f46; }
+    .lp-tag-neutral { background: #e2e8f0; color: #334155; }
+
+    /* 2. CAMPOS DE TEXTO / INPUTS (RELIEVE HUNDIDO CLARO Y FOCO VISIBLE) */
+    .lp-field-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--app-ink);
+      margin-bottom: 5px;
+    }
+
+    .lp-input {
+      width: 100%;
+      min-height: var(--touch-min);
+      padding: 10px 14px;
+      background-color: #ffffff;
+      border: 2px solid #64748b;
+      border-left: 4px solid var(--lp-primary);
+      border-radius: 5px;
+      box-shadow: inset 0 2px 4px rgba(15, 23, 42, 0.08);
+      font-family: var(--font-sans);
+      font-size: 16px; /* Previene auto-zoom en móviles */
+      font-weight: 600;
+      color: var(--app-ink);
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .lp-input:hover:not(:disabled) {
+      border-color: var(--app-ink);
+      border-left-color: var(--lp-primary);
+    }
+
+    .lp-input:focus {
+      outline: none;
+      border-color: var(--lp-primary);
+      box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.22),
+        inset 0 1px 2px rgba(15, 23, 42, 0.05);
+    }
+
+    .lp-input:disabled {
+      background-color: #e2e8f0;
+      border-color: #cbd5e1;
+      border-left-color: #94a3b8;
+      color: #64748b;
+      box-shadow: none;
+    }
+
+    /* 3. BOTONES CLICABLES (ÚNICOS ELEMENTOS CON BISEL 3D Y SOMBRA PIXEL SÓLIDA) */
+    .lp-btn {
+      min-height: var(--touch-min);
+      padding: 10px 18px;
+      border: 2px solid var(--app-border-strong);
+      border-radius: 5px;
+      font-family: var(--font-sans);
+      font-weight: 700;
+      font-size: 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+      user-select: none;
+      box-shadow:
+        inset 0 2px 0 rgba(255, 255, 255, 0.32),
+        0 3px 0 var(--app-border-strong);
+      transition: transform 0.08s ease, box-shadow 0.08s ease, background-color 0.12s ease;
+    }
+
+    .lp-btn-sm {
+      min-height: var(--touch-compact);
+      padding: 7px 13px;
+      font-size: 13px;
+    }
+
+    .lp-btn:hover {
+      transform: translateY(-1px);
+      box-shadow:
+        inset 0 2px 0 rgba(255, 255, 255, 0.42),
+        0 4px 0 var(--app-border-strong);
+    }
+
+    .lp-btn:active {
+      transform: translateY(3px);
+      box-shadow: none;
+    }
+
+    .lp-btn-primary { background-color: var(--lp-primary); color: #ffffff; }
+    .lp-btn-primary:hover { background-color: var(--lp-primary-hover); }
+    .lp-btn-emerald { background-color: var(--lp-emerald); color: #ffffff; }
+    .lp-btn-secondary { background-color: #ffffff; color: var(--app-ink); }
+    .lp-btn-secondary:hover { background-color: #f8fafc; }
+    .lp-btn-dark { background-color: var(--app-ink); color: #ffffff; }
+
+    /* 4. ELEMENTOS GAMIFICADOS PIXEL (BARRAS DE PROGRESO Y CONTADORES) */
+    .lp-progress {
+      height: 16px;
+      border: 2px solid var(--app-border-strong);
+      border-radius: 3px;
+      background: #e2e8f0;
+      overflow: hidden;
+    }
+
+    .lp-progress-bar {
+      height: 100%;
+      background: repeating-linear-gradient(
+        to right,
+        var(--lp-cyan) 0px,
+        var(--lp-cyan) 12px,
+        #0891b2 12px,
+        #0891b2 15px
+      );
+      border-right: 2px solid var(--app-border-strong);
+      transition: width 0.25s steps(8, end);
+    }
+
+    .lp-progress-bar.bar-gold {
+      background: repeating-linear-gradient(
+        to right,
+        var(--lp-gold) 0px,
+        var(--lp-gold) 12px,
+        #d97706 12px,
+        #d97706 15px
+      );
+    }
+
+    .qr-pattern {
+      background-color: #ffffff;
+      background-image:
+        conic-gradient(#0f172a 25%, transparent 0 50%, #0f172a 0 75%, transparent 0),
+        conic-gradient(#0f172a 25%, transparent 0 50%, #0f172a 0 75%, transparent 0);
+      background-position: 0 0, 8px 8px;
+      background-size: 16px 16px;
+    }
+
+    .lp-snap-row {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 4px;
+    }
+
+    .lp-snap-row > * {
+      scroll-snap-align: start;
+      flex-shrink: 0;
+    }
+
+    .lp-bottom-nav {
+      position: sticky;
+      bottom: 0;
+      z-index: 40;
+      background: #ffffff;
+      border-top: 2px solid var(--app-border-strong);
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+    }
+
+    /* Simulador de Viewport */
+    .device-frame-mobile {
+      max-width: 412px;
+      margin: 16px auto 32px;
+      border: 6px solid #1e293b;
+      box-shadow: 0 0 0 2px #06b6d4, 0 20px 40px rgba(0, 0, 0, 0.5);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .device-frame-tablet {
+      max-width: 780px;
+      margin: 16px auto 32px;
+      border: 6px solid #1e293b;
+      box-shadow: 0 0 0 2px #2563eb, 0 20px 40px rgba(0, 0, 0, 0.5);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .device-frame-full { width: 100%; }
+
+    /* ========================================================================
+       ESTILOS ORIGINALES DE LA LANDING PAGE DE LA APLICACIÓN (.retro-landing)
+       Copia fiel de fidelizacionWeb/src/features/auth/LandingPage.css
+       ======================================================================== */
+    .retro-landing {
+      --ink: #1e1c1a;
+      --paper: #f6edda;
+      --paper-deep: #eadec5;
+      --cream: #fffdf5;
+      --red: #e6533f;
+      --orange: #f2a541;
+      --gold: #ffd166;
+      --green: #4e8c57;
+      --green-bright: #34d399;
+      --blue: #467299;
+      --cyan: #22d3ee;
+      background-color: var(--paper);
+      background-image:
+        radial-gradient(rgba(30, 28, 26, 0.13) 0.75px, transparent 0.75px),
+        linear-gradient(to right, rgba(30, 28, 26, 0.035) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(30, 28, 26, 0.035) 1px, transparent 1px);
+      background-size: 6px 6px, 24px 24px, 24px 24px;
+      color: var(--ink);
+      font-family: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+    }
+    .retro-landing .wrap { max-width: 1180px; margin: auto; padding: 0 24px; }
+    .retro-landing .btn {
+      border: 3px solid var(--ink);
+      padding: 12px 18px;
+      font: 600 13px "DM Mono", monospace;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+      box-shadow: inset 2px 2px 0 rgba(255, 255, 255, 0.4), 4px 4px 0 var(--ink);
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
+    }
+    .retro-landing .btn:hover { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--ink); }
+    .retro-landing .btn-dark { background: var(--ink); color: var(--cream); box-shadow: 4px 4px 0 var(--red); }
+    .retro-landing .btn-red { background: var(--red); color: white; }
+    .retro-landing .btn-light { background: var(--cream); color: var(--ink); }
+  </style>
+</head>
+<body>
+
+  <!-- =========================================================================
+       BARRA SUPERIOR GLOBAL DEL MOCKUP: SELECTOR DE ROL, FLUJO Y DISPOSITIVO
+  ========================================================================== -->
+  <header class="sticky top-0 z-50 border-b border-slate-700 bg-slate-900 text-white">
+    <div class="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-2 px-3 py-2.5 sm:px-5">
+      <div class="flex items-center gap-2.5">
+        <div class="grid h-9 w-9 shrink-0 place-items-center rounded border-2 border-cyan-400 bg-slate-950">
+          <svg viewBox="0 0 16 16" class="h-6 w-6" shape-rendering="crispEdges" aria-hidden="true">
+            <rect x="5" y="1" width="6" height="1" fill="#083344"/>
+            <rect x="3" y="2" width="10" height="1" fill="#06b6d4"/>
+            <rect x="2" y="3" width="12" height="10" fill="#22d3ee"/>
+            <rect x="3" y="13" width="10" height="1" fill="#06b6d4"/>
+            <rect x="5" y="14" width="6" height="1" fill="#083344"/>
+            <rect x="4" y="3" width="8" height="1" fill="#a5f3fc"/>
+            <rect x="6" y="5" width="2" height="6" fill="#facc15"/>
+            <rect x="6" y="9" width="5" height="2" fill="#facc15"/>
+          </svg>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="font-bold text-sm tracking-tight text-white">Loopoint · Mockup Pixel-App</span>
+            <span class="rounded bg-cyan-500/20 border border-cyan-400/30 px-2 py-0.5 font-mono-code text-xs text-cyan-300">
+              Affordance & Mobile-First
+            </span>
+          </div>
+          <p class="hidden sm:block text-xs text-slate-400">
+            Estética de aplicación con gamificación pixel art · Inputs y botones diferenciados de títulos
+          </p>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2">
+        <!-- Selector de Rol -->
+        <div class="flex items-center rounded-md border border-slate-700 bg-slate-800 p-1 gap-1" role="tablist" aria-label="Selector de rol">
+          <button
+            type="button"
+            onclick="setRole('admin')"
+            id="role-btn-admin"
+            class="rounded px-2.5 py-1.5 font-mono-code text-xs font-bold transition-all bg-blue-600 text-white"
+          >
+            1. Administrador
+          </button>
+          <button
+            type="button"
+            onclick="setRole('encargado')"
+            id="role-btn-encargado"
+            class="rounded px-2.5 py-1.5 font-mono-code text-xs font-bold transition-all text-slate-300 hover:text-white"
+          >
+            2. Encargado
+          </button>
+          <button
+            type="button"
+            onclick="setRole('cliente')"
+            id="role-btn-cliente"
+            class="rounded px-2.5 py-1.5 font-mono-code text-xs font-bold transition-all text-slate-300 hover:text-white"
+          >
+            3. Cliente
+          </button>
+        </div>
+
+        <!-- Selector de Viewport -->
+        <div class="hidden md:flex items-center rounded-md border border-slate-700 bg-slate-800 p-1 gap-1">
+          <button
+            type="button"
+            onclick="setViewport('mobile')"
+            id="vp-btn-mobile"
+            class="rounded px-2.5 py-1.5 font-mono-code text-xs font-bold text-slate-300 hover:text-white"
+          >
+            📱 Móvil (390px)
+          </button>
+          <button
+            type="button"
+            onclick="setViewport('tablet')"
+            id="vp-btn-tablet"
+            class="rounded px-2.5 py-1.5 font-mono-code text-xs font-bold text-slate-300 hover:text-white"
+          >
+            📲 Tablet
+          </button>
+          <button
+            type="button"
+            onclick="setViewport('full')"
+            id="vp-btn-full"
+            class="rounded px-2.5 py-1.5 font-mono-code text-xs font-bold bg-cyan-400 text-slate-950"
+          >
+            🖥️ Adaptativo
+          </button>
+        </div>
+
+        <button
+          type="button"
+          onclick="openSpecsModal()"
+          class="rounded-md border border-cyan-400/50 bg-slate-800 px-2.5 py-1.5 font-mono-code text-xs font-bold text-cyan-300 hover:bg-cyan-400 hover:text-slate-950"
+        >
+          📐 Guía Visual
+        </button>
+      </div>
+    </div>
+
+    <!-- Sub-barra del Flujo de Administrador -->
+    <div id="admin-flow-bar" class="border-t border-slate-800 bg-slate-950 px-3 py-2 sm:px-5">
+      <div class="mx-auto flex max-w-7xl items-center justify-between gap-3 overflow-x-auto">
+        <div class="flex items-center gap-1.5 shrink-0">
+          <span class="font-mono-code text-xs text-cyan-400 font-bold mr-1">Vista Admin:</span>
+          <button onclick="setAdminStage('landing')" id="stage-btn-landing" class="rounded px-2.5 py-1 font-mono-code text-xs font-bold text-slate-300 hover:bg-slate-800">
+            A. Landing (Original)
+          </button>
+          <span class="text-slate-600">→</span>
+          <button onclick="setAdminStage('auth')" id="stage-btn-auth" class="rounded px-2.5 py-1 font-mono-code text-xs font-bold text-slate-300 hover:bg-slate-800">
+            B. Login / Registro
+          </button>
+          <span class="text-slate-600">→</span>
+          <button onclick="setAdminStage('onboarding')" id="stage-btn-onboarding" class="rounded px-2.5 py-1 font-mono-code text-xs font-bold text-slate-300 hover:bg-slate-800">
+            C. Onboarding (3 pasos)
+          </button>
+          <span class="text-slate-600">→</span>
+          <button onclick="setAdminStage('app')" id="stage-btn-app" class="rounded px-2.5 py-1 font-mono-code text-xs font-bold bg-cyan-400 text-slate-950">
+            D. Panel Aplicación
+          </button>
+        </div>
+        <span class="hidden lg:inline-block font-mono-code text-xs text-slate-400 shrink-0">
+          Títulos planos · Inputs con borde izquierdo azul e inner-shadow · Botones con relieve 3D
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <!-- CONTENEDOR PRINCIPAL -->
+  <div id="device-wrapper" class="device-frame-full">
+    <div id="viewport-container" class="lp-app-canvas min-h-[calc(100dvh-90px)]"></div>
+  </div>
+
+  <!-- MODAL REUTILIZABLE -->
+  <div id="mockup-modal" class="fixed inset-0 z-50 hidden items-end sm:items-center justify-center bg-slate-950/75 p-0 sm:p-4 backdrop-blur-xs">
+    <div class="lp-panel w-full max-w-lg max-h-[90dvh] overflow-y-auto shadow-2xl border-2 border-slate-900">
+      <div class="lp-panel-header bg-slate-900 text-white rounded-none">
+        <span id="modal-title" class="font-bold text-sm">Detalle</span>
+        <button onclick="closeModal()" class="rounded bg-slate-800 px-2.5 py-1 text-xs font-bold text-slate-200 hover:bg-slate-700">
+          ✕
+        </button>
+      </div>
+      <div id="modal-body" class="p-5 text-sm"></div>
+      <div class="border-t border-slate-200 bg-slate-50 px-5 py-3 flex justify-end">
+        <button onclick="closeModal()" class="lp-btn lp-btn-sm lp-btn-secondary">
+          Cerrar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // =========================================================================
+    // ICONOS PIXEL ART EN SVG (CRISP EDGES)
+    // =========================================================================
+    const PIXEL_ICONS = {
+      coin: `<svg viewBox="0 0 16 16" class="w-5 h-5 inline-block shrink-0" shape-rendering="crispEdges"><rect x="5" y="1" width="6" height="1" fill="#083344"/><rect x="3" y="2" width="10" height="1" fill="#06b6d4"/><rect x="2" y="3" width="12" height="10" fill="#22d3ee"/><rect x="3" y="13" width="10" height="1" fill="#06b6d4"/><rect x="5" y="14" width="6" height="1" fill="#083344"/><rect x="4" y="3" width="8" height="1" fill="#a5f3fc"/><rect x="6" y="5" width="2" height="6" fill="#facc15"/><rect x="6" y="9" width="5" height="2" fill="#facc15"/></svg>`,
+      coinLg: `<svg viewBox="0 0 16 16" class="w-9 h-9 inline-block shrink-0" shape-rendering="crispEdges"><rect x="5" y="1" width="6" height="1" fill="#083344"/><rect x="3" y="2" width="10" height="1" fill="#06b6d4"/><rect x="2" y="3" width="12" height="10" fill="#22d3ee"/><rect x="3" y="13" width="10" height="1" fill="#06b6d4"/><rect x="5" y="14" width="6" height="1" fill="#083344"/><rect x="4" y="3" width="8" height="1" fill="#a5f3fc"/><rect x="6" y="5" width="2" height="6" fill="#facc15"/><rect x="6" y="9" width="5" height="2" fill="#facc15"/></svg>`,
+      qr: `<svg viewBox="0 0 16 16" class="w-5 h-5 inline-block shrink-0" shape-rendering="crispEdges"><path fill="currentColor" d="M1 1h6v6H1V1zm1 1v4h4V2H2zm1 1h2v2H3V3zm6-2h6v6H9V1zm1 1v4h4V2h-4zm1 1h2v2h-2V3zM1 9h6v6H1V9zm1 1v4h4v-4H2zm1 1h2v2H3v-2zm8-1h2v2h-2V9zm4 0h2v2h-2V9zm-2 2h2v2h-2v-2zm-2 2h2v2H9v-2zm4 0h2v2h-2v-2z"/><rect x="0" y="7" width="16" height="2" fill="#2563eb"/></svg>`,
+      gift: `<svg viewBox="0 0 16 16" class="w-6 h-6 inline-block shrink-0" shape-rendering="crispEdges"><rect x="4" y="1" width="3" height="2" fill="#e11d48"/><rect x="9" y="1" width="3" height="2" fill="#e11d48"/><rect x="1" y="4" width="14" height="3" fill="#f59e0b"/><rect x="2" y="7" width="12" height="7" fill="#fbbf24"/><rect x="7" y="4" width="2" height="10" fill="#e11d48"/><rect x="2" y="9" width="12" height="2" fill="#e11d48"/></svg>`,
+      trophy: `<svg viewBox="0 0 16 16" class="w-6 h-6 inline-block shrink-0" shape-rendering="crispEdges"><rect x="4" y="1" width="8" height="2" fill="#facc15"/><rect x="2" y="2" width="2" height="4" fill="#d97706"/><rect x="12" y="2" width="2" height="4" fill="#d97706"/><rect x="4" y="3" width="8" height="5" fill="#f59e0b"/><rect x="6" y="8" width="4" height="3" fill="#d97706"/><rect x="4" y="11" width="8" height="2" fill="#facc15"/><rect x="3" y="13" width="10" height="2" fill="#0f172a"/></svg>`,
+      coffee: `<svg viewBox="0 0 16 16" class="w-6 h-6 inline-block shrink-0" shape-rendering="crispEdges"><rect x="5" y="1" width="1" height="2" fill="#94a3b8"/><rect x="8" y="2" width="1" height="2" fill="#94a3b8"/><rect x="10" y="1" width="1" height="2" fill="#94a3b8"/><rect x="3" y="5" width="9" height="7" fill="#fff9ec"/><rect x="4" y="6" width="7" height="2" fill="#78350f"/><rect x="12" y="6" width="2" height="4" fill="#e6533f"/><rect x="4" y="9" width="7" height="2" fill="#e6533f"/><rect x="2" y="12" width="11" height="2" fill="#1e1c1a"/></svg>`,
+      wallet: `<svg viewBox="0 0 16 16" class="w-6 h-6 inline-block shrink-0" shape-rendering="crispEdges"><rect x="2" y="2" width="11" height="3" fill="#0891b2"/><rect x="3" y="3" width="9" height="2" fill="#22d3ee"/><rect x="1" y="5" width="14" height="9" fill="#0f172a"/><rect x="2" y="6" width="12" height="7" fill="#2563eb"/><rect x="10" y="8" width="5" height="3" fill="#0f172a"/><rect x="11" y="9" width="2" height="1" fill="#facc15"/></svg>`,
+      hourglass: `<svg viewBox="0 0 16 16" class="w-6 h-6 inline-block shrink-0" shape-rendering="crispEdges"><rect x="2" y="1" width="12" height="2" fill="#0f172a"/><rect x="3" y="3" width="10" height="3" fill="#cffafe"/><rect x="5" y="4" width="6" height="2" fill="#f59e0b"/><rect x="7" y="7" width="2" height="2" fill="#f59e0b"/><rect x="3" y="10" width="10" height="3" fill="#cffafe"/><rect x="4" y="11" width="8" height="2" fill="#f59e0b"/><rect x="2" y="13" width="12" height="2" fill="#0f172a"/></svg>`,
+      scroll: `<svg viewBox="0 0 16 16" class="w-6 h-6 inline-block shrink-0" shape-rendering="crispEdges"><rect x="3" y="1" width="10" height="2" fill="#d97706"/><rect x="3" y="3" width="10" height="10" fill="#fff9ec"/><rect x="2" y="2" width="1" height="12" fill="#0f172a"/><rect x="13" y="2" width="1" height="12" fill="#0f172a"/><rect x="5" y="5" width="6" height="1" fill="#2563eb"/><rect x="5" y="7" width="6" height="1" fill="#0f172a"/><rect x="5" y="9" width="4" height="1" fill="#059669"/><rect x="3" y="13" width="10" height="2" fill="#d97706"/></svg>`,
+      heart: `<svg viewBox="0 0 12 11" class="w-3.5 h-3.5 inline-block" shape-rendering="crispEdges"><path fill="#e6533f" d="M2 1h3v1h2V1h3v1h1v3h-1v2H9v1H8v1H7v1H5V9H4V8H3V7H2V5H1V2h1V1z"/><rect x="2" y="2" width="2" height="1" fill="#fecaca"/></svg>`
+    };
+
+    // =========================================================================
+    // ESTADO DEL MOCKUP
+    // =========================================================================
+    const state = {
+      role: 'admin',
+      viewport: 'full',
+      adminStage: 'app',
+      landingBizIndex: 0,
+      authMode: 'register',
+      onboardingStep: 1,
+      adminNav: 'inicio',
+      profileTab: 'negocio',
+      encargadoMode: 'venta',
+      encargadoSaleCop: 38000,
+      encargadoValidationStep: 'ready',
+      clienteBiz: 'cafe',
+      clienteTab: 'billetera',
+    };
+
+    const landingDemoBusinesses = [
+      {
+        id: 'cafe',
+        name: 'Café Aurora',
+        badge: 'LVL 04 · HABITUAL',
+        points: '1.250 PTS',
+        progressPct: 72,
+        remainingText: '750 PTS PARA EL SIGUIENTE PREMIO',
+        rewardTitle: 'Café gratis',
+        rewardCost: 'Canjea con 2.000 loopoints',
+        bonusToast: '+150 PTS · COMPRA ESCANEADA',
+        icon: PIXEL_ICONS.coffee,
+      },
+      {
+        id: 'taqueria',
+        name: 'Taquería El Fogón',
+        badge: 'LVL 06 · VIP',
+        points: '840 PTS',
+        progressPct: 90,
+        remainingText: '60 PTS PARA DESBLOQUEAR COMBO',
+        rewardTitle: 'Tacos al pastor ×3',
+        rewardCost: 'Canjea con 900 loopoints',
+        bonusToast: '+120 PTS · BONUS FRECUENTE',
+        icon: PIXEL_ICONS.gift,
+      },
+      {
+        id: 'panaderia',
+        name: 'Masa & Miel',
+        badge: 'LVL 02 · NUEVO',
+        points: '450 PTS',
+        progressPct: 45,
+        remainingText: '550 PTS PARA TU RECOMPENSA',
+        rewardTitle: 'Croissant de almendra',
+        rewardCost: 'Canjea con 1.000 loopoints',
+        bonusToast: '+90 PTS · PRIMERA VISITA',
+        icon: PIXEL_ICONS.trophy,
+      }
+    ];
+
+    const businessesData = {
+      cafe: {
+        name: 'Café Aurora',
+        slug: 'cafe-aurora',
+        category: 'Cafetería de especialidad',
+        balance: 1250,
+        level: 'LVL 04 · VIP ACTIVO',
+        visitsThisMonth: 4,
+        visitsTarget: 3,
+        nextExpiry: '150 pts vencen en 45 días',
+        activeVoucher: { code: 'LP-894K', reward: 'Cappuccino artesanal gratis', points: 400, expires: '23h 15m' },
+        rewards: [
+          { id: 'r1', name: 'Espresso o Americano 8oz', desc: 'Taza de origen Huila recién molido.', pts: 300, canRedeem: true },
+          { id: 'r2', name: 'Combo Cappuccino + Croissant', desc: 'Desayuno artesanal completo.', pts: 750, canRedeem: true },
+          { id: 'r3', name: 'Bolsa Café en Grano 250g', desc: 'Tostión media para preparar en casa.', pts: 1500, canRedeem: false },
+          { id: 'r4', name: '20% Dcto. en Brunch', desc: 'Válido fines de semana desde $40.000.', pts: 600, canRedeem: true },
+        ],
+        movements: [
+          { date: 'Hoy, 10:15 a.m.', title: 'Compra acreditada (#A-402)', detail: '2× Latte + Torta ($38.000)', pts: '+380' },
+          { date: 'Ayer, 4:40 p.m.', title: 'Bono cliente frecuente', detail: 'Meta de 3 visitas cumplida', pts: '+100' },
+          { date: '03 nov 2026', title: 'Canje de recompensa', detail: 'Espresso 8oz entregado en caja', pts: '-300' },
+        ]
+      },
+      taqueria: {
+        name: 'Taquería El Fogón',
+        slug: 'taqueria-el-fogon',
+        category: 'Comida mexicana artesanal',
+        balance: 840,
+        level: 'LVL 03 · HABITUAL',
+        visitsThisMonth: 2,
+        visitsTarget: 3,
+        nextExpiry: 'Sin vencimientos próximos',
+        activeVoucher: null,
+        rewards: [
+          { id: 't1', name: 'Guacamole con Totopos', desc: 'Preparado al momento en mesa.', pts: 450, canRedeem: true },
+          { id: 't2', name: 'Tacos al Pastor ×3', desc: 'Con piña asada y doble tortilla.', pts: 900, canRedeem: false },
+          { id: 't3', name: 'Agua de Horchata 16oz', desc: 'Receta tradicional de la casa.', pts: 300, canRedeem: true },
+        ],
+        movements: [
+          { date: '06 nov 2026', title: 'Compra acreditada (#T-118)', detail: 'Combo Fogón ($64.000)', pts: '+640' },
+          { date: '28 oct 2026', title: 'Bono 1ra compra', detail: 'Bienvenida al programa', pts: '+200' },
+        ]
+      },
+      panaderia: {
+        name: 'Masa & Miel',
+        slug: 'masa-y-miel',
+        category: 'Panadería de masa madre',
+        balance: 450,
+        level: 'LVL 01 · NUEVO',
+        visitsThisMonth: 1,
+        visitsTarget: 4,
+        nextExpiry: 'Sin vencimientos próximos',
+        activeVoucher: null,
+        rewards: [
+          { id: 'p1', name: 'Roll de Canela Glaseado', desc: 'Horneado cada mañana.', pts: 400, canRedeem: true },
+          { id: 'p2', name: 'Hogaza Masa Madre 600g', desc: 'Fermentación lenta de 36h.', pts: 1000, canRedeem: false },
+        ],
+        movements: [
+          { date: '05 nov 2026', title: 'Compra acreditada (#M-089)', detail: 'Pan de campo + Café ($45.000)', pts: '+450' },
+        ]
+      }
+    };
+
+    // =========================================================================
+    // FUNCIONES GLOBALES DE NAVEGACIÓN
+    // =========================================================================
+    function setRole(role) {
+      state.role = role;
+      ['admin', 'encargado', 'cliente'].forEach((r) => {
+        const btn = document.getElementById('role-btn-' + r);
+        if (!btn) return;
+        btn.className = r === role
+          ? 'rounded px-2.5 py-1.5 font-mono-code text-xs font-bold transition-all bg-blue-600 text-white'
+          : 'rounded px-2.5 py-1.5 font-mono-code text-xs font-bold transition-all text-slate-300 hover:text-white';
+      });
+      document.getElementById('admin-flow-bar').style.display = role === 'admin' ? 'block' : 'none';
+      render();
+    }
+
+    function setViewport(vp) {
+      state.viewport = vp;
+      const wrapper = document.getElementById('device-wrapper');
+      wrapper.className = vp === 'mobile'
+        ? 'device-frame-mobile'
+        : vp === 'tablet'
+          ? 'device-frame-tablet'
+          : 'device-frame-full';
+
+      ['mobile', 'tablet', 'full'].forEach((v) => {
+        const btn = document.getElementById('vp-btn-' + v);
+        if (!btn) return;
+        btn.className = v === vp
+          ? 'rounded px-2.5 py-1.5 font-mono-code text-xs font-bold bg-cyan-400 text-slate-950'
+          : 'rounded px-2.5 py-1.5 font-mono-code text-xs font-bold text-slate-300 hover:text-white';
+      });
+      render();
+    }
+
+    function setAdminStage(stage) {
+      state.adminStage = stage;
+      ['landing', 'auth', 'onboarding', 'app'].forEach((s) => {
+        const btn = document.getElementById('stage-btn-' + s);
+        if (!btn) return;
+        btn.className = s === stage
+          ? 'rounded px-2.5 py-1 font-mono-code text-xs font-bold bg-cyan-400 text-slate-950'
+          : 'rounded px-2.5 py-1 font-mono-code text-xs font-bold text-slate-300 hover:bg-slate-800';
+      });
+      render();
+    }
+
+    function setAdminNav(nav, profileTab) {
+      state.adminNav = nav;
+      if (profileTab) state.profileTab = profileTab;
+      closeModal();
+      render();
+    }
+
+    function openModal(title, htmlContent) {
+      document.getElementById('modal-title').textContent = title;
+      document.getElementById('modal-body').innerHTML = htmlContent;
+      const modal = document.getElementById('mockup-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('mockup-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function openSpecsModal() {
+      openModal('Sistema Visual Pixel-App & Jerarquía de Interacción', `
+        <div class="space-y-4">
+          <div class="lp-panel-muted p-3.5 space-y-1.5">
+            <span class="lp-section-kicker">${PIXEL_ICONS.coin} 1. Títulos y Tarjetas Estáticas (NO clicables)</span>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Los paneles (<code>.lp-panel</code>), títulos de sección (<code>.lp-section-kicker</code>) y etiquetas de estado (<code>.lp-tag</code>) son <strong>planos y sin sombra desplazada</strong>. Así nunca compiten con los botones ni confunden al usuario.
+            </p>
+          </div>
+          <div class="lp-panel-muted p-3.5 space-y-1.5">
+            <span class="lp-section-kicker">${PIXEL_ICONS.qr} 2. Campos de Texto (Claramente Editables)</span>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Los inputs (<code>.lp-input</code>) tienen fondo blanco puro, sombra interna hundida (<code>inset</code>), borde izquierdo azul cobalto de <code>4px</code>, altura mínima de <code>48px</code> y <code>font-size: 16px</code> para evitar zoom automático en móviles.
+            </p>
+          </div>
+          <div class="lp-panel-muted p-3.5 space-y-1.5">
+            <span class="lp-section-kicker">${PIXEL_ICONS.trophy} 3. Botones (Únicos con Relieve Táctil 3D)</span>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Solo los botones interactivos (<code>.lp-btn</code>) usan borde oscuro + sombra sólida inferior (<code>0 3px 0 #0f172a</code>) y colores de acción (Azul Cobalto <code>#2563EB</code> o Esmeralda <code>#059669</code>).
+            </p>
+          </div>
+        </div>
+      `);
+    }
+
+    function openAdminMobileDrawer() {
+      openModal('Menú del Negocio (Acceso Rápido Móvil)', `
+        <div class="grid grid-cols-2 gap-2.5">
+          <button onclick="setAdminNav('inicio')" class="lp-btn lp-btn-secondary justify-start">🏠 Inicio</button>
+          <button onclick="setAdminNav('compras')" class="lp-btn lp-btn-secondary justify-start">🧾 Compras</button>
+          <button onclick="setAdminNav('solicitudes')" class="lp-btn lp-btn-secondary justify-start">🎟️ Solicitudes (3)</button>
+          <button onclick="setAdminNav('carta')" class="lp-btn lp-btn-secondary justify-start">📦 Carta</button>
+          <button onclick="setAdminNav('recompensas')" class="lp-btn lp-btn-secondary justify-start">🎁 Recompensas</button>
+          <button onclick="setAdminNav('campanas')" class="lp-btn lp-btn-secondary justify-start">📣 Campañas</button>
+          <button onclick="setAdminNav('clientes')" class="lp-btn lp-btn-secondary justify-start">👥 Clientes</button>
+          <button onclick="setAdminNav('equipo')" class="lp-btn lp-btn-secondary justify-start">🛡️ Equipo</button>
+          <button onclick="setAdminNav('auditoria')" class="lp-btn lp-btn-secondary justify-start">📋 Auditoría</button>
+          <button onclick="setAdminNav('perfil', 'negocio')" class="lp-btn lp-btn-primary justify-start">⚙️ Mi Perfil</button>
+        </div>
+      `);
+    }
+
+    // =========================================================================
+    // 1A. LANDING PAGE (CONTENIDO ÍNTEGRO TAL COMO ESTÁ EN LA APLICACIÓN)
+    // =========================================================================
+    function renderLandingView() {
+      const activeBiz = landingDemoBusinesses[state.landingBizIndex] || landingDemoBusinesses[0];
+      return `
+        <div class="retro-landing pb-10">
+          <!-- Header original de la Landing -->
+          <header class="border-b-[3px] border-[#1e1c1a] bg-[#f6edda]/95 sticky top-0 z-20">
+            <div class="wrap flex h-20 items-center justify-between gap-4">
+              <a href="#top" onclick="return false" class="inline-flex items-center gap-3 font-bold text-xl tracking-tight">
+                <span class="grid h-9 w-9 place-items-center border-[3px] border-[#1e1c1a] bg-[#1e1c1a] shadow-[4px_4px_0_#e6533f]">
+                  ${PIXEL_ICONS.coin}
+                </span>
+                <span>loopoint<span class="font-pixel text-sm text-[#e6533f] ml-0.5">.</span></span>
+              </a>
+              <nav class="hidden md:flex items-center gap-6 font-mono-code text-xs font-semibold uppercase">
+                <a href="#como-funciona" class="hover:text-[#e6533f]">Cómo funciona</a>
+                <a href="#clientes" class="hover:text-[#e6533f]">Clientes</a>
+                <a href="#negocios" class="hover:text-[#e6533f]">Negocios</a>
+              </nav>
+              <div class="flex items-center gap-2.5">
+                <button onclick="state.authMode='login'; setAdminStage('auth')" class="btn btn-light">
+                  Iniciar sesión
+                </button>
+                <button onclick="state.authMode='register'; setAdminStage('auth')" class="btn btn-dark">
+                  Crear cuenta ↗
+                </button>
+              </div>
+            </div>
+          </header>
+
+          <main>
+            <!-- Hero original de la Landing -->
+            <section class="wrap py-14 grid gap-10 lg:grid-cols-12 items-center">
+              <div class="lg:col-span-6 space-y-5">
+                <div class="inline-flex items-center gap-2 bg-[#4e8c57] text-white px-3 py-2 border-[3px] border-[#1e1c1a] shadow-[4px_4px_0_#1e1c1a] font-pixel text-[10px] uppercase">
+                  <span class="text-[#ffd166]">★</span> Cada compra cuenta
+                </div>
+                <h1 class="text-5xl sm:text-6xl font-bold leading-none tracking-tight">
+                  Compra.<br/>Acumula.<br/>
+                  <span class="text-[#e6533f] drop-shadow-[3px_3px_0_#1e1c1a]">Gana más.</span>
+                </h1>
+                <p class="text-base sm:text-lg text-[#484237] max-w-lg leading-relaxed">
+                  Acumula loopoints con cada compra y canjéalos por recompensas. Convierte tus compras de todos los días en loopoints y recompensas. Encuentra tus negocios favoritos y disfruta cada visita.
+                </p>
+
+                <div class="flex flex-wrap gap-3">
+                  <button onclick="state.authMode='register'; setAdminStage('auth')" class="btn btn-red">
+                    Quiero registrarme →
+                  </button>
+                  <a href="#como-funciona" class="btn btn-light">
+                    Así funciona ↓
+                  </a>
+                </div>
+
+                <div class="flex flex-wrap gap-2 pt-1">
+                  <div class="bg-[#fffdf5] border-2 border-[#1e1c1a] shadow-[3px_3px_0_#1e1c1a] px-2.5 py-1.5 font-mono-code text-xs">
+                    <span class="bg-[#eadec5] px-1.5 py-0.5 text-[10px] mr-1">MODO</span>
+                    <strong>MULTI-NEGOCIO</strong>
+                  </div>
+                  <div class="bg-[#fffdf5] border-2 border-[#1e1c1a] shadow-[3px_3px_0_#1e1c1a] px-2.5 py-1.5 font-mono-code text-xs">
+                    <span class="bg-[#eadec5] px-1.5 py-0.5 text-[10px] mr-1">CANJE</span>
+                    <strong>CÓDIGO QR</strong>
+                  </div>
+                  <div class="bg-[#fffdf5] border-2 border-[#1e1c1a] shadow-[3px_3px_0_#1e1c1a] px-2.5 py-1.5 font-mono-code text-xs">
+                    <span class="bg-[#eadec5] px-1.5 py-0.5 text-[10px] mr-1">COSTO CLIENTE</span>
+                    <strong>100% GRATIS</strong>
+                  </div>
+                </div>
+
+                <div class="font-mono-code text-xs text-[#6b6355]">
+                  UN SOLO LUGAR · MUCHOS NEGOCIOS · TUS LOOPOINTS POR SEPARADO
+                </div>
+              </div>
+
+              <!-- Player Card original de la Landing -->
+              <div class="lg:col-span-6 relative flex flex-col items-center">
+                <div class="mb-3 self-end bg-[#1e1c1a] text-[#ffd166] border-[3px] border-[#1e1c1a] shadow-[4px_4px_0_#e6533f] px-3 py-1.5 inline-flex items-center gap-2 font-pixel text-[9px]">
+                  ${PIXEL_ICONS.coin}
+                  <span>${activeBiz.bonusToast}</span>
+                </div>
+
+                <div class="w-full max-w-md bg-[#fffdf5] border-4 border-[#1e1c1a] shadow-[12px_12px_0_#1e1c1a]">
+                  <div class="bg-[#467299] border-b-4 border-[#1e1c1a] px-3.5 py-2.5 flex items-center justify-between text-white font-pixel text-[10px]">
+                    <span class="inline-flex items-center gap-2">
+                      <span class="w-2.5 h-2.5 bg-[#34d399] border-2 border-[#1e1c1a] inline-block"></span> PLAYER CARD
+                    </span>
+                    <span class="inline-flex items-center gap-1">${PIXEL_ICONS.heart}${PIXEL_ICONS.heart}${PIXEL_ICONS.heart}</span>
+                  </div>
+                  <div class="p-5 space-y-3.5">
+                    <div class="grid grid-cols-3 gap-1.5">
+                      ${landingDemoBusinesses.map((b, idx) => `
+                        <button
+                          type="button"
+                          onclick="state.landingBizIndex=${idx}; render()"
+                          class="border-2 border-[#1e1c1a] px-2 py-1.5 font-mono-code text-xs font-semibold truncate ${
+                            idx === state.landingBizIndex
+                              ? 'bg-[#1e1c1a] text-[#fffdf5] shadow-[2px_2px_0_#e6533f]'
+                              : 'bg-[#f6edda] text-[#1e1c1a] hover:bg-[#ffd166]'
+                          }"
+                        >
+                          ${b.name}
+                        </button>
+                      `).join('')}
+                    </div>
+
+                    <div class="flex items-center justify-between gap-2 flex-wrap">
+                      <span class="font-pixel text-[9px] text-[#6b6355]">TU SALDO EN ${activeBiz.name.toUpperCase()}</span>
+                      <span class="bg-[#ffd166] border-2 border-[#1e1c1a] px-2 py-0.5 font-pixel text-[8px]">${activeBiz.badge}</span>
+                    </div>
+
+                    <div class="flex items-center gap-3">
+                      ${PIXEL_ICONS.coinLg}
+                      <div class="font-pixel text-3xl text-[#e6533f] drop-shadow-[2px_2px_0_#1e1c1a]">${activeBiz.points}</div>
+                    </div>
+
+                    <div class="font-mono-code text-xs font-semibold">¡ESTÁS CERCA DE TU PREMIO!</div>
+                    <div class="h-5 border-[3px] border-[#1e1c1a] bg-[#e5dcc9] overflow-hidden">
+                      <div class="h-full bg-[#4e8c57] border-r-[3px] border-[#1e1c1a]" style="width: ${activeBiz.progressPct}%"></div>
+                    </div>
+                    <div class="flex justify-between font-mono-code text-[11px] text-[#6b6355]">
+                      <span>${activeBiz.remainingText}</span>
+                      <strong>${activeBiz.progressPct}%</strong>
+                    </div>
+
+                    <div class="flex items-center gap-3.5 bg-[#f6edda] border-[3px] border-[#1e1c1a] shadow-[4px_4px_0_#1e1c1a] p-3">
+                      <div class="w-12 h-12 bg-[#f2a541] border-[3px] border-[#1e1c1a] grid place-items-center shrink-0">
+                        ${activeBiz.icon}
+                      </div>
+                      <div>
+                        <span class="block font-pixel text-[8px] text-[#e6533f]">PRÓXIMO CANJE</span>
+                        <strong class="block text-sm">${activeBiz.rewardTitle}</strong>
+                        <small class="font-mono-code text-xs text-[#655d50]">${activeBiz.rewardCost}</small>
+                      </div>
+                    </div>
+
+                    <div class="font-mono-code text-[11px] text-[#776e60]">
+                      Ejemplo interactivo. Tus puntos reales aparecen al iniciar sesión.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- Ticker original -->
+            <div class="bg-[#1e1c1a] text-[#fffdf5] py-3.5 border-y-[3px] border-[#1e1c1a] font-pixel text-[10px] overflow-hidden">
+              <div class="flex justify-around gap-8 whitespace-nowrap px-4">
+                <span class="text-[#f2a541]">★ SUMA PUNTOS</span>
+                <span class="text-[#22d3ee]">✦ DESCUBRE PREMIOS</span>
+                <span class="text-[#f2a541]">★ VUELVE A COMPRAR</span>
+                <span class="text-[#22d3ee]">✦ SALDO POR NEGOCIO</span>
+                <span class="text-[#f2a541]">★ CANJEA CON QR</span>
+              </div>
+            </div>
+
+            <!-- Cómo funciona (3 pasos originales) -->
+            <section id="como-funciona" class="wrap py-16">
+              <div class="text-center max-w-2xl mx-auto mb-10">
+                <div class="inline-block font-pixel text-[10px] text-[#e6533f] bg-[#fffdf5] border-2 border-[#1e1c1a] shadow-[3px_3px_0_#1e1c1a] px-2.5 py-1.5 mb-4">
+                  TRES PASOS · CERO COMPLICACIONES
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-bold tracking-tight">Tu próxima recompensa<br/>está más cerca.</h2>
+                <p class="mt-3 text-sm sm:text-base text-[#5c5446]">
+                  Usa el QR de tu compra para sumar puntos. Consulta tu saldo y canjea premios desde tu cuenta.
+                </p>
+              </div>
+              <div class="grid gap-5 md:grid-cols-3">
+                <article class="bg-[#fffdf5] border-[3px] border-[#1e1c1a] p-6 shadow-[7px_7px_0_#1e1c1a]">
+                  <div class="flex items-center justify-between pb-3 border-b-2 border-dashed border-[#c8bca6]">
+                    <span class="font-pixel text-[10px] text-[#e6533f]">01 / COMPRA</span>
+                    <span class="font-mono-code text-xs bg-[#f6edda] border-2 border-[#1e1c1a] px-2 py-0.5 font-semibold">STAGE 1 · SCAN</span>
+                  </div>
+                  <div class="w-14 h-14 my-4 bg-[#f6edda] border-[3px] border-[#1e1c1a] shadow-[4px_4px_0_#1e1c1a] grid place-items-center">
+                    ${PIXEL_ICONS.qr}
+                  </div>
+                  <h3 class="text-lg font-bold mb-1">Escanea el QR</h3>
+                  <p class="text-sm text-[#5c5446]">Compra en un negocio afiliado y escanea el código QR de tu venta desde tu celular.</p>
+                </article>
+                <article class="bg-[#fffdf5] border-[3px] border-[#1e1c1a] p-6 shadow-[7px_7px_0_#1e1c1a]">
+                  <div class="flex items-center justify-between pb-3 border-b-2 border-dashed border-[#c8bca6]">
+                    <span class="font-pixel text-[10px] text-[#e6533f]">02 / ACUMULA</span>
+                    <span class="font-mono-code text-xs bg-[#f6edda] border-2 border-[#1e1c1a] px-2 py-0.5 font-semibold">STAGE 2 · +PTS</span>
+                  </div>
+                  <div class="w-14 h-14 my-4 bg-[#f6edda] border-[3px] border-[#1e1c1a] shadow-[4px_4px_0_#1e1c1a] grid place-items-center">
+                    ${PIXEL_ICONS.coinLg}
+                  </div>
+                  <h3 class="text-lg font-bold mb-1">Suma tus puntos</h3>
+                  <p class="text-sm text-[#5c5446]">Confirma tu compra al instante y recibe loopoints según las reglas del negocio.</p>
+                </article>
+                <article class="bg-[#fffdf5] border-[3px] border-[#1e1c1a] p-6 shadow-[7px_7px_0_#1e1c1a]">
+                  <div class="flex items-center justify-between pb-3 border-b-2 border-dashed border-[#c8bca6]">
+                    <span class="font-pixel text-[10px] text-[#e6533f]">03 / DISFRUTA</span>
+                    <span class="font-mono-code text-xs bg-[#f6edda] border-2 border-[#1e1c1a] px-2 py-0.5 font-semibold">STAGE 3 · LOOT</span>
+                  </div>
+                  <div class="w-14 h-14 my-4 bg-[#f6edda] border-[3px] border-[#1e1c1a] shadow-[4px_4px_0_#1e1c1a] grid place-items-center">
+                    ${PIXEL_ICONS.trophy}
+                  </div>
+                  <h3 class="text-lg font-bold mb-1">Canjea recompensas</h3>
+                  <p class="text-sm text-[#5c5446]">Elige un premio disponible en el catálogo y presenta tu QR para reclamarlo en caja.</p>
+                </article>
+              </div>
+            </section>
+
+            <!-- Dual Audience original (Clientes y Negocios) -->
+            <section id="clientes" class="bg-[#eadec5] border-y-[3px] border-[#1e1c1a] py-16">
+              <div class="wrap">
+                <div class="text-center max-w-2xl mx-auto mb-10">
+                  <div class="inline-block font-pixel text-[10px] text-[#e6533f] bg-[#fffdf5] border-2 border-[#1e1c1a] shadow-[3px_3px_0_#1e1c1a] px-2.5 py-1.5 mb-4">
+                    SELECT YOUR MODE · DOS FORMAS DE SUMAR
+                  </div>
+                  <h2 class="text-3xl sm:text-4xl font-bold tracking-tight">Una plataforma.<br/>Dos experiencias.</h2>
+                  <p class="mt-3 text-sm sm:text-base text-[#5c5446]">Participa como cliente o crea un programa para tu negocio.</p>
+                </div>
+                <div class="grid gap-6 md:grid-cols-2">
+                  <article class="bg-[#4e8c57] text-white p-8 border-[3px] border-[#1e1c1a] shadow-[8px_8px_0_#1e1c1a]">
+                    <div class="flex items-center justify-between mb-5">
+                      <span class="font-pixel text-[9px] border-2 border-white bg-black/20 px-2.5 py-1.5">PARA CLIENTES</span>
+                      <span class="font-pixel text-[9px] text-[#ffd166]">PLAYER 1</span>
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-bold mb-2">Que cada compra te dé algo más.</h2>
+                    <p class="text-sm text-white/90 mb-4">Reúne tus puntos en una sola cuenta. Mantén separado el saldo de cada negocio.</p>
+                    <ul class="font-mono-code text-xs space-y-2 mb-6">
+                      <li>▸ Consulta puntos y vencimientos.</li>
+                      <li>▸ Revisa compras y movimientos.</li>
+                      <li>▸ Canjea premios con un QR.</li>
+                    </ul>
+                    <button onclick="setRole('cliente')" class="btn btn-light">
+                      Crear cuenta de cliente ↗
+                    </button>
+                  </article>
+
+                  <article id="negocios" class="bg-[#467299] text-white p-8 border-[3px] border-[#1e1c1a] shadow-[8px_8px_0_#1e1c1a]">
+                    <div class="flex items-center justify-between mb-5">
+                      <span class="font-pixel text-[9px] border-2 border-white bg-black/20 px-2.5 py-1.5">PARA NEGOCIOS</span>
+                      <span class="font-pixel text-[9px] text-[#ffd166]">PLAYER 2</span>
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-bold mb-2">Haz que quieran volver.</h2>
+                    <p class="text-sm text-white/90 mb-4">Crea un programa de fidelización con reglas y recompensas propias.</p>
+                    <ul class="font-mono-code text-xs space-y-2 mb-6">
+                      <li>▸ Configura puntos y vencimientos.</li>
+                      <li>▸ Publica premios y campañas.</li>
+                      <li>▸ Controla canjes y presupuesto.</li>
+                    </ul>
+                    <button onclick="state.authMode='register'; setAdminStage('auth')" class="btn btn-light">
+                      Registrar mi negocio ↗
+                    </button>
+                  </article>
+                </div>
+              </div>
+            </section>
+
+            <!-- Inventario · Todo en tu cuenta (4 features originales) -->
+            <section class="wrap py-16">
+              <div class="text-center max-w-2xl mx-auto mb-10">
+                <div class="inline-block font-pixel text-[10px] text-[#e6533f] bg-[#fffdf5] border-2 border-[#1e1c1a] shadow-[3px_3px_0_#1e1c1a] px-2.5 py-1.5 mb-4">
+                  INVENTARIO · TODO EN TU CUENTA
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-bold tracking-tight">Más control.<br/>Mejores recompensas.</h2>
+                <p class="mt-3 text-sm sm:text-base text-[#5c5446]">Consulta la información de tus programas desde un solo lugar.</p>
+              </div>
+              <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                <article class="bg-[#fffdf5] border-[3px] border-[#1e1c1a] p-5 shadow-[5px_5px_0_#1e1c1a]">
+                  <div class="flex items-start justify-between mb-3">
+                    <div class="w-12 h-12 bg-[#f6edda] border-2 border-[#1e1c1a] shadow-[3px_3px_0_#1e1c1a] grid place-items-center">${PIXEL_ICONS.wallet}</div>
+                    <span class="font-pixel text-[8px] text-[#776e60] bg-[#f6edda] border border-[#b8ab93] px-1.5 py-1">SLOT 01</span>
+                  </div>
+                  <h3 class="font-bold text-base mb-1">Saldo por negocio</h3>
+                  <p class="text-xs text-[#5c5446]">Consulta cada saldo en su propia billetera sin mezclar puntos.</p>
+                </article>
+                <article class="bg-[#fffdf5] border-[3px] border-[#1e1c1a] p-5 shadow-[5px_5px_0_#1e1c1a]">
+                  <div class="flex items-start justify-between mb-3">
+                    <div class="w-12 h-12 bg-[#f6edda] border-2 border-[#1e1c1a] shadow-[3px_3px_0_#1e1c1a] grid place-items-center">${PIXEL_ICONS.hourglass}</div>
+                    <span class="font-pixel text-[8px] text-[#776e60] bg-[#f6edda] border border-[#b8ab93] px-1.5 py-1">SLOT 02</span>
+                  </div>
+                  <h3 class="font-bold text-base mb-1">Vencimientos</h3>
+                  <p class="text-xs text-[#5c5446]">Revisa la vigencia de tus loopoints para canjearlos a tiempo.</p>
+                </article>
+                <article class="bg-[#fffdf5] border-[3px] border-[#1e1c1a] p-5 shadow-[5px_5px_0_#1e1c1a]">
+                  <div class="flex items-start justify-between mb-3">
+                    <div class="w-12 h-12 bg-[#f6edda] border-2 border-[#1e1c1a] shadow-[3px_3px_0_#1e1c1a] grid place-items-center">${PIXEL_ICONS.gift}</div>
+                    <span class="font-pixel text-[8px] text-[#776e60] bg-[#f6edda] border border-[#b8ab93] px-1.5 py-1">SLOT 03</span>
+                  </div>
+                  <h3 class="font-bold text-base mb-1">Recompensas</h3>
+                  <p class="text-xs text-[#5c5446]">Explora premios desbloqueables y los puntos necesarios.</p>
+                </article>
+                <article class="bg-[#fffdf5] border-[3px] border-[#1e1c1a] p-5 shadow-[5px_5px_0_#1e1c1a]">
+                  <div class="flex items-start justify-between mb-3">
+                    <div class="w-12 h-12 bg-[#f6edda] border-2 border-[#1e1c1a] shadow-[3px_3px_0_#1e1c1a] grid place-items-center">${PIXEL_ICONS.scroll}</div>
+                    <span class="font-pixel text-[8px] text-[#776e60] bg-[#f6edda] border border-[#b8ab93] px-1.5 py-1">SLOT 04</span>
+                  </div>
+                  <h3 class="font-bold text-base mb-1">Historial</h3>
+                  <p class="text-xs text-[#5c5446]">Consulta tus compras registradas, puntos ganados y canjes.</p>
+                </article>
+              </div>
+            </section>
+
+            <!-- CTA original -->
+            <section class="wrap py-8">
+              <div class="bg-[#f2a541] border-4 border-[#1e1c1a] shadow-[10px_10px_0_#1e1c1a] p-10 text-center max-w-4xl mx-auto">
+                <div class="flex justify-center mb-3">${PIXEL_ICONS.coinLg}</div>
+                <div class="inline-block font-pixel text-[10px] bg-[#ffd166] border-2 border-[#1e1c1a] shadow-[3px_3px_0_#1e1c1a] px-3 py-1.5 mb-4">
+                  ► INSERT COIN TO START ◄
+                </div>
+                <h2 class="font-pixel text-lg sm:text-2xl leading-relaxed mb-3">Tu próxima compra puede tener premio.</h2>
+                <p class="text-sm sm:text-base max-w-xl mx-auto mb-6 font-medium">
+                  Regístrate como cliente o crea el programa de fidelización de tu negocio.
+                </p>
+                <div class="flex flex-wrap justify-center gap-3">
+                  <button onclick="state.authMode='register'; setAdminStage('auth')" class="btn btn-dark">
+                    Crear cuenta
+                  </button>
+                  <button onclick="state.authMode='register'; setAdminStage('auth')" class="btn btn-light">
+                    Soy un negocio
+                  </button>
+                </div>
+              </div>
+            </section>
+          </main>
+
+          <!-- Footer original -->
+          <footer class="mt-12 border-t-[3px] border-[#1e1c1a] bg-[#fffdf5] py-8">
+            <div class="wrap flex flex-wrap items-center justify-between gap-4 font-mono-code text-xs text-[#5c5446]">
+              <span class="font-bold text-base text-[#1e1c1a]">loopoint.</span>
+              <span>© 2026 LOOPOINT · SISTEMA DE FIDELIZACIÓN</span>
+              <div class="flex gap-5">
+                <a href="#como-funciona">Cómo funciona</a>
+                <button onclick="state.authMode='login'; setAdminStage('auth')" class="underline">Iniciar sesión</button>
+                <button onclick="state.authMode='register'; setAdminStage('auth')" class="underline">Negocios</button>
+              </div>
+            </div>
+          </footer>
+        </div>
+      `;
+    }
+
+    // =========================================================================
+    // 1B. LOGIN / REGISTRO (NUEVA ESTÉTICA DE APLICACIÓN CON GAMIFICACIÓN PIXEL)
+    // =========================================================================
+    function renderAuthView() {
+      const isRegister = state.authMode === 'register';
+      return `
+        <div class="mx-auto max-w-md px-4 py-10 space-y-6">
+          <!-- Encabezado limpio (estático, sin bordes de botón) -->
+          <div class="text-center space-y-2">
+            <div class="mx-auto grid h-12 w-12 place-items-center rounded-lg border-2 border-slate-900 bg-slate-900">
+              ${PIXEL_ICONS.coinLg}
+            </div>
+            <div class="lp-section-kicker justify-center">
+              <span>★</span> ${isRegister ? 'NUEVA CUENTA LOOPOINT' : 'ACCESO A TU CUENTA'}
+            </div>
+            <h1 class="text-2xl font-extrabold text-slate-900">
+              ${isRegister ? 'Crea tu cuenta' : 'Entra a tus loopoints'}
+            </h1>
+            <p class="text-sm text-slate-600">
+              ${isRegister
+                ? 'Al registrarte como negocio pasarás al asistente de Onboarding de 3 pasos.'
+                : 'Al iniciar sesión irás directamente al Inicio operativo de tu negocio.'}
+            </p>
+          </div>
+
+          <!-- Panel de Formulario (estático) con Inputs hundidos y Botones 3D claros -->
+          <div class="lp-panel p-6 space-y-5">
+            <!-- Selector de modo con botones claramente interactivos -->
+            <div class="grid grid-cols-2 gap-2.5">
+              <button
+                onclick="state.authMode='login'; render()"
+                class="lp-btn lp-btn-sm ${!isRegister ? 'lp-btn-dark' : 'lp-btn-secondary'}"
+              >
+                Iniciar sesión
+              </button>
+              <button
+                onclick="state.authMode='register'; render()"
+                class="lp-btn lp-btn-sm ${isRegister ? 'lp-btn-dark' : 'lp-btn-secondary'}"
+              >
+                Crear cuenta
+              </button>
+            </div>
+
+            <button
+              onclick="${isRegister ? "state.onboardingStep=1; setAdminStage('onboarding')" : "state.adminNav='inicio'; setAdminStage('app')"}"
+              class="lp-btn lp-btn-secondary w-full"
+            >
+              <span class="font-extrabold text-blue-600">G</span> Continuar con Google
+            </button>
+
+            <div class="flex items-center gap-3">
+              <span class="h-px flex-1 bg-slate-200"></span>
+              <span class="font-mono-code text-xs text-slate-400 uppercase">o con tu correo</span>
+              <span class="h-px flex-1 bg-slate-200"></span>
+            </div>
+
+            <div class="space-y-4">
+              ${isRegister ? `
+                <div>
+                  <label class="lp-field-label" for="auth-name">Tu nombre completo</label>
+                  <input id="auth-name" type="text" value="Leonardo Administrador" placeholder="Escribe tu nombre" class="lp-input" />
+                </div>
+              ` : ''}
+              <div>
+                <label class="lp-field-label" for="auth-email">Correo electrónico</label>
+                <input id="auth-email" type="email" value="admin@cafeaurora.co" placeholder="tu@correo.com" class="lp-input" />
+              </div>
+              <div>
+                <label class="lp-field-label" for="auth-pass">Contraseña</label>
+                <input id="auth-pass" type="password" value="••••••••" placeholder="Mínimo 6 caracteres" class="lp-input" />
+              </div>
+            </div>
+
+            <button
+              onclick="${isRegister ? "state.onboardingStep=1; setAdminStage('onboarding')" : "state.adminNav='inicio'; setAdminStage('app')"}"
+              class="lp-btn lp-btn-primary w-full"
+            >
+              ${isRegister ? 'Crear cuenta y configurar negocio →' : 'Entrar al Inicio del negocio →'}
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    // =========================================================================
+    // 1C. ONBOARDING POST-REGISTRO (DISEÑO DE APLICACIÓN + PROGRESO PIXEL)
+    // =========================================================================
+    function renderOnboardingView() {
+      const step = state.onboardingStep;
+      const progressPct = step === 1 ? 33 : step === 2 ? 66 : 100;
+      return `
+        <div class="mx-auto max-w-4xl px-4 py-6 space-y-6 pb-16">
+          <!-- Cabecera de Progreso del Onboarding (Estática, no parece botón) -->
+          <div class="lp-panel p-5 space-y-3">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <div>
+                <span class="lp-section-kicker">${PIXEL_ICONS.coin} CONFIGURACIÓN INICIAL · PASO ${step} DE 3</span>
+                <h1 class="mt-1 text-xl sm:text-2xl font-extrabold text-slate-900">Prepara tu programa de fidelización</h1>
+              </div>
+              <span class="lp-tag lp-tag-cyan">Avance: ${progressPct}%</span>
+            </div>
+            <div class="lp-progress">
+              <div class="lp-progress-bar" style="width: ${progressPct}%"></div>
+            </div>
+            <div class="lp-snap-row pt-1">
+              <button onclick="state.onboardingStep=1; render()" class="lp-btn lp-btn-sm ${step === 1 ? 'lp-btn-primary' : 'lp-btn-secondary'}">
+                1. Datos del Negocio
+              </button>
+              <button onclick="state.onboardingStep=2; render()" class="lp-btn lp-btn-sm ${step === 2 ? 'lp-btn-primary' : 'lp-btn-secondary'}">
+                2. Pulso Económico
+              </button>
+              <button onclick="state.onboardingStep=3; render()" class="lp-btn lp-btn-sm ${step === 3 ? 'lp-btn-primary' : 'lp-btn-secondary'}">
+                3. Reglas de Loopoints
+              </button>
+            </div>
+          </div>
+
+          ${step === 1 ? `
+            <div class="lp-panel overflow-hidden">
+              <div class="lp-panel-header">
+                <div>
+                  <h2 class="font-bold text-base text-slate-900">Paso 1 · Identidad y Contacto del Negocio</h2>
+                  <p class="text-xs text-slate-500">Solo el nombre y la ciudad son obligatorios ahora. Puedes ajustar todo luego desde Mi Perfil.</p>
+                </div>
+                <span class="lp-tag lp-tag-neutral">Sección: Negocio</span>
+              </div>
+
+              <div class="p-5 space-y-5">
+                <!-- Subida de Logo -->
+                <div class="lp-panel-muted p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <div class="flex items-center gap-3.5">
+                    <div class="grid h-14 w-14 shrink-0 place-items-center rounded-lg border-2 border-slate-300 bg-white">
+                      ${PIXEL_ICONS.coffee}
+                    </div>
+                    <div>
+                      <p class="font-bold text-sm text-slate-900">Logo del negocio <span class="text-xs font-normal text-slate-500">(Opcional)</span></p>
+                      <p class="text-xs text-slate-500">Se muestra en el pasaporte de puntos de tus clientes.</p>
+                    </div>
+                  </div>
+                  <button type="button" class="lp-btn lp-btn-sm lp-btn-secondary w-full sm:w-auto">📷 Subir imagen</button>
+                </div>
+
+                <!-- Campos de texto claramente diferenciados de los títulos -->
+                <div class="grid gap-4 sm:grid-cols-2">
+                  <div>
+                    <label class="lp-field-label">Nombre del negocio <span class="text-rose-600">*</span></label>
+                    <input type="text" value="Café Aurora" class="lp-input" />
+                  </div>
+                  <div>
+                    <label class="lp-field-label">Enlace público autogenerado (Solo lectura)</label>
+                    <input type="text" value="/join/cafe-aurora" disabled class="lp-input" />
+                  </div>
+                  <div class="sm:col-span-2">
+                    <label class="lp-field-label">Descripción breve</label>
+                    <input type="text" value="Café de especialidad de origen colombiano y pastelería artesanal." class="lp-input" />
+                  </div>
+                  <div>
+                    <label class="lp-field-label">Ciudad <span class="text-rose-600">*</span></label>
+                    <input type="text" value="Bogotá" class="lp-input" />
+                  </div>
+                  <div>
+                    <label class="lp-field-label">Barrio y Dirección</label>
+                    <input type="text" value="Chapinero Alto · Calle 57 # 4-12" class="lp-input" />
+                  </div>
+                  <div>
+                    <label class="lp-field-label">WhatsApp de contacto</label>
+                    <input type="tel" value="+57 300 456 7890" class="lp-input" />
+                  </div>
+                  <div>
+                    <label class="lp-field-label">Usuario de Instagram o Sitio web</label>
+                    <input type="text" value="@cafeaurora.bog" class="lp-input" />
+                  </div>
+                </div>
+
+                <div>
+                  <span class="lp-field-label">Días habituales de atención (Toca para activar/desactivar)</span>
+                  <div class="grid grid-cols-4 sm:grid-cols-7 gap-2 pt-1">
+                    ${['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'].map(d => `<button type="button" class="lp-btn lp-btn-sm lp-btn-primary">${d} ✓</button>`).join('')}
+                    <button type="button" class="lp-btn lp-btn-sm lp-btn-secondary">Dom</button>
+                  </div>
+                </div>
+
+                <div class="border-t border-slate-200 pt-4 flex justify-end">
+                  <button onclick="state.onboardingStep=2; render()" class="lp-btn lp-btn-primary w-full sm:w-auto">
+                    Guardar y pasar a Pulso Económico →
+                  </button>
+                </div>
+              </div>
+            </div>
+          ` : ''}
+
+          ${step === 2 ? `
+            <div class="lp-panel overflow-hidden">
+              <div class="lp-panel-header">
+                <div>
+                  <h2 class="font-bold text-base text-slate-900">Paso 2 · Pulso Económico y Presupuesto de Premios</h2>
+                  <p class="text-xs text-slate-500">Usa valores aproximados para que Loopoint te sugiera un tope mensual seguro de recompensas.</p>
+                </div>
+                <span class="lp-tag lp-tag-gold">Sección: Económico</span>
+              </div>
+
+              <div class="p-5 space-y-5">
+                <div class="grid gap-4 sm:grid-cols-2">
+                  <div>
+                    <div class="flex items-center justify-between mb-1">
+                      <label class="lp-field-label mb-0">Ventas diarias promedio (COP)</label>
+                      <span class="lp-tag lp-tag-gold">Dato estimado</span>
+                    </div>
+                    <input type="text" value="1.200.000" class="lp-input" />
+                  </div>
+
+                  <div>
+                    <div class="flex items-center justify-between mb-1">
+                      <label class="lp-field-label mb-0">Días de operación al mes</label>
+                      <span class="lp-tag lp-tag-emerald">Confirmado</span>
+                    </div>
+                    <input type="number" value="26" class="lp-input" />
+                  </div>
+
+                  <div>
+                    <div class="flex items-center justify-between mb-1">
+                      <label class="lp-field-label mb-0">Margen bruto estimado (%)</label>
+                      <span class="lp-tag lp-tag-gold">Dato estimado</span>
+                    </div>
+                    <input type="text" value="42" class="lp-input" />
+                  </div>
+
+                  <div>
+                    <div class="flex items-center justify-between mb-1">
+                      <label class="lp-field-label mb-0">Clientes atendidos por día</label>
+                      <span class="lp-tag lp-tag-gold">Dato estimado</span>
+                    </div>
+                    <input type="number" value="55" class="lp-input" />
+                  </div>
+
+                  <div class="sm:col-span-2 lp-panel-muted p-4 space-y-2">
+                    <div class="flex flex-wrap items-center justify-between gap-2">
+                      <label class="lp-field-label mb-0">Presupuesto mensual máximo para recompensas (COP)</label>
+                      <span class="lp-tag lp-tag-cyan">Sugerido (1,5% de ventas): $468.000</span>
+                    </div>
+                    <input type="text" value="450.000" class="lp-input" />
+                    <p class="text-xs text-slate-600">Te mostraremos en el Inicio cuánto de este presupuesto llevas comprometido cada mes.</p>
+                  </div>
+                </div>
+
+                <div class="border-t border-slate-200 pt-4 flex flex-col-reverse sm:flex-row justify-between gap-3">
+                  <button onclick="state.onboardingStep=1; render()" class="lp-btn lp-btn-secondary w-full sm:w-auto">
+                    ← Volver a Negocio
+                  </button>
+                  <button onclick="state.onboardingStep=3; render()" class="lp-btn lp-btn-primary w-full sm:w-auto">
+                    Guardar y configurar Reglas de Puntos →
+                  </button>
+                </div>
+              </div>
+            </div>
+          ` : ''}
+
+          ${step === 3 ? `
+            <div class="lp-panel overflow-hidden">
+              <div class="lp-panel-header">
+                <div>
+                  <h2 class="font-bold text-base text-slate-900">Paso 3 · Reglas del Programa de Loopoints</h2>
+                  <p class="text-xs text-slate-500">Define cuántos puntos gana el cliente por compra y cuánto valen al canjear.</p>
+                </div>
+                <span class="lp-tag lp-tag-emerald">Sección: Programa</span>
+              </div>
+
+              <div class="p-5 space-y-5">
+                <div class="grid gap-6 lg:grid-cols-12">
+                  <div class="lg:col-span-7 grid gap-4 sm:grid-cols-2">
+                    <div>
+                      <label class="lp-field-label">COP por cada 1 loopoint ganado</label>
+                      <input type="number" value="1000" class="lp-input" />
+                      <p class="mt-1 text-xs text-slate-500">Compra de $20.000 = +20 loopoints.</p>
+                    </div>
+                    <div>
+                      <label class="lp-field-label">Loopoints que equivalen a $1.000</label>
+                      <input type="number" value="100" class="lp-input" />
+                      <p class="mt-1 text-xs text-slate-500">1 loopoint = $10 COP en premios.</p>
+                    </div>
+                    <div>
+                      <label class="lp-field-label">Vencimiento de loopoints (días)</label>
+                      <input type="number" value="365" class="lp-input" />
+                    </div>
+                    <div>
+                      <label class="lp-field-label">Vigencia del QR de canje (horas)</label>
+                      <input type="number" value="24" class="lp-input" />
+                    </div>
+                    <div>
+                      <label class="lp-field-label">Bono de primera compra (pts)</label>
+                      <input type="number" value="50" class="lp-input" />
+                    </div>
+                    <div>
+                      <label class="lp-field-label">Criterio de cliente frecuente</label>
+                      <input type="text" value="3 compras en 90 días" class="lp-input" />
+                    </div>
+                  </div>
+
+                  <!-- Tarjeta informativa de simulación (Estática, lectura clara) -->
+                  <div class="lg:col-span-5 lp-panel-muted p-4 flex flex-col justify-between space-y-4">
+                    <div class="space-y-3">
+                      <span class="lp-section-kicker">${PIXEL_ICONS.coin} SIMULADOR DE EQUIVALENCIA</span>
+                      <h3 class="font-bold text-sm text-slate-900">Impacto comercial estimado</h3>
+                      <div class="space-y-2 text-xs border-t border-slate-300 pt-3">
+                        <div class="flex justify-between"><span class="text-slate-600">Regla de acumulación:</span><strong>1 pt cada $1.000</strong></div>
+                        <div class="flex justify-between"><span class="text-slate-600">Valor de 100 loopoints:</span><strong>$1.000 COP</strong></div>
+                        <div class="flex justify-between"><span class="text-slate-600">Costo estimado de canje:</span><strong class="text-emerald-700">1,0 % de las ventas</strong></div>
+                        <div class="flex justify-between"><span class="text-slate-600">Tu presupuesto mensual:</span><strong>1,5 % ($450.000)</strong></div>
+                      </div>
+                    </div>
+                    <div class="rounded bg-emerald-100/80 border border-emerald-300 p-3 text-xs font-semibold text-emerald-900">
+                      ✓ El costo de canje (1,0%) es saludable y está dentro de tu presupuesto declarado.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="border-t border-slate-200 pt-4 flex flex-col-reverse sm:flex-row justify-between gap-3">
+                  <button onclick="state.onboardingStep=2; render()" class="lp-btn lp-btn-secondary w-full sm:w-auto">
+                    ← Volver a Económico
+                  </button>
+                  <button onclick="state.adminNav='inicio'; setAdminStage('app')" class="lp-btn lp-btn-emerald w-full sm:w-auto">
+                    ✓ Activar programa e ir al Inicio →
+                  </button>
+                </div>
+              </div>
+            </div>
+          ` : ''}
+        </div>
+      `;
+    }
+
+    // =========================================================================
+    // 1D. PANEL PRINCIPAL DEL ADMINISTRADOR (APLICACIÓN + ADN PIXEL)
+    // =========================================================================
+    function renderAdminApp() {
+      const isForcedMobile = state.viewport === 'mobile';
+      const menuItems = [
+        { id: 'inicio', label: 'Inicio', icon: '🏠', badge: null },
+        { id: 'compras', label: 'Compras', icon: '🧾', badge: null },
+        { id: 'solicitudes', label: 'Solicitudes', icon: '🎟️', badge: '3' },
+        { id: 'carta', label: 'Carta', icon: '📦', badge: 'En menú' },
+        { id: 'recompensas', label: 'Recompensas', icon: '🎁', badge: 'En menú' },
+        { id: 'campanas', label: 'Campañas', icon: '📣', badge: null },
+        { id: 'clientes', label: 'Clientes', icon: '👥', badge: null },
+        { id: 'equipo', label: 'Equipo', icon: '🛡️', badge: 'En menú' },
+        { id: 'auditoria', label: 'Auditoría', icon: '📋', badge: null },
+      ];
+
+      return `
+        <div class="flex min-h-[calc(100dvh-90px)] flex-col ${isForcedMobile ? '' : 'md:flex-row'}">
+          <!-- MENÚ LATERAL DE APLICACIÓN (OCULTO EN MÓVIL) -->
+          <aside class="${isForcedMobile ? 'hidden' : 'hidden md:flex'} w-64 shrink-0 flex-col justify-between border-r border-slate-200 bg-white p-3.5">
+            <div class="space-y-4">
+              <!-- Cabecera estática del negocio -->
+              <div class="flex items-center justify-between px-1 py-1">
+                <div class="flex items-center gap-2.5">
+                  <div class="grid h-9 w-9 place-items-center rounded-lg border border-slate-300 bg-slate-900">
+                    ${PIXEL_ICONS.coin}
+                  </div>
+                  <div>
+                    <p class="font-extrabold text-sm text-slate-900 leading-tight">Café Aurora</p>
+                    <p class="text-xs text-slate-500">Panel Administrador</p>
+                  </div>
+                </div>
+                <span class="lp-tag lp-tag-emerald">Activo</span>
+              </div>
+
+              <!-- Acción primaria destacada como único botón 3D en la parte alta -->
+              <button
+                onclick="openModal('Emitir QR de Venta', '<div class=\\'text-center space-y-3\\'><div class=\\'mx-auto h-36 w-36 qr-pattern rounded border-2 border-slate-900\\'></div><p class=\\'font-pixel text-xs text-blue-600\\'>$38.000 COP → +38 PTS</p><p class=\\'text-xs text-slate-600\\'>Muestra este QR al cliente para acreditar sus loopoints.</p></div>')"
+                class="lp-btn lp-btn-primary w-full"
+              >
+                ${PIXEL_ICONS.qr} Registrar compra
+              </button>
+
+              <!-- Ítems de navegación limpios -->
+              <nav class="space-y-1" aria-label="Menú principal del negocio">
+                ${menuItems.map(item => {
+                  const active = state.adminNav === item.id;
+                  return `
+                    <button
+                      onclick="setAdminNav('${item.id}')"
+                      class="w-full min-h-[42px] px-3 py-2 rounded-md flex items-center justify-between text-xs font-bold transition-colors ${
+                        active
+                          ? 'bg-slate-900 text-white'
+                          : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
+                      }"
+                    >
+                      <span class="flex items-center gap-2.5">
+                        <span>${item.icon}</span>
+                        <span>${item.label}</span>
+                      </span>
+                      ${item.badge ? `
+                        <span class="rounded px-1.5 py-0.5 font-mono-code text-[10px] ${
+                          active ? 'bg-cyan-400 text-slate-950 font-bold' : 'bg-slate-100 text-slate-600'
+                        }">${item.badge}</span>
+                      ` : ''}
+                    </button>
+                  `;
+                }).join('')}
+              </nav>
+            </div>
+
+            <!-- Pie del Sidebar: Acceso a Mi Perfil (Con Negocio, Programa y Económico) -->
+            <div class="pt-3 border-t border-slate-200">
+              <button
+                onclick="setAdminNav('perfil', 'negocio')"
+                class="w-full p-2.5 rounded-lg border text-left transition-all ${
+                  state.adminNav === 'perfil'
+                    ? 'border-blue-600 bg-blue-50/70'
+                    : 'border-slate-200 bg-slate-50 hover:bg-slate-100'
+                }"
+              >
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-xs text-slate-900">⚙️ Mi Perfil y Negocio</span>
+                  <span class="text-xs text-blue-600 font-bold">Abrir →</span>
+                </div>
+                <p class="mt-0.5 font-mono-code text-[11px] text-slate-500">
+                  Cuenta · Negocio · Programa · Económico
+                </p>
+              </button>
+            </div>
+          </aside>
+
+          <!-- CABECERA COMPACTA MÓVIL -->
+          <div class="${isForcedMobile ? 'flex' : 'flex md:hidden'} items-center justify-between border-b border-slate-200 bg-white px-3.5 py-2.5 sticky top-0 z-30">
+            <div class="flex items-center gap-2">
+              <div class="grid h-8 w-8 place-items-center rounded bg-slate-900">${PIXEL_ICONS.coin}</div>
+              <div>
+                <p class="font-extrabold text-xs text-slate-900 leading-none">Café Aurora</p>
+                <p class="font-mono-code text-[11px] text-slate-500">Vista: ${state.adminNav}</p>
+              </div>
+            </div>
+            <button
+              onclick="setAdminNav('perfil', 'negocio')"
+              class="lp-btn lp-btn-sm ${state.adminNav === 'perfil' ? 'lp-btn-primary' : 'lp-btn-secondary'}"
+            >
+              ⚙️ Mi Perfil
+            </button>
+          </div>
+
+          <!-- CONTENIDO CENTRAL -->
+          <main class="flex-1 p-4 sm:p-6 pb-24">
+            <div class="mx-auto max-w-5xl">
+              ${renderAdminSectionContent()}
+            </div>
+          </main>
+
+          <!-- BARRA INFERIOR MÓVIL (ZONA DEL PULGAR) -->
+          <nav
+            class="${isForcedMobile ? 'grid' : 'grid md:hidden'} lp-bottom-nav grid-cols-5"
+            aria-label="Navegación inferior móvil"
+          >
+            <button onclick="setAdminNav('inicio')" class="min-h-[60px] flex flex-col items-center justify-center gap-1 text-xs font-bold ${state.adminNav === 'inicio' ? 'text-blue-600 bg-blue-50/50' : 'text-slate-600'}">
+              <span>🏠</span>
+              <span>Inicio</span>
+            </button>
+            <button onclick="setAdminNav('solicitudes')" class="min-h-[60px] flex flex-col items-center justify-center gap-1 text-xs font-bold ${state.adminNav === 'solicitudes' ? 'text-blue-600 bg-blue-50/50' : 'text-slate-600'}">
+              <span>🎟️</span>
+              <span>Canjes(3)</span>
+            </button>
+            <button onclick="setAdminNav('carta')" class="min-h-[60px] flex flex-col items-center justify-center gap-1 text-xs font-bold ${state.adminNav === 'carta' ? 'text-blue-600 bg-blue-50/50' : 'text-slate-600'}">
+              <span>📦</span>
+              <span>Carta</span>
+            </button>
+            <button onclick="setAdminNav('recompensas')" class="min-h-[60px] flex flex-col items-center justify-center gap-1 text-xs font-bold ${state.adminNav === 'recompensas' ? 'text-blue-600 bg-blue-50/50' : 'text-slate-600'}">
+              <span>🎁</span>
+              <span>Premios</span>
+            </button>
+            <button onclick="openAdminMobileDrawer()" class="min-h-[60px] flex flex-col items-center justify-center gap-1 text-xs font-bold text-slate-900 bg-slate-100">
+              <span>➕</span>
+              <span>Más</span>
+            </button>
+          </nav>
+        </div>
+      `;
+    }
+
+    function renderAdminSectionContent() {
+      if (state.adminNav === 'inicio') return renderAdminDashboardApp();
+      if (state.adminNav === 'carta') return renderAdminCartaApp();
+      if (state.adminNav === 'recompensas') return renderAdminRecompensasApp();
+      if (state.adminNav === 'equipo') return renderAdminEquipoApp();
+      if (state.adminNav === 'solicitudes') return renderAdminSolicitudesApp();
+      if (state.adminNav === 'perfil') return renderAdminPerfilApp();
+      return `
+        <div class="lp-panel p-8 text-center space-y-4">
+          <span class="lp-section-kicker justify-center">${PIXEL_ICONS.coin} MÓDULO DEL SISTEMA</span>
+          <h2 class="text-xl font-extrabold text-slate-900">Sección: ${state.adminNav.toUpperCase()}</h2>
+          <p class="text-sm text-slate-600 max-w-md mx-auto">
+            Explora <strong>Inicio</strong>, <strong>Carta</strong>, <strong>Recompensas</strong>, <strong>Equipo</strong> o <strong>Mi Perfil</strong> para ver la nueva organización.
+          </p>
+          <div class="flex flex-wrap justify-center gap-3">
+            <button onclick="setAdminNav('inicio')" class="lp-btn lp-btn-primary">Ir a Inicio</button>
+            <button onclick="setAdminNav('perfil', 'negocio')" class="lp-btn lp-btn-secondary">Ir a Mi Perfil</button>
+          </div>
+        </div>
+      `;
+    }
+
+    // INICIO FUNCIONAL DEL ADMINISTRADOR (JERARQUÍA CLARA ENTRE DATOS ESTÁTICOS Y BOTONES)
+    function renderAdminDashboardApp() {
+      const isForcedMobile = state.viewport === 'mobile';
+      return `
+        <div class="space-y-6">
+          <!-- Cabecera de página: Título limpio a la izquierda, botones táctiles 3D a la derecha -->
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-4">
+            <div>
+              <div class="lp-section-kicker">
+                ${PIXEL_ICONS.coin} <span>PANEL DE CONTROL · CAFÉ AURORA</span>
+              </div>
+              <h1 class="mt-1 text-2xl font-extrabold text-slate-900">Inicio operativo del negocio</h1>
+              <p class="text-xs text-slate-500">Monitorea ventas, canjes pendientes en mostrador y consumo de tu presupuesto mensual.</p>
+            </div>
+            <div class="grid grid-cols-2 sm:flex gap-2.5">
+              <button
+                onclick="openModal('QR de Afiliación al Negocio', '<div class=\\'text-center space-y-3\\'><div class=\\'mx-auto h-36 w-36 qr-pattern rounded border-2 border-slate-900\\'></div><p class=\\'font-mono-code text-xs font-bold\\'>https://loopoint.app/join/cafe-aurora</p></div>')"
+                class="lp-btn lp-btn-sm lp-btn-secondary"
+              >
+                🔗 QR Afiliación
+              </button>
+              <button
+                onclick="openModal('Registrar Compra (QR)', '<div class=\\'text-center space-y-3\\'><div class=\\'mx-auto h-36 w-36 qr-pattern rounded border-2 border-slate-900\\'></div><p class=\\'font-pixel text-xs text-blue-600\\'>VENTA: $38.000 → +38 PTS</p></div>')"
+                class="lp-btn lp-btn-sm lp-btn-primary"
+              >
+                + Emitir QR Venta
+              </button>
+            </div>
+          </div>
+
+          <!-- Fila 1: Alertas operativas con botón de acción claro -->
+          <div class="grid gap-4 ${isForcedMobile ? 'grid-cols-1' : 'md:grid-cols-2'}">
+            <div class="lp-panel p-4 flex items-center justify-between gap-4 border-l-4 border-l-amber-500">
+              <div class="space-y-1">
+                <span class="lp-tag lp-tag-gold">Atención en caja</span>
+                <h2 class="font-bold text-sm text-slate-900">3 canjes esperan aprobación o entrega</h2>
+                <p class="text-xs text-slate-500">2 QR por validar · 1 recompensa lista para entregar.</p>
+              </div>
+              <button onclick="setAdminNav('solicitudes')" class="lp-btn lp-btn-sm lp-btn-primary shrink-0">
+                Atender →
+              </button>
+            </div>
+
+            <div class="lp-panel p-4 space-y-2.5 border-l-4 border-l-cyan-500">
+              <div class="flex items-center justify-between gap-2">
+                <div>
+                  <span class="lp-tag lp-tag-cyan">Salud Económica · Mes</span>
+                  <h2 class="mt-1 font-bold text-sm text-slate-900">$189.000 de $450.000 COP en premios</h2>
+                </div>
+                <button onclick="setAdminNav('perfil', 'economico')" class="lp-btn lp-btn-sm lp-btn-secondary">
+                  Ajustar
+                </button>
+              </div>
+              <div class="lp-progress">
+                <div class="lp-progress-bar" style="width: 42%"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Fila 2: 4 Indicadores Estáticos (Planos, sin sombra de botón para no confundir) -->
+          <div class="grid grid-cols-2 ${isForcedMobile ? '' : 'lg:grid-cols-4'} gap-3.5">
+            <div class="lp-panel p-4 space-y-1">
+              <span class="font-mono-code text-xs font-semibold text-slate-500 uppercase">Ventas hoy</span>
+              <p class="text-xl sm:text-2xl font-extrabold text-slate-900">$ 845.000</p>
+              <span class="lp-tag lp-tag-emerald">19 compras hoy</span>
+            </div>
+            <div class="lp-panel p-4 space-y-1">
+              <span class="font-mono-code text-xs font-semibold text-slate-500 uppercase">Ventas del mes</span>
+              <p class="text-xl sm:text-2xl font-extrabold text-slate-900">$ 18,4M</p>
+              <span class="lp-tag lp-tag-neutral">382 compras</span>
+            </div>
+            <div class="lp-panel p-4 space-y-1">
+              <span class="font-mono-code text-xs font-semibold text-slate-500 uppercase">Clientes VIP</span>
+              <p class="text-xl sm:text-2xl font-extrabold text-slate-900">39 activos</p>
+              <span class="lp-tag lp-tag-gold">De 148 afiliados</span>
+            </div>
+            <div class="lp-panel p-4 space-y-1">
+              <span class="font-mono-code text-xs font-semibold text-slate-500 uppercase">Loopoints activos</span>
+              <p class="font-pixel text-base sm:text-lg text-blue-600 pt-1">14.200 PTS</p>
+              <span class="lp-tag lp-tag-cyan">6.800 canjeados</span>
+            </div>
+          </div>
+
+          <!-- Fila 3: Actividad en vivo + Accesos directos -->
+          <div class="grid gap-5 ${isForcedMobile ? 'grid-cols-1' : 'lg:grid-cols-12'}">
+            <div class="${isForcedMobile ? '' : 'lg:col-span-7'} lp-panel overflow-hidden">
+              <div class="lp-panel-header">
+                <h2 class="font-bold text-sm text-slate-900">Actividad reciente de puntos y canjes</h2>
+                <span class="lp-tag lp-tag-neutral">Tiempo real</span>
+              </div>
+              <div class="p-4 divide-y divide-slate-100">
+                <div class="py-3 flex items-center justify-between gap-2">
+                  <div>
+                    <p class="font-bold text-xs sm:text-sm text-slate-900">Compra reclamada por @carla.cliente</p>
+                    <p class="text-xs text-slate-500">2× Cappuccino + Croissant · $38.000 COP</p>
+                  </div>
+                  <span class="lp-tag lp-tag-emerald font-pixel text-[9px]">+38 PTS</span>
+                </div>
+                <div class="py-3 flex items-center justify-between gap-2">
+                  <div>
+                    <p class="font-bold text-xs sm:text-sm text-slate-900">Recompensa entregada: Espresso 8oz</p>
+                    <p class="text-xs text-slate-500">Cliente: @diego.m · Entregó: Mateo</p>
+                  </div>
+                  <span class="lp-tag lp-tag-gold font-pixel text-[9px]">-300 PTS</span>
+                </div>
+                <div class="py-3 flex items-center justify-between gap-2">
+                  <div>
+                    <p class="font-bold text-xs sm:text-sm text-slate-900">Bono campaña «Tardes de Café ×2»</p>
+                    <p class="text-xs text-slate-500">Compra $24.000 por @laura.g</p>
+                  </div>
+                  <span class="lp-tag lp-tag-emerald font-pixel text-[9px]">+48 PTS</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="${isForcedMobile ? '' : 'lg:col-span-5'} lp-panel overflow-hidden">
+              <div class="lp-panel-header">
+                <h2 class="font-bold text-sm text-slate-900">Gestión rápida del programa</h2>
+                <span class="lp-tag lp-tag-cyan">Accesos</span>
+              </div>
+              <div class="p-4 space-y-2.5">
+                <button onclick="setAdminNav('carta')" class="lp-btn lp-btn-secondary w-full justify-between">
+                  <span>📦 Carta de productos y costos</span>
+                  <span>→</span>
+                </button>
+                <button onclick="setAdminNav('recompensas')" class="lp-btn lp-btn-secondary w-full justify-between">
+                  <span>🎁 Catálogo de recompensas</span>
+                  <span>→</span>
+                </button>
+                <button onclick="setAdminNav('equipo')" class="lp-btn lp-btn-secondary w-full justify-between">
+                  <span>🛡️ Equipo y encargados</span>
+                  <span>→</span>
+                </button>
+                <button onclick="setAdminNav('perfil', 'negocio')" class="lp-btn lp-btn-primary w-full justify-between">
+                  <span>⚙️ Mi Perfil (Negocio · Programa · Económico)</span>
+                  <span>→</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderAdminCartaApp() {
+      return `
+        <div class="space-y-5">
+          <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 pb-4">
+            <div>
+              <span class="lp-section-kicker">📦 OPCIÓN DIRECTA EN MENÚ LATERAL</span>
+              <h1 class="mt-1 text-2xl font-extrabold text-slate-900">Carta de Productos y Combos</h1>
+              <p class="text-xs text-slate-500">Precios y costos en COP para calcular el margen real de tus premios.</p>
+            </div>
+            <button class="lp-btn lp-btn-sm lp-btn-primary">+ Agregar producto</button>
+          </div>
+
+          <div class="grid gap-4 sm:grid-cols-3">
+            <div class="lp-panel p-4 space-y-2">
+              <div class="flex justify-between">
+                <span class="lp-tag lp-tag-neutral">Producto simple</span>
+                <span class="lp-tag lp-tag-emerald">Margen 68%</span>
+              </div>
+              <h3 class="font-bold text-base text-slate-900">Espresso / Americano 8oz</h3>
+              <p class="font-mono-code text-xs text-slate-600">Precio: <strong>$7.500</strong> · Costo: $2.400</p>
+            </div>
+            <div class="lp-panel p-4 space-y-2">
+              <div class="flex justify-between">
+                <span class="lp-tag lp-tag-neutral">Producto simple</span>
+                <span class="lp-tag lp-tag-emerald">Margen 62%</span>
+              </div>
+              <h3 class="font-bold text-base text-slate-900">Croissant de Almendra</h3>
+              <p class="font-mono-code text-xs text-slate-600">Precio: <strong>$9.500</strong> · Costo: $3.600</p>
+            </div>
+            <div class="lp-panel p-4 space-y-2">
+              <div class="flex justify-between">
+                <span class="lp-tag lp-tag-cyan">Combo</span>
+                <span class="lp-tag lp-tag-emerald">Margen 64%</span>
+              </div>
+              <h3 class="font-bold text-base text-slate-900">Cappuccino + Croissant</h3>
+              <p class="font-mono-code text-xs text-slate-600">Precio: <strong>$16.500</strong> · Costo: $5.900</p>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderAdminRecompensasApp() {
+      return `
+        <div class="space-y-5">
+          <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 pb-4">
+            <div>
+              <span class="lp-section-kicker">${PIXEL_ICONS.gift} OPCIÓN DIRECTA EN MENÚ LATERAL</span>
+              <h1 class="mt-1 text-2xl font-extrabold text-slate-900">Catálogo de Recompensas</h1>
+              <p class="text-xs text-slate-500">Premios activos que tus clientes desbloquean con sus loopoints.</p>
+            </div>
+            <button class="lp-btn lp-btn-sm lp-btn-primary">+ Crear recompensa</button>
+          </div>
+
+          <div class="grid gap-4 sm:grid-cols-2">
+            <div class="lp-panel p-4 flex items-center justify-between gap-3">
+              <div class="space-y-1">
+                <span class="lp-tag lp-tag-emerald">Producto gratis · Activa</span>
+                <h3 class="font-bold text-base text-slate-900">Espresso o Americano 8oz</h3>
+                <p class="text-xs text-slate-500">Costo interno: $2.400 COP · 14 canjes este mes</p>
+              </div>
+              <span class="font-pixel text-sm text-blue-600">300 PTS</span>
+            </div>
+            <div class="lp-panel p-4 flex items-center justify-between gap-3">
+              <div class="space-y-1">
+                <span class="lp-tag lp-tag-cyan">Combo gratis · Activa</span>
+                <h3 class="font-bold text-base text-slate-900">Cappuccino + Croissant</h3>
+                <p class="text-xs text-slate-500">Costo interno: $5.900 COP · 6 canjes este mes</p>
+              </div>
+              <span class="font-pixel text-sm text-blue-600">750 PTS</span>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderAdminEquipoApp() {
+      return `
+        <div class="space-y-5">
+          <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 pb-4">
+            <div>
+              <span class="lp-section-kicker">🛡️ OPCIÓN DIRECTA EN MENÚ LATERAL</span>
+              <h1 class="mt-1 text-2xl font-extrabold text-slate-900">Equipo del Negocio</h1>
+              <p class="text-xs text-slate-500">Gestiona administradores, encargados de caja y permisos de redención.</p>
+            </div>
+            <button class="lp-btn lp-btn-sm lp-btn-primary">+ Invitar miembro</button>
+          </div>
+
+          <div class="lp-panel divide-y divide-slate-200">
+            <div class="p-4 flex flex-wrap items-center justify-between gap-3">
+              <div>
+                <p class="font-bold text-sm text-slate-900">Leonardo Administrador (@leonardo.admin)</p>
+                <p class="text-xs text-slate-500">admin@cafeaurora.co</p>
+              </div>
+              <span class="lp-tag lp-tag-neutral">Administrador</span>
+            </div>
+            <div class="p-4 flex flex-wrap items-center justify-between gap-3">
+              <div>
+                <p class="font-bold text-sm text-slate-900">Mateo Cajero (@mateo.caja)</p>
+                <p class="text-xs text-emerald-700 font-semibold">✓ Autorizado para aprobar y entregar canjes</p>
+              </div>
+              <span class="lp-tag lp-tag-cyan">Encargado</span>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderAdminSolicitudesApp() {
+      return `
+        <div class="space-y-5">
+          <div class="border-b border-slate-200 pb-4">
+            <span class="lp-section-kicker">🎟️ ATENCIÓN DE RECOMPENSAS</span>
+            <h1 class="mt-1 text-2xl font-extrabold text-slate-900">Solicitudes de Canje</h1>
+          </div>
+          <div class="lp-panel divide-y divide-slate-200">
+            <div class="p-4 flex flex-wrap items-center justify-between gap-3">
+              <div>
+                <span class="lp-tag lp-tag-gold">Pendiente de aprobar</span>
+                <p class="mt-1 font-bold text-sm text-slate-900">Cappuccino + Croissant (750 PTS)</p>
+                <p class="font-mono-code text-xs text-slate-500">Cliente: @carla.cliente · Código: LP-894K</p>
+              </div>
+              <div class="flex gap-2 w-full sm:w-auto">
+                <button class="lp-btn lp-btn-sm lp-btn-secondary flex-1">Rechazar</button>
+                <button class="lp-btn lp-btn-sm lp-btn-primary flex-1">✓ Aprobar</button>
+              </div>
+            </div>
+            <div class="p-4 flex flex-wrap items-center justify-between gap-3">
+              <div>
+                <span class="lp-tag lp-tag-emerald">Aprobada · Lista para entregar</span>
+                <p class="mt-1 font-bold text-sm text-slate-900">Espresso o Americano 8oz (300 PTS)</p>
+                <p class="font-mono-code text-xs text-slate-500">Cliente: @andres.p · Aprobado hace 2 min</p>
+              </div>
+              <button class="lp-btn lp-btn-sm lp-btn-emerald w-full sm:w-auto">📦 Confirmar entrega</button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // PANTALLA DE PERFIL DEL ADMINISTRADOR (CONTIENE CUENTA + NEGOCIO + PROGRAMA + ECONÓMICO)
+    function renderAdminPerfilApp() {
+      const t = state.profileTab;
+      return `
+        <div class="space-y-5">
+          <div class="border-b border-slate-200 pb-4">
+            <span class="lp-section-kicker">⚙️ CONFIGURACIÓN ESTRUCTURAL EN MI PERFIL</span>
+            <h1 class="mt-1 text-2xl font-extrabold text-slate-900">Mi Perfil y Datos del Negocio</h1>
+            <p class="text-xs text-slate-500">
+              Aquí se agrupan tu cuenta personal y las pestañas <strong>Negocio</strong>, <strong>Programa</strong> y <strong>Económico</strong> (sin la pestaña Avanzado).
+            </p>
+          </div>
+
+          <!-- Selector de Pestañas con botones táctiles claros -->
+          <div class="lp-snap-row">
+            <button onclick="state.profileTab='cuenta'; render()" class="lp-btn lp-btn-sm ${t === 'cuenta' ? 'lp-btn-dark' : 'lp-btn-secondary'}">
+              👤 Mi Cuenta
+            </button>
+            <button onclick="state.profileTab='negocio'; render()" class="lp-btn lp-btn-sm ${t === 'negocio' ? 'lp-btn-primary' : 'lp-btn-secondary'}">
+              🏢 Negocio
+            </button>
+            <button onclick="state.profileTab='programa'; render()" class="lp-btn lp-btn-sm ${t === 'programa' ? 'lp-btn-primary' : 'lp-btn-secondary'}">
+              ⚙️ Programa
+            </button>
+            <button onclick="state.profileTab='economico'; render()" class="lp-btn lp-btn-sm ${t === 'economico' ? 'lp-btn-primary' : 'lp-btn-secondary'}">
+              💵 Económico
+            </button>
+          </div>
+
+          <div class="lp-panel p-5">
+            ${t === 'cuenta' ? `
+              <div class="space-y-4 max-w-xl">
+                <h2 class="font-bold text-base text-slate-900">Datos personales del administrador</h2>
+                <div class="grid gap-4 sm:grid-cols-2">
+                  <div>
+                    <label class="lp-field-label">Nombre completo</label>
+                    <input type="text" value="Leonardo Administrador" class="lp-input" />
+                  </div>
+                  <div>
+                    <label class="lp-field-label">Alias público (@nickname)</label>
+                    <input type="text" value="@leonardo.admin" class="lp-input" />
+                  </div>
+                </div>
+                <button class="lp-btn lp-btn-primary w-full sm:w-auto">Guardar perfil personal</button>
+              </div>
+            ` : ''}
+
+            ${t === 'negocio' ? `
+              <div class="space-y-4">
+                <div class="flex items-center justify-between">
+                  <h2 class="font-bold text-base text-slate-900">Ficha pública y contacto del negocio</h2>
+                  <span class="lp-tag lp-tag-cyan">Movido desde Configuración</span>
+                </div>
+                <div class="grid gap-4 sm:grid-cols-2">
+                  <div>
+                    <label class="lp-field-label">Nombre del negocio</label>
+                    <input type="text" value="Café Aurora" class="lp-input" />
+                  </div>
+                  <div>
+                    <label class="lp-field-label">Enlace público (No editable)</label>
+                    <input type="text" value="/join/cafe-aurora" disabled class="lp-input" />
+                  </div>
+                  <div>
+                    <label class="lp-field-label">Ciudad y Barrio</label>
+                    <input type="text" value="Bogotá · Chapinero Alto" class="lp-input" />
+                  </div>
+                  <div>
+                    <label class="lp-field-label">Dirección física</label>
+                    <input type="text" value="Calle 57 # 4-12" class="lp-input" />
+                  </div>
+                  <div>
+                    <label class="lp-field-label">WhatsApp</label>
+                    <input type="tel" value="+57 300 456 7890" class="lp-input" />
+                  </div>
+                  <div>
+                    <label class="lp-field-label">Instagram / Sitio web</label>
+                    <input type="text" value="@cafeaurora.bog" class="lp-input" />
+                  </div>
+                </div>
+                <button class="lp-btn lp-btn-primary w-full sm:w-auto">Guardar datos del negocio</button>
+              </div>
+            ` : ''}
+
+            ${t === 'programa' ? `
+              <div class="space-y-4">
+                <div class="flex items-center justify-between">
+                  <h2 class="font-bold text-base text-slate-900">Reglas de acumulación, bonos y vigencia</h2>
+                  <span class="lp-tag lp-tag-cyan">Movido desde Configuración</span>
+                </div>
+                <div class="grid gap-4 sm:grid-cols-2">
+                  <div>
+                    <label class="lp-field-label">COP por cada 1 loopoint ganado</label>
+                    <input type="number" value="1000" class="lp-input" />
+                  </div>
+                  <div>
+                    <label class="lp-field-label">Loopoints que equivalen a $1.000</label>
+                    <input type="number" value="100" class="lp-input" />
+                  </div>
+                  <div>
+                    <label class="lp-field-label">Vencimiento de puntos (días)</label>
+                    <input type="number" value="365" class="lp-input" />
+                  </div>
+                  <div>
+                    <label class="lp-field-label">Bonos (1ra compra / Recurrencia)</label>
+                    <input type="text" value="50 pts / 25 pts" class="lp-input" />
+                  </div>
+                </div>
+                <button class="lp-btn lp-btn-primary w-full sm:w-auto">Guardar reglas del programa</button>
+              </div>
+            ` : ''}
+
+            ${t === 'economico' ? `
+              <div class="space-y-4">
+                <div class="flex items-center justify-between">
+                  <h2 class="font-bold text-base text-slate-900">Indicadores económicos y tope mensual</h2>
+                  <span class="lp-tag lp-tag-cyan">Movido desde Configuración</span>
+                </div>
+                <div class="grid gap-4 sm:grid-cols-2">
+                  <div>
+                    <label class="lp-field-label">Ventas diarias promedio (COP)</label>
+                    <input type="text" value="1.200.000" class="lp-input" />
+                  </div>
+                  <div>
+                    <label class="lp-field-label">Días de operación al mes</label>
+                    <input type="number" value="26" class="lp-input" />
+                  </div>
+                  <div>
+                    <label class="lp-field-label">Margen bruto estimado (%)</label>
+                    <input type="number" value="42" class="lp-input" />
+                  </div>
+                  <div>
+                    <label class="lp-field-label">Presupuesto mensual máximo de premios (COP)</label>
+                    <input type="text" value="450.000" class="lp-input" />
+                  </div>
+                </div>
+                <button class="lp-btn lp-btn-primary w-full sm:w-auto">Guardar datos económicos</button>
+              </div>
+            ` : ''}
+          </div>
+        </div>
+      `;
+    }
+
+    // =========================================================================
+    // ROL 2: ENCARGADO (TERMINAL DE MOSTRADOR LIMPIA Y TÁCTIL)
+    // =========================================================================
+    function renderEncargadoView() {
+      const isForcedMobile = state.viewport === 'mobile';
+      const pointsPreview = Math.floor(state.encargadoSaleCop / 1000);
+      return `
+        <div class="pb-16">
+          <!-- Cabecera de Turno -->
+          <div class="border-b border-slate-200 bg-white px-4 py-3">
+            <div class="mx-auto max-w-6xl flex flex-wrap items-center justify-between gap-3">
+              <div class="flex items-center gap-2.5">
+                <div class="grid h-10 w-10 place-items-center rounded-lg bg-slate-900">${PIXEL_ICONS.coin}</div>
+                <div>
+                  <div class="flex items-center gap-2">
+                    <span class="font-extrabold text-sm sm:text-base text-slate-900">Terminal de Caja · Café Aurora</span>
+                    <span class="lp-tag lp-tag-emerald">Autorizado</span>
+                  </div>
+                  <p class="text-xs text-slate-500">Turno: Mateo Cajero · 19 ventas hoy · 2 entregas pendientes</p>
+                </div>
+              </div>
+
+              <!-- Conmutador rápido en móvil -->
+              <div class="flex gap-2 w-full sm:w-auto">
+                <button
+                  onclick="state.encargadoMode='venta'; render()"
+                  class="lp-btn lp-btn-sm flex-1 sm:flex-initial ${state.encargadoMode === 'venta' ? 'lp-btn-primary' : 'lp-btn-secondary'}"
+                >
+                  1. Emitir QR Venta
+                </button>
+                <button
+                  onclick="state.encargadoMode='canje'; render()"
+                  class="lp-btn lp-btn-sm flex-1 sm:flex-initial ${state.encargadoMode === 'canje' ? 'lp-btn-primary' : 'lp-btn-secondary'}"
+                >
+                  2. Validar Canje (2)
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="mx-auto max-w-6xl px-4 pt-6">
+            <div class="grid gap-6 ${isForcedMobile ? 'grid-cols-1' : 'lg:grid-cols-12'}">
+              <!-- MÓDULO 1: EMITIR QR DE VENTA -->
+              <div class="${isForcedMobile && state.encargadoMode !== 'venta' ? 'hidden' : 'lg:col-span-7'} lp-panel overflow-hidden">
+                <div class="lp-panel-header">
+                  <div>
+                    <span class="lp-section-kicker">${PIXEL_ICONS.coin} ACCIÓN 1 · ACREDITAR COMPRA</span>
+                    <h2 class="font-bold text-base text-slate-900">Generar QR de Venta</h2>
+                  </div>
+                  <span class="lp-tag lp-tag-cyan">1 pt / $1.000 COP</span>
+                </div>
+
+                <div class="p-5 space-y-5">
+                  <div>
+                    <span class="lp-field-label">Atajos rápidos de productos de la carta (Suman al valor):</span>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-1">
+                      <button onclick="state.encargadoSaleCop += 7500; render()" class="lp-btn lp-btn-secondary flex-col py-2">
+                        <span class="text-xs font-bold">+ Espresso</span>
+                        <span class="font-mono-code text-[11px] text-slate-500">$7.500</span>
+                      </button>
+                      <button onclick="state.encargadoSaleCop += 11000; render()" class="lp-btn lp-btn-secondary flex-col py-2">
+                        <span class="text-xs font-bold">+ Cappuccino</span>
+                        <span class="font-mono-code text-[11px] text-slate-500">$11.000</span>
+                      </button>
+                      <button onclick="state.encargadoSaleCop += 9500; render()" class="lp-btn lp-btn-secondary flex-col py-2">
+                        <span class="text-xs font-bold">+ Croissant</span>
+                        <span class="font-mono-code text-[11px] text-slate-500">$9.500</span>
+                      </button>
+                      <button onclick="state.encargadoSaleCop = 0; render()" class="lp-btn lp-btn-secondary flex-col py-2">
+                        <span class="text-xs font-bold text-rose-600">↺ Limpiar</span>
+                        <span class="font-mono-code text-[11px] text-slate-400">$0</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="grid gap-4 sm:grid-cols-2 items-center lp-panel-muted p-4">
+                    <div class="space-y-2.5">
+                      <label class="lp-field-label" for="pos-amount">Monto total de la compra (COP)</label>
+                      <input
+                        id="pos-amount"
+                        type="number"
+                        value="${state.encargadoSaleCop}"
+                        onchange="state.encargadoSaleCop = Number(this.value) || 0; render()"
+                        class="lp-input text-xl font-extrabold"
+                      />
+                      <div class="flex items-center gap-2 pt-1">
+                        ${PIXEL_ICONS.coin}
+                        <span class="font-pixel text-xs text-emerald-700">+${pointsPreview} LOOPOINTS</span>
+                      </div>
+                    </div>
+
+                    <div class="lp-panel p-4 flex flex-col items-center text-center">
+                      <div class="h-28 w-28 qr-pattern rounded border-2 border-slate-900"></div>
+                      <p class="mt-2 font-bold text-xs text-slate-900">QR listo para el cliente</p>
+                      <span class="font-mono-code text-xs text-blue-600 font-bold">Código: VTA-92K</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- MÓDULO 2: VALIDAR Y ENTREGAR CANJE -->
+              <div class="${isForcedMobile && state.encargadoMode !== 'canje' ? 'hidden' : 'lg:col-span-5'} lp-panel overflow-hidden">
+                <div class="lp-panel-header">
+                  <div>
+                    <span class="lp-section-kicker">${PIXEL_ICONS.gift} ACCIÓN 2 · ENTREGAR PREMIO</span>
+                    <h2 class="font-bold text-base text-slate-900">Validar QR de Recompensa</h2>
+                  </div>
+                  <span class="lp-tag lp-tag-gold">2 pasos</span>
+                </div>
+
+                <div class="p-5 space-y-4">
+                  <div>
+                    <label class="lp-field-label" for="scan-code-input">Código del QR presentado por el cliente</label>
+                    <div class="flex gap-2">
+                      <input id="scan-code-input" type="text" value="LP-894K" class="lp-input font-mono-code uppercase" />
+                      <button onclick="state.encargadoValidationStep='validated'; render()" class="lp-btn lp-btn-primary shrink-0">
+                        Validar
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="lp-panel-muted p-4 space-y-3">
+                    <div class="flex items-center justify-between">
+                      <span class="lp-tag ${state.encargadoValidationStep === 'delivered' ? 'lp-tag-emerald' : 'lp-tag-gold'}">
+                        ${state.encargadoValidationStep === 'approved'
+                          ? 'Paso 2 de 2 · Aprobado, falta entregar'
+                          : state.encargadoValidationStep === 'delivered'
+                            ? '✓ Entregado y puntos descontados'
+                            : 'Paso 1 de 2 · Solicitud verificada'}
+                      </span>
+                      <span class="font-pixel text-xs text-blue-600">750 PTS</span>
+                    </div>
+                    <div>
+                      <p class="font-extrabold text-base text-slate-900">Combo Cappuccino + Croissant</p>
+                      <p class="text-xs text-slate-500">Cliente: @carla.cliente · QR vence en 23m</p>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
+                      <button
+                        onclick="state.encargadoValidationStep='approved'; render()"
+                        class="lp-btn lp-btn-primary w-full"
+                      >
+                        1. Aprobar QR ✓
+                      </button>
+                      <button
+                        onclick="state.encargadoValidationStep='delivered'; render()"
+                        class="lp-btn lp-btn-emerald w-full"
+                      >
+                        2. Entregar 📦
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // =========================================================================
+    // ROL 3: CLIENTE (BILLETERA DE APLICACIÓN + GAMIFICACIÓN PIXEL)
+    // =========================================================================
+    function renderClienteView() {
+      const biz = businessesData[state.clienteBiz];
+      return `
+        <div class="pb-24">
+          <!-- Cabecera de Aplicación del Cliente -->
+          <div class="border-b border-slate-200 bg-white px-4 pt-3 pb-3 sticky top-0 z-20">
+            <div class="mx-auto max-w-3xl space-y-3">
+              <div class="flex items-center justify-between gap-2">
+                <div class="flex items-center gap-2.5">
+                  <div class="grid h-9 w-9 place-items-center rounded-lg bg-slate-900">
+                    ${PIXEL_ICONS.coin}
+                  </div>
+                  <div>
+                    <p class="font-extrabold text-sm text-slate-900 leading-none">Hola, Carla</p>
+                    <p class="font-mono-code text-xs text-slate-500">@carla.cliente · 3 programas activos</p>
+                  </div>
+                </div>
+                <button
+                  onclick="openModal('Escanear QR de Compra', '<div class=\\'text-center space-y-3\\'><div class=\\'mx-auto h-40 w-40 rounded-lg border-2 border-dashed border-blue-600 bg-slate-900 text-cyan-300 grid place-items-center font-pixel text-[9px] p-4\\'>📷 APUNTA AL QR DE LA CAJA</div><p class=\\'text-xs text-slate-600\\'>Tus loopoints se sumarán de inmediato al negocio correspondiente.</p></div>')"
+                  class="lp-btn lp-btn-sm lp-btn-primary"
+                >
+                  ${PIXEL_ICONS.qr} Escanear compra
+                </button>
+              </div>
+
+              <!-- Selector Horizontal de Negocios -->
+              <div class="lp-snap-row" role="tablist" aria-label="Mis negocios afiliados">
+                ${Object.entries(businessesData).map(([key, item]) => {
+                  const active = key === state.clienteBiz;
+                  return `
+                    <button
+                      onclick="state.clienteBiz='${key}'; render()"
+                      class="lp-btn lp-btn-sm ${active ? 'lp-btn-dark' : 'lp-btn-secondary'}"
+                    >
+                      <span>${item.name}</span>
+                      <span class="lp-tag ${active ? 'lp-tag-gold' : 'lp-tag-neutral'}">${item.balance} pts</span>
+                    </button>
+                  `;
+                }).join('')}
+              </div>
+            </div>
+          </div>
+
+          <div class="mx-auto max-w-3xl px-4 pt-5 space-y-6">
+            <!-- TARJETA DE PUNTOS GAMIFICADA DEL NEGOCIO ACTIVO -->
+            <div class="rounded-xl border-2 border-slate-900 bg-slate-900 text-white p-5 shadow-md space-y-4">
+              <div class="flex flex-wrap items-start justify-between gap-3">
+                <div>
+                  <span class="lp-tag lp-tag-cyan font-pixel text-[8px]">${biz.level}</span>
+                  <h1 class="mt-2 text-2xl font-extrabold text-white">${biz.name}</h1>
+                  <p class="text-xs text-slate-400">${biz.category} · @${biz.slug}</p>
+                </div>
+                <div class="text-left sm:text-right">
+                  <span class="font-pixel text-[8px] text-cyan-300">TUS LOOPOINTS AQUÍ</span>
+                  <div class="mt-1 flex items-center gap-2">
+                    ${PIXEL_ICONS.coinLg}
+                    <span class="font-pixel text-2xl sm:text-3xl text-amber-300">${biz.balance} PTS</span>
+                  </div>
+                  <p class="font-mono-code text-xs text-slate-400 mt-1">${biz.nextExpiry}</p>
+                </div>
+              </div>
+
+              <!-- Reto de Frecuencia Mensual con Barra Pixel -->
+              <div class="rounded-lg bg-slate-800 p-3.5 space-y-2 border border-slate-700">
+                <div class="flex justify-between font-mono-code text-xs font-semibold">
+                  <span class="text-slate-200"> Meta Cliente Frecuente (Mes actual)</span>
+                  <span class="text-amber-300">${biz.visitsThisMonth} / ${biz.visitsTarget} visitas</span>
+                </div>
+                <div class="lp-progress">
+                  <div class="lp-progress-bar bar-gold" style="width: ${Math.min(100, (biz.visitsThisMonth / biz.visitsTarget) * 100)}%"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- VOUCHER DE CANJE ACTIVO -->
+            ${biz.activeVoucher ? `
+              <div class="lp-panel p-4 border-l-4 border-l-emerald-500 flex flex-wrap items-center justify-between gap-3">
+                <div class="flex items-center gap-3">
+                  <div class="h-12 w-12 qr-pattern rounded border border-slate-900 shrink-0"></div>
+                  <div>
+                    <span class="lp-tag lp-tag-emerald">Canje listo para mostrar en caja</span>
+                    <p class="mt-0.5 font-extrabold text-sm text-slate-900">${biz.activeVoucher.reward}</p>
+                    <p class="font-mono-code text-xs text-slate-500">Código: <strong>${biz.activeVoucher.code}</strong> · Vence en ${biz.activeVoucher.expires}</p>
+                  </div>
+                </div>
+                <button
+                  onclick="openModal('QR de Canje para Caja', '<div class=\\'text-center space-y-3\\'><div class=\\'mx-auto h-44 w-44 qr-pattern rounded border-2 border-slate-900\\'></div><p class=\\'font-pixel text-sm text-blue-600\\'>${biz.activeVoucher.code}</p><p class=\\'text-xs text-slate-600\\'>Muéstrale este código al encargado de ${biz.name}.</p></div>')"
+                  class="lp-btn lp-btn-sm lp-btn-emerald w-full sm:w-auto"
+                >
+                  Ver QR grande →
+                </button>
+              </div>
+            ` : ''}
+
+            <!-- CATÁLOGO DE RECOMPENSAS (TÍTULOS PLANOS + BOTÓN DE CANJE RESALTADO) -->
+            <div class="space-y-3">
+              <div class="flex items-center justify-between">
+                <div>
+                  <span class="lp-section-kicker">${PIXEL_ICONS.gift} PREMIOS DESBLOQUEABLES</span>
+                  <h2 class="text-lg font-extrabold text-slate-900">Recompensas en ${biz.name}</h2>
+                </div>
+                <span class="lp-tag lp-tag-emerald">${biz.rewards.filter(r => r.canRedeem).length} disponibles</span>
+              </div>
+
+              <div class="grid gap-4 sm:grid-cols-2">
+                ${biz.rewards.map(r => {
+                  const pct = Math.min(100, Math.floor((biz.balance / r.pts) * 100));
+                  return `
+                    <div class="lp-panel p-4 flex flex-col justify-between gap-3.5">
+                      <div class="space-y-1">
+                        <div class="flex items-start justify-between gap-2">
+                          <h3 class="font-bold text-sm text-slate-900">${r.name}</h3>
+                          <span class="lp-tag ${r.canRedeem ? 'lp-tag-emerald' : 'lp-tag-neutral'} shrink-0 font-pixel text-[8px]">${r.pts} PTS</span>
+                        </div>
+                        <p class="text-xs text-slate-500">${r.desc}</p>
+                      </div>
+
+                      <div class="space-y-2.5">
+                        <div class="lp-progress">
+                          <div class="lp-progress-bar ${r.canRedeem ? '' : 'bar-gold'}" style="width: ${pct}%"></div>
+                        </div>
+                        <div class="flex items-center justify-between gap-2">
+                          <span class="font-mono-code text-xs text-slate-500">
+                            ${r.canRedeem ? '✓ Puntos suficientes' : `Te faltan ${r.pts - biz.balance} pts`}
+                          </span>
+                          ${r.canRedeem ? `
+                            <button
+                              onclick="openModal('Solicitar Recompensa', '<div class=\\'text-center space-y-3\\'><p class=\\'text-xs text-slate-600\\'>Se reservarán <strong>${r.pts} loopoints</strong> en ${biz.name}:</p><div class=\\'mx-auto h-36 w-36 qr-pattern rounded border-2 border-slate-900\\'></div><p class=\\'font-pixel text-xs text-emerald-700\\'>QR GENERADO · LP-NEW9</p></div>')"
+                              class="lp-btn lp-btn-sm lp-btn-primary"
+                            >
+                              Canjear con QR
+                            </button>
+                          ` : `
+                            <span class="lp-tag lp-tag-neutral">Por desbloquear</span>
+                          `}
+                        </div>
+                      </div>
+                    </div>
+                  `;
+                }).join('')}
+              </div>
+            </div>
+
+            <!-- HISTORIAL DE MOVIMIENTOS -->
+            <div class="lp-panel overflow-hidden">
+              <div class="lp-panel-header">
+                <h2 class="font-bold text-sm text-slate-900">Historial de puntos en ${biz.name}</h2>
+                <span class="lp-tag lp-tag-neutral">Recientes</span>
+              </div>
+              <div class="p-4 divide-y divide-slate-100">
+                ${biz.movements.map(m => `
+                  <div class="py-2.5 flex items-center justify-between gap-2">
+                    <div>
+                      <p class="font-bold text-xs sm:text-sm text-slate-900">${m.title}</p>
+                      <p class="text-xs text-slate-500">${m.detail} · ${m.date}</p>
+                    </div>
+                    <span class="lp-tag ${m.pts.startsWith('+') ? 'lp-tag-emerald' : 'lp-tag-gold'} font-pixel text-[8px]">${m.pts} PTS</span>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          </div>
+
+          <!-- BARRA INFERIOR MÓVIL DEL CLIENTE -->
+          <nav class="lp-bottom-nav grid grid-cols-4 max-w-3xl mx-auto border-x border-slate-200" aria-label="Navegación móvil del cliente">
+            <button onclick="state.clienteTab='billetera'; render()" class="min-h-[60px] flex flex-col items-center justify-center gap-1 text-xs font-bold text-blue-600 bg-blue-50/50">
+              <span>🪙</span>
+              <span>Billetera</span>
+            </button>
+            <button onclick="openModal('Mis Canjes', '<p class=\\'text-xs text-slate-600\\'>Consulta tus códigos QR pendientes de entrega y el historial de premios reclamados.</p>')" class="min-h-[60px] flex flex-col items-center justify-center gap-1 text-xs font-bold text-slate-600">
+              <span>🎟️</span>
+              <span>Mis Canjes</span>
+            </button>
+            <button onclick="openModal('Mis Compras', '<p class=\\'text-xs text-slate-600\\'>Listado de compras reclamadas con sus productos y loopoints sumados.</p>')" class="min-h-[60px] flex flex-col items-center justify-center gap-1 text-xs font-bold text-slate-600">
+              <span>🧾</span>
+              <span>Compras</span>
+            </button>
+            <button onclick="openModal('Mi Perfil', '<p class=\\'text-xs text-slate-600\\'>Edita tu nombre y tu @alias público en Loopoint.</p>')" class="min-h-[60px] flex flex-col items-center justify-center gap-1 text-xs font-bold text-slate-600">
+              <span>👤</span>
+              <span>Mi Perfil</span>
+            </button>
+          </nav>
+        </div>
+      `;
+    }
+
+    // =========================================================================
+    // RENDERIZADO PRINCIPAL
+    // =========================================================================
+    function render() {
+      const container = document.getElementById('viewport-container');
+      if (state.role === 'admin') {
+        if (state.adminStage === 'landing') container.innerHTML = renderLandingView();
+        else if (state.adminStage === 'auth') container.innerHTML = renderAuthView();
+        else if (state.adminStage === 'onboarding') container.innerHTML = renderOnboardingView();
+        else container.innerHTML = renderAdminApp();
+      } else if (state.role === 'encargado') {
+        container.innerHTML = renderEncargadoView();
+      } else {
+        container.innerHTML = renderClienteView();
+      }
+    }
+
+    render();
+  </script>
+</body>
+</html>
