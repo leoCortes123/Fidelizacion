@@ -11,3 +11,5 @@
 - `supabase/.temp` y `.vercel/` son locales; no versionar.
 - El correo del administrador inicial se inserta manualmente en `private.bootstrap_admins`.
 - graphify-out: solo versionar `GRAPH_REPORT.md`; el resto es cache regenerable.
+- En funciones PL/pgSQL con `RETURNS TABLE`, calificar siempre las columnas en consultas (ej. `lpa.balance`) para evitar colisiones de nombre con variables de retorno (`SQLSTATE 42702: column reference is ambiguous`).
+- En `index.html`, no usar scripts inline para respetar la directiva CSP estricta `script-src 'self'` de `vercel.json`; ubicar scripts estáticos en `public/`.
