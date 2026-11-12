@@ -202,7 +202,7 @@ La migración de cierre (`20261026000200`) repite el barrido de forma idempotent
 revoca `EXECUTE` a `PUBLIC` y `anon` en todo el esquema público, vuelve a conceder
 solo las RPC explícitas a `authenticated` y a `service_role`, y falla si encuentra
 alguna función `SECURITY DEFINER` ejecutable por `PUBLIC`. `anon` queda limitado a
-`business_public_get(text)` y `purchase_qr_preview(text)`. También rellena nicknames
+`business_public_get(text)`, `purchase_qr_preview(text)` y `business_member_invite_preview(text)`. También rellena nicknames
 y criterios de frecuencia que hubieran quedado `NULL`, sin pisar valores existentes.
 
 ## Concurrencia e idempotencia

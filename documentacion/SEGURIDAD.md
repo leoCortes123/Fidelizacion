@@ -119,7 +119,7 @@ comprensible.
   `anon` y `authenticated`; luego se conceden solo las RPC necesarias.
 - La migración de cierre F9 repite ese barrido de forma idempotente y falla si alguna
   función `SECURITY DEFINER` queda ejecutable por `PUBLIC`. `anon` solo conserva
-  `business_public_get` y `purchase_qr_preview`; el resto exige `authenticated`.
+  `business_public_get`, `purchase_qr_preview` y `business_member_invite_preview`; el resto exige `authenticated`.
 - Las funciones `SECURITY DEFINER` fijan `search_path = public, pg_temp` y validan
   rol/identidad dentro de la función.
 

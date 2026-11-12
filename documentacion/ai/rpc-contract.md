@@ -12,6 +12,7 @@ Fuente: `documentacion/ARQUITECTURA.md`, `documentacion/ESTADO_PROYECTO.md`. Act
 
 ## Negocios y membresías
 - `business_create`, `business_join`, `business_members_list`, `business_dashboard_summary`, `business_recent_activity`.
+- Invitaciones QR de miembros: `business_member_invite_create` (admin), `business_member_invite_preview` (anon/authenticated), `business_member_invite_accept` (authenticated; crea membresía o cambia rol si ya era cliente; no degrada admin ni encargado), `business_member_invite_revoke` (admin).
 
 ## Programa y carta
 - `business_program_upsert`, `products_list`, `product_upsert` (acepta `p_image_url` en `business-assets`), `product_combo_set`, `reward_*`.

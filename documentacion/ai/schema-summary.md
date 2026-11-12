@@ -6,6 +6,7 @@ Tablas clave (multiempresa, todo lleva `business_id`):
 - `user_roles` — rol global legacy (`customer`, `admin`, `registrar`).
 - `businesses` — negocio, slug, logo, estado.
 - `business_memberships` — usuario ↔ negocio con rol (`admin`/`encargado`/`cliente`).
+- `business_member_invites` — invitaciones QR de un solo uso (hash SHA-256, rol destino, expiración).
 - `business_programs` — reglas de acumulación/canje.
 - `products` — carta (incluye combos y foto `image_url`).
 - `rewards` — recompensas con límites.
