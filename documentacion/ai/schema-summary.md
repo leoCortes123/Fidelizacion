@@ -7,7 +7,7 @@ Tablas clave (multiempresa, todo lleva `business_id`):
 - `businesses` — negocio, slug, logo, estado.
 - `business_memberships` — usuario ↔ negocio con rol (`admin`/`encargado`/`cliente`).
 - `business_programs` — reglas de acumulación/canje.
-- `products` — carta (incluye combos).
+- `products` — carta (incluye combos y foto `image_url`).
 - `rewards` — recompensas con límites.
 - `purchases` + `purchase_items` — compras con snapshot de reglas.
 - `points_ledger` + `point_lots` — libro inmutable y lotes con `expires_at`.

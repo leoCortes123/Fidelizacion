@@ -15,7 +15,9 @@
 - `/admin/rewards` — recompensas del programa (acceso directo en menú lateral).
 - `/admin/members` — equipo y permisos de encargados (acceso directo en menú lateral).
 - `/admin/perfil` — perfil del administrador con pestañas: `Negocio` (incluye datos del administrador y del negocio), `Programa` y `Económico`.
-- `/admin/onboarding` — asistente de onboarding para configurar nuevo negocio.
+- `/admin/onboarding` — asistente de onboarding de 3 pasos (`Datos del negocio`, `Datos económicos`, `Programa y activación`) y alta directa de nuevo negocio (`?new=1`).
+- `/business/select` — selector de negocio (redirige a `/admin/onboarding?new=1` al registrar negocio).
+- `/business/register` — redirige directamente a `/admin/onboarding?new=1`.
 - `/admin/redemptions`, `/admin/customers`, `/admin/customers/:id`.
 - `/admin/purchases`, `/admin/purchases/new`.
 - `/admin/campaigns`, `/admin/audit`.

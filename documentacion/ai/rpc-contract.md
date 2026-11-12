@@ -14,7 +14,7 @@ Fuente: `documentacion/ARQUITECTURA.md`, `documentacion/ESTADO_PROYECTO.md`. Act
 - `business_create`, `business_join`, `business_members_list`, `business_dashboard_summary`, `business_recent_activity`.
 
 ## Programa y carta
-- `business_program_upsert`, `product_*` (list/upsert/delete), `product_combo_set`, `reward_*`.
+- `business_program_upsert`, `products_list`, `product_upsert` (acepta `p_image_url` en `business-assets`), `product_combo_set`, `reward_*`.
 
 ## Compras
 - `purchase_qr_create`, `purchase_qr_create_with_items`, `purchase_qr_preview`, `purchase_qr_claim`, `purchase_list`, `purchase_detail`.
