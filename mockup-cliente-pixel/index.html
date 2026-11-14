@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Loopoint — Clientes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Silkscreen:wght@400;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="light-theme">
+
+  <!-- =====================================================================
+       BARRA SUPERIOR: NOMBRE DE LA APP + NOMBRE DE USUARIO Y DESPLEGABLE PEQUEÑO
+  ===================================================================== -->
+  <header class="app-navbar">
+    <div class="navbar-inner">
+      <button type="button" class="brand-link" id="btnBrandHome" title="Ir a Inicio">
+        <div class="brand-logo-box" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 14 14" shape-rendering="crispEdges">
+            <rect x="3" y="1" width="8" height="2" fill="#FFD166"/>
+            <rect x="2" y="3" width="10" height="6" fill="#06D6A0"/>
+            <rect x="3" y="9" width="8" height="2" fill="#06D6A0"/>
+            <rect x="5" y="11" width="4" height="2" fill="#FFD166"/>
+            <rect x="5" y="4" width="4" height="4" fill="#FFD166"/>
+            <rect x="6" y="5" width="2" height="2" fill="#140F26"/>
+          </svg>
+        </div>
+        <span class="brand-name">LOOPOINT</span>
+      </button>
+
+      <!-- Nombre del usuario + botón desplegable pequeño -->
+      <div class="user-menu-cluster" id="navDropdownWrapper">
+        <span class="navbar-username">Leonardo</span>
+        <button
+          type="button"
+          class="small-dropdown-btn"
+          id="btnDropdownToggle"
+          aria-label="Menú de usuario"
+          aria-expanded="false"
+          aria-haspopup="true"
+          aria-controls="navDropdownMenu"
+        >
+          <svg class="dropdown-caret" width="12" height="12" viewBox="0 0 12 12" shape-rendering="crispEdges" aria-hidden="true">
+            <polygon points="2,4 10,4 8,6 8,8 6,10 4,8 4,6" fill="currentColor"/>
+          </svg>
+        </button>
+
+        <nav class="dropdown-menu" id="navDropdownMenu" aria-label="Menú de usuario">
+          <button type="button" class="dropdown-item" id="btnToggleTheme">
+            <svg width="16" height="16" viewBox="0 0 12 12" shape-rendering="crispEdges" aria-hidden="true">
+              <rect x="3" y="1" width="6" height="2" fill="#FFD166"/>
+              <rect x="2" y="3" width="6" height="6" fill="#FFD166"/>
+              <rect x="3" y="9" width="6" height="2" fill="#FFD166"/>
+            </svg>
+            <span id="themeToggleLabel">Cambiar a modo oscuro</span>
+          </button>
+
+          <button type="button" class="dropdown-item danger" id="btnLogoutOption">
+            <svg width="16" height="16" viewBox="0 0 12 12" shape-rendering="crispEdges" aria-hidden="true">
+              <rect x="2" y="2" width="5" height="8" fill="#EF476F"/>
+              <polygon points="7,4 11,6 7,8" fill="#EF476F"/>
+            </svg>
+            <span>Cerrar sesión</span>
+          </button>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- =====================================================================
+       CONTENEDOR CENTRAL FIJADO A PANTALLA
+  ===================================================================== -->
+  <main class="main-container">
+
+    <!-- ===================================================================
+         VISTA 1: INICIO (NOMBRE ARRIBA + IMAGEN GRANDE + PRÓXIMA RECOMPENSA)
+    =================================================================== -->
+    <section class="view-section active" id="viewSelector" aria-label="Negocios afiliados">
+      <div class="arcade-stage-wrapper">
+
+        <!-- TARJETA DEL NEGOCIO (CLIC / TAP ABRE EL DETALLE DEL NEGOCIO) -->
+        <article
+          class="pixel-box business-select-card"
+          id="businessSelectCard"
+          role="button"
+          tabindex="0"
+          aria-label="Abrir detalle del negocio"
+        >
+          <!-- 1. Nombre del negocio ARRIBA de la imagen -->
+          <header class="card-top-title-bar">
+            <h1 class="card-biz-title" id="cardBizTitle">LA FORJA BURGER</h1>
+            <span class="card-category-pill" id="cardCategoryBadge">HAMBURGUESAS</span>
+          </header>
+
+          <!-- 2. Imagen del negocio más grande (100% horizontal) con las flechas a su altura -->
+          <div class="card-hero-stage" id="cardHeroStage">
+            <!-- Flecha Flotante Izquierda -->
+            <button
+              type="button"
+              class="arcade-arrow-btn arcade-arrow-left"
+              id="btnPrevBiz"
+              aria-label="Negocio anterior"
+              title="Negocio anterior"
+            >
+              <svg width="22" height="26" viewBox="0 0 12 14" shape-rendering="crispEdges" aria-hidden="true">
+                <polygon points="9,1 7,1 7,3 5,3 5,5 3,5 3,9 5,9 5,11 7,11 7,13 9,13" fill="currentColor"/>
+              </svg>
+            </button>
+
+            <div class="sprite-bobbing" id="cardSpriteBox"></div>
+
+            <!-- Flecha Flotante Derecha -->
+            <button
+              type="button"
+              class="arcade-arrow-btn arcade-arrow-right"
+              id="btnNextBiz"
+              aria-label="Siguiente negocio"
+              title="Siguiente negocio"
+            >
+              <svg width="22" height="26" viewBox="0 0 12 14" shape-rendering="crispEdges" aria-hidden="true">
+                <polygon points="3,1 5,1 5,3 7,3 7,5 9,5 9,9 7,9 7,11 5,11 5,13 3,13" fill="currentColor"/>
+              </svg>
+            </button>
+
+            <!-- Puntos del cliente en este negocio sobre la esquina de la imagen -->
+            <div class="hero-points-overlay">
+              <svg width="16" height="16" viewBox="0 0 12 12" shape-rendering="crispEdges" aria-hidden="true">
+                <rect x="3" y="1" width="6" height="10" fill="#FFD166"/>
+                <rect x="2" y="2" width="8" height="8" fill="#FFD166"/>
+                <rect x="1" y="3" width="10" height="6" fill="#FFD166"/>
+                <rect x="5" y="3" width="2" height="6" fill="#FFF3B0"/>
+              </svg>
+              <span class="hero-points-value" id="cardPointsNumber">1.450</span>
+              <span class="hero-points-label">PTS</span>
+            </div>
+          </div>
+
+          <!-- 3. Cuerpo inferior con distribución natural -->
+          <div class="card-body-content">
+
+            <!-- Tarjeta de la Recompensa Más Próxima con Foto de la Recompensa -->
+            <div class="next-reward-card" id="nextRewardCard">
+              <div class="next-reward-thumb" id="nextRewardThumb">
+                <!-- Ilustración de la recompensa más próxima -->
+              </div>
+
+              <div class="next-reward-info">
+                <div class="next-reward-eyebrow">
+                  <span>Próxima recompensa</span>
+                  <span class="pixel-highlight" id="cardXpFraction" style="color: var(--xp-main);">1.450 / 1.500 PTS</span>
+                </div>
+                <h2 class="next-reward-title" id="cardNextRewardTitle">COMBO FORJADOR</h2>
+                <p class="next-reward-desc" id="cardNextRewardDesc">Hamburguesa doble carne + papas rústicas + soda artesanal.</p>
+                <div class="xp-bar-track">
+                  <div class="xp-bar-fill" id="cardXpFill" style="width: 96%;"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Estadísticas rápidas bien distribuidas en la parte inferior -->
+            <div class="card-stats-row">
+              <div class="stat-tile">
+                <span class="stat-tile-label">Visitas</span>
+                <span class="stat-tile-value" id="cardStatVisits">14</span>
+              </div>
+              <div class="stat-tile">
+                <span class="stat-tile-label">Premios listos</span>
+                <span class="stat-tile-value" id="cardStatReady" style="color: var(--xp-main);">2</span>
+              </div>
+              <div class="stat-tile">
+                <span class="stat-tile-label">Racha activa</span>
+                <span class="stat-tile-value" id="cardStatStreak">3 SEM</span>
+              </div>
+            </div>
+
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         VISTA 2: PANTALLA DE DETALLE DEL NEGOCIO
+    =================================================================== -->
+    <section class="view-section" id="viewStoreProfile" aria-label="Detalle del negocio">
+      <div class="store-topbar-nav">
+        <button type="button" class="pixel-btn pixel-btn-secondary" id="btnBackToSelector">
+          <span>◀ VOLVER</span>
+        </button>
+      </div>
+
+      <!-- Cabecera compacta de la tienda -->
+      <header class="store-hero-banner" id="profileHeroBanner">
+        <div class="store-hero-grid">
+          <div class="store-avatar-pedestal" id="profileSpriteBox"></div>
+
+          <div class="store-identity-col">
+            <h1 class="store-title-h1" id="profileStoreName">LA FORJA BURGER</h1>
+            <div class="store-meta-list" id="profileStoreAddress">📍 Calle 85 #14-22 • 🕒 12:00 p.m. – 10:30 p.m.</div>
+          </div>
+
+          <div class="store-wallet-compact">
+            <span style="font-size: 10px; color: #B6A9D6; display: block;">SALDO</span>
+            <div class="store-wallet-points">
+              <span id="profilePointsNumber">1.450 PTS</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Pestañas en una sola línea: RECOMPENSAS | CARTA | MOVIMIENTOS -->
+      <div class="pixel-box store-body-box">
+        <div class="store-tabs-bar" role="tablist" aria-label="Secciones del negocio">
+          <button type="button" class="store-tab-btn active" data-store-tab="tabRewards">
+            RECOMPENSAS
+          </button>
+          <button type="button" class="store-tab-btn" data-store-tab="tabMenu">
+            CARTA
+          </button>
+          <button type="button" class="store-tab-btn" data-store-tab="tabActivity">
+            MOVIMIENTOS
+          </button>
+        </div>
+
+        <!-- Panel 1: Recompensas con imagen y detalle al seleccionar -->
+        <div class="store-tab-panel active" id="tabRewards">
+          <div class="items-grid" id="profileRewardsGrid"></div>
+        </div>
+
+        <!-- Panel 2: Carta con imagen y detalle al seleccionar -->
+        <div class="store-tab-panel" id="tabMenu">
+          <div class="items-grid" id="profileProductsGrid"></div>
+        </div>
+
+        <!-- Panel 3: Movimientos -->
+        <div class="store-tab-panel" id="tabActivity">
+          <div class="history-list" id="profileHistoryList"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         VISTA 3: PANTALLA DE PERFIL DEL USUARIO
+    =================================================================== -->
+    <section class="view-section" id="viewUserProfile" aria-label="Perfil del usuario">
+      <div class="pixel-box profile-view-card">
+        <div class="pixel-box-dark profile-header-box">
+          <div class="brand-logo-box" style="width: 54px; height: 54px;">
+            <svg width="36" height="36" viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true">
+              <rect x="4" y="2" width="8" height="2" fill="#FFD166"/>
+              <rect x="3" y="4" width="10" height="3" fill="#00BBF9"/>
+              <rect x="3" y="7" width="10" height="6" fill="#F8F5E6"/>
+              <rect x="5" y="8" width="2" height="2" fill="#140F26"/>
+              <rect x="9" y="8" width="2" height="2" fill="#140F26"/>
+              <rect x="4" y="13" width="8" height="2" fill="#06D6A0"/>
+            </svg>
+          </div>
+          <div>
+            <h1 class="pixel-title" style="font-size: 14px; color: var(--gold-main);">LEONARDO</h1>
+            <p style="color: var(--text-muted); font-size: 14px; margin-top: 2px;">leonardo@loopoint.co • @leo_quest</p>
+          </div>
+        </div>
+
+        <div class="card-stats-row">
+          <div class="stat-tile">
+            <span class="stat-tile-label">Negocios activos</span>
+            <span class="stat-tile-value">4</span>
+          </div>
+          <div class="stat-tile">
+            <span class="stat-tile-label">Puntos totales</span>
+            <span class="stat-tile-value" style="color: var(--gold-main);">3.820</span>
+          </div>
+          <div class="stat-tile">
+            <span class="stat-tile-label">Canjes realizados</span>
+            <span class="stat-tile-value" style="color: var(--xp-main);">11</span>
+          </div>
+        </div>
+
+        <div class="pixel-box-dark" style="padding: 12px;">
+          <h2 class="pixel-title" style="font-size: 10px; color: var(--text-cream); margin-bottom: 8px;">DATOS DE LA CUENTA</h2>
+          <p style="font-size: 14px; color: var(--text-muted); line-height: 1.6;">
+            <strong>Teléfono:</strong> +57 300 123 4567<br/>
+            <strong>Ciudad:</strong> Bogotá / Medellín, Colombia<br/>
+            <strong>Miembro desde:</strong> Marzo 2026
+          </p>
+        </div>
+
+        <div style="margin-top: auto; display: flex; justify-content: space-between; align-items: center;">
+          <a href="concepto.html" class="pixel-btn pixel-btn-secondary">VER CONCEPTO Y PALETA ↗</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =====================================================================
+       BARRA DE MENÚ INFERIOR (INICIO | PERFIL)
+  ===================================================================== -->
+  <nav class="bottom-app-bar" aria-label="Navegación principal">
+    <div class="bottom-bar-inner">
+      <button type="button" class="bottom-nav-btn active" id="navBtnHome">
+        <svg width="16" height="16" viewBox="0 0 12 12" shape-rendering="crispEdges" aria-hidden="true">
+          <polygon points="6,1 1,5 2,5 2,11 10,11 10,5 11,5" fill="currentColor"/>
+        </svg>
+        <span>INICIO</span>
+      </button>
+
+      <button type="button" class="bottom-nav-btn" id="navBtnProfile">
+        <svg width="16" height="16" viewBox="0 0 12 12" shape-rendering="crispEdges" aria-hidden="true">
+          <rect x="4" y="1" width="4" height="4" fill="currentColor"/>
+          <rect x="2" y="6" width="8" height="5" fill="currentColor"/>
+        </svg>
+        <span>PERFIL</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- =====================================================================
+       MODAL DE DETALLE (RECOMPENSA O PRODUCTO DE LA CARTA)
+  ===================================================================== -->
+  <div class="modal-overlay" id="appModal" role="dialog" aria-modal="true" aria-labelledby="appModalTitle">
+    <div class="pixel-box modal-dialog">
+      <div class="modal-hero-img" id="modalHeroImg">
+        <div id="modalSpriteHolder"></div>
+        <button type="button" class="pixel-btn pixel-btn-ruby modal-close-floating" id="btnCloseModal" style="padding: 5px 9px;">
+          X
+        </button>
+      </div>
+      <div class="modal-content-pad">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 8px;">
+          <h2 class="pixel-title" id="appModalTitle" style="font-size: 12px; color: var(--text-cream); line-height: 1.35;"></h2>
+          <span class="item-badge-highlight" id="appModalBadge"></span>
+        </div>
+        <p id="appModalDesc" style="font-size: 15px; color: var(--text-muted); line-height: 1.45;"></p>
+        <div id="appModalExtra"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // =========================================================================
+    // ILUSTRACIONES PIXEL ART EN SVG PARA NEGOCIOS, RECOMPENSAS Y CARTA
+    // =========================================================================
+    const ITEM_SVGS = {
+      fries: `<svg width="56" height="56" viewBox="0 0 16 16" shape-rendering="crispEdges"><rect x="4" y="2" width="2" height="6" fill="#FFD166"/><rect x="7" y="1" width="2" height="7" fill="#FFF3B0"/><rect x="10" y="3" width="2" height="5" fill="#F4A261"/><rect x="3" y="7" width="10" height="7" fill="#EF476F"/><rect x="5" y="9" width="6" height="3" fill="#FFD166"/></svg>`,
+      shake: `<svg width="56" height="56" viewBox="0 0 16 16" shape-rendering="crispEdges"><rect x="9" y="1" width="2" height="4" fill="#EF476F"/><rect x="5" y="3" width="6" height="3" fill="#FFF3B0"/><rect x="4" y="6" width="8" height="7" fill="#FF8FA3"/><rect x="5" y="13" width="6" height="2" fill="#90E0EF"/></svg>`,
+      burger: `<svg width="56" height="56" viewBox="0 0 16 16" shape-rendering="crispEdges"><rect x="3" y="3" width="10" height="3" fill="#F4A261"/><rect x="2" y="6" width="12" height="1" fill="#06D6A0"/><rect x="2" y="7" width="12" height="1" fill="#FFD166"/><rect x="2" y="8" width="12" height="2" fill="#6D3B28"/><rect x="3" y="10" width="10" height="2" fill="#F4A261"/></svg>`,
+      beer: `<svg width="56" height="56" viewBox="0 0 16 16" shape-rendering="crispEdges"><rect x="4" y="2" width="6" height="3" fill="#FFF3B0"/><rect x="4" y="5" width="6" height="8" fill="#F4B400"/><rect x="10" y="6" width="2" height="5" fill="#F4B400"/></svg>`,
+      coffee: `<svg width="56" height="56" viewBox="0 0 16 16" shape-rendering="crispEdges"><rect x="6" y="2" width="1" height="2" fill="#90E0EF"/><rect x="3" y="5" width="8" height="7" fill="#F8F5E6"/><rect x="4" y="6" width="6" height="2" fill="#6F4E37"/><rect x="11" y="6" width="2" height="4" fill="#F8F5E6"/><rect x="2" y="12" width="10" height="2" fill="#FFD166"/></svg>`,
+      cookie: `<svg width="56" height="56" viewBox="0 0 16 16" shape-rendering="crispEdges"><rect x="4" y="3" width="8" height="10" fill="#D4A373"/><rect x="3" y="4" width="10" height="8" fill="#D4A373"/><rect x="5" y="5" width="2" height="2" fill="#3D2314"/><rect x="9" y="6" width="2" height="2" fill="#3D2314"/><rect x="6" y="9" width="2" height="2" fill="#3D2314"/></svg>`,
+      pizza: `<svg width="56" height="56" viewBox="0 0 16 16" shape-rendering="crispEdges"><rect x="3" y="2" width="10" height="2" fill="#E09F3E"/><rect x="4" y="4" width="8" height="4" fill="#FFD166"/><rect x="5" y="8" width="6" height="3" fill="#FFD166"/><rect x="7" y="11" width="2" height="3" fill="#FFD166"/><rect x="5" y="5" width="2" height="2" fill="#EF476F"/><rect x="8" y="7" width="2" height="2" fill="#EF476F"/></svg>`,
+      gelato: `<svg width="56" height="56" viewBox="0 0 16 16" shape-rendering="crispEdges"><rect x="7" y="2" width="2" height="2" fill="#EF476F"/><rect x="5" y="4" width="6" height="3" fill="#90E0EF"/><rect x="4" y="7" width="8" height="2" fill="#FF8FA3"/><rect x="5" y="9" width="6" height="5" fill="#F4A261"/></svg>`
+    };
+
+    // =========================================================================
+    // DATOS DE LOS NEGOCIOS AFILIADOS
+    // =========================================================================
+    const BUSINESSES = [
+      {
+        id: 'forja-burger',
+        name: 'LA FORJA BURGER',
+        category: 'HAMBURGUESAS',
+        address: '📍 Calle 85 #14-22 • 🕒 12:00 p.m. – 10:30 p.m.',
+        points: 1450,
+        nextRewardIndex: 2, // COMBO FORJADOR (1500 pts)
+        visits: '14',
+        rewardsReady: '2',
+        streak: '3 SEM',
+        stageBg: 'linear-gradient(135deg, #2D193C 0%, #522346 60%, #1B1026 100%)',
+        spriteSvg: ITEM_SVGS.burger.replace('width="56" height="56"', 'width="96" height="96"'),
+        rewards: [
+          {
+            name: 'PAPAS RÚSTICAS',
+            cost: 600,
+            desc: 'Porción grande de papas en cascos con salsa de ajo tostado y páprika ahumada.',
+            details: 'Válido todos los días presentando tu código de canje en caja. No acumulable con otras promociones.',
+            available: true,
+            bg: 'linear-gradient(135deg, #3B1D38, #6D2E46)',
+            svg: ITEM_SVGS.fries
+          },
+          {
+            name: 'MALTEADA 8-BITS',
+            cost: 950,
+            desc: 'Malteada cremosa de vainilla artesanal con trozos de brownie y crema chantilly.',
+            details: 'Vaso de 16 oz preparado al instante. Puedes elegir entre vainilla, chocolate o frutos rojos.',
+            available: true,
+            bg: 'linear-gradient(135deg, #2B2450, #4A3B8C)',
+            svg: ITEM_SVGS.shake
+          },
+          {
+            name: 'COMBO FORJADOR',
+            cost: 1500,
+            desc: 'Hamburguesa doble carne a la parrilla + papas rústicas medianas + soda artesanal.',
+            details: 'Incluye nuestra Burger insignia de 300g de res madurada con doble queso cheddar.',
+            available: false,
+            bg: 'linear-gradient(135deg, #432818, #7F4F24)',
+            svg: ITEM_SVGS.burger
+          }
+        ],
+        products: [
+          {
+            name: 'BURGER HERRERO',
+            price: '$26.000',
+            points: '+260 PTS',
+            desc: 'Carne 180g a la parrilla, cheddar fundido, tocineta ahumada y pan brioche.',
+            details: 'Al comprar este producto en el local acumulas automáticamente 260 puntos en tu cuenta.',
+            bg: 'linear-gradient(135deg, #3D2622, #6F3E30)',
+            svg: ITEM_SVGS.burger
+          },
+          {
+            name: 'PAPAS ESCUDO REAL',
+            price: '$14.000',
+            points: '+140 PTS',
+            desc: 'Papas rústicas bañadas en queso cheddar fundido y trozos de tocineta.',
+            details: 'Ideal para compartir. Otorga 140 puntos por cada orden facturada.',
+            bg: 'linear-gradient(135deg, #4A2545, #7D385E)',
+            svg: ITEM_SVGS.fries
+          },
+          {
+            name: 'CERVEZA PIXEL',
+            price: '$15.000',
+            points: '+150 PTS',
+            desc: 'Cerveza artesanal de barril (Rubia Dorada o Roja Maltosa, vaso 400ml).',
+            details: 'Elaborada localmente. Otorga 150 puntos en tu visita.',
+            bg: 'linear-gradient(135deg, #3B2F18, #7A5C22)',
+            svg: ITEM_SVGS.beer
+          }
+        ],
+        history: [
+          { title: 'Compra: Burger Herrero + Cerveza', date: 'Hace 2 días • Factura #4021', delta: '+410 PTS', positive: true },
+          { title: 'Bono Jueves de Forja', date: 'Hace 6 días', delta: '+200 PTS', positive: true },
+          { title: 'Canje: Papas Rústicas', date: 'Hace 2 semanas • Token #99A1', delta: '-600 PTS', positive: false }
+        ]
+      },
+      {
+        id: 'cafe-alquimista',
+        name: 'CAFÉ ALQUIMISTA',
+        category: 'CAFÉ DE ESPECIALIDAD',
+        address: '📍 Cra 11 #73-40 • 🕒 7:30 a.m. – 8:00 p.m.',
+        points: 850,
+        nextRewardIndex: 1, // COLD BREW ELIXIR (800 pts)
+        visits: '9',
+        rewardsReady: '2',
+        streak: '5 SEM',
+        stageBg: 'linear-gradient(135deg, #132A3E 0%, #1F4E5B 60%, #101E2B 100%)',
+        spriteSvg: ITEM_SVGS.coffee.replace('width="56" height="56"', 'width="96" height="96"'),
+        rewards: [
+          {
+            name: 'GALLETA CHOCO-MANA',
+            cost: 450,
+            desc: 'Galleta recién horneada con trozos de chocolate al 70% y escamas de sal marina.',
+            details: 'Horneada todas las mañanas en nuestro taller.',
+            available: true,
+            bg: 'linear-gradient(135deg, #3A2618, #6F4E37)',
+            svg: ITEM_SVGS.cookie
+          },
+          {
+            name: 'COLD BREW ELIXIR',
+            cost: 800,
+            desc: 'Infusión de café de origen extraída en frío durante 18 horas con notas cítricas.',
+            details: 'Servido con hielo cristalino y piel de naranja.',
+            available: true,
+            bg: 'linear-gradient(135deg, #16324F, #2A628F)',
+            svg: ITEM_SVGS.coffee
+          }
+        ],
+        products: [
+          {
+            name: 'CAPPUCCINO ALQUIMIA',
+            price: '$9.500',
+            points: '+142 PTS',
+            desc: 'Doble espresso de origen Huila con leche texturizada sedosa.',
+            details: 'Grano de tueste medio con notas a caramelo y cacao.',
+            bg: 'linear-gradient(135deg, #2D232E, #534B52)',
+            svg: ITEM_SVGS.coffee
+          },
+          {
+            name: 'COOKIE ARTESANAL',
+            price: '$7.000',
+            points: '+105 PTS',
+            desc: 'Masa suave de vainilla con chips de chocolate semiamargo.',
+            details: 'Suma 105 puntos por unidad.',
+            bg: 'linear-gradient(135deg, #3E2723, #6D4C41)',
+            svg: ITEM_SVGS.cookie
+          }
+        ],
+        history: [
+          { title: 'Compra: Cappuccino + Cookie', date: 'Ayer • Factura #1892', delta: '+247 PTS', positive: true }
+        ]
+      },
+      {
+        id: 'pizza-arcade',
+        name: 'PIZZERÍA 8-BITS',
+        category: 'PIZZA ARTESANAL',
+        address: '📍 Av. Poblado #10-45 • 🕒 12:30 p.m. – 11:00 p.m.',
+        points: 620,
+        nextRewardIndex: 1, // PIZZA PERSONAL (1000 pts)
+        visits: '5',
+        rewardsReady: '1',
+        streak: '2 SEM',
+        stageBg: 'linear-gradient(135deg, #3B1728 0%, #6B2137 60%, #240E1A 100%)',
+        spriteSvg: ITEM_SVGS.pizza.replace('width="56" height="56"', 'width="96" height="96"'),
+        rewards: [
+          {
+            name: 'BORDE DE QUESO',
+            cost: 500,
+            desc: 'Adición de borde relleno de queso mozzarella fundido para cualquier pizza.',
+            details: 'Aplica para pizzas medianas o familiares en comedor.',
+            available: true,
+            bg: 'linear-gradient(135deg, #4A192C, #802344)',
+            svg: ITEM_SVGS.pizza
+          },
+          {
+            name: 'PIZZA PERSONAL 8-BITS',
+            cost: 1000,
+            desc: 'Pizza personal de 4 porciones en masa madre de fermentación lenta.',
+            details: 'Elige entre Pepperoni, Margarita o Napolitana.',
+            available: false,
+            bg: 'linear-gradient(135deg, #542318, #8D3B24)',
+            svg: ITEM_SVGS.pizza
+          }
+        ],
+        products: [
+          {
+            name: 'PIZZA PEPPERONI BOSS',
+            price: '$38.000',
+            points: '+456 PTS',
+            desc: 'Doble pepperoni crocante, mozzarella fresca y salsa pomodoro.',
+            details: 'Tamaño mediano (6 porciones). Suma 456 puntos.',
+            bg: 'linear-gradient(135deg, #4A1525, #89263D)',
+            svg: ITEM_SVGS.pizza
+          }
+        ],
+        history: [
+          { title: 'Compra: Pizza Pepperoni Boss', date: 'Hace 4 días • Factura #771', delta: '+456 PTS', positive: true }
+        ]
+      },
+      {
+        id: 'heladeria-frost',
+        name: 'HELADERÍA FROST',
+        category: 'POSTRES & GELATO',
+        address: '📍 Parque Lleras #9-18 • 🕒 1:00 p.m. – 9:30 p.m.',
+        points: 900,
+        nextRewardIndex: 1, // COPA DRAGÓN HELADO (900 pts)
+        visits: '11',
+        rewardsReady: '2',
+        streak: '4 SEM',
+        stageBg: 'linear-gradient(135deg, #1B2454 0%, #314589 60%, #131838 100%)',
+        spriteSvg: ITEM_SVGS.gelato.replace('width="56" height="56"', 'width="96" height="96"'),
+        rewards: [
+          {
+            name: 'CONO DOBLE PIXEL',
+            cost: 650,
+            desc: 'Dos bolas de gelato italiano artesanal en cono de waffle crocante.',
+            details: 'Incluye todos los sabores de temporada.',
+            available: true,
+            bg: 'linear-gradient(135deg, #1D3557, #457B9D)',
+            svg: ITEM_SVGS.gelato
+          },
+          {
+            name: 'COPA DRAGÓN HELADO',
+            cost: 900,
+            desc: 'Tres bolas de gelato, brownie tibio, salsa de frutos rojos y cereza.',
+            details: '¡Ya tienes los puntos suficientes para redimir esta copa!',
+            available: true,
+            bg: 'linear-gradient(135deg, #2E294E, #54428E)',
+            svg: ITEM_SVGS.shake
+          }
+        ],
+        products: [
+          {
+            name: 'COPA FROST SUPREMA',
+            price: '$22.000',
+            points: '+220 PTS',
+            desc: 'Gelato de pistacho y frutos del bosque con barquillo artesanal.',
+            details: 'Suma 220 puntos por compra.',
+            bg: 'linear-gradient(135deg, #1E2F5B, #3A5BA0)',
+            svg: ITEM_SVGS.gelato
+          }
+        ],
+        history: [
+          { title: 'Compra: Copa Frost Suprema', date: 'Hace 3 días • Factura #310', delta: '+220 PTS', positive: true }
+        ]
+      }
+    ];
+
+    let currentIndex = 0;
+
+    // Referencias DOM
+    const viewSelectorEl = document.getElementById('viewSelector');
+    const viewStoreProfileEl = document.getElementById('viewStoreProfile');
+    const viewUserProfileEl = document.getElementById('viewUserProfile');
+    const businessSelectCardEl = document.getElementById('businessSelectCard');
+
+    const navBtnHome = document.getElementById('navBtnHome');
+    const navBtnProfile = document.getElementById('navBtnProfile');
+
+    const btnDropdownToggle = document.getElementById('btnDropdownToggle');
+    const navDropdownMenu = document.getElementById('navDropdownMenu');
+    const navDropdownWrapper = document.getElementById('navDropdownWrapper');
+
+    const appModal = document.getElementById('appModal');
+    const appModalTitle = document.getElementById('appModalTitle');
+    const appModalBadge = document.getElementById('appModalBadge');
+    const appModalDesc = document.getElementById('appModalDesc');
+    const appModalExtra = document.getElementById('appModalExtra');
+    const modalHeroImg = document.getElementById('modalHeroImg');
+    const modalSpriteHolder = document.getElementById('modalSpriteHolder');
+
+    // =========================================================================
+    // 1. DESPLEGABLE PEQUEÑO DE USUARIO (MODO OSCURO / CERRAR SESIÓN)
+    // =========================================================================
+    function toggleDropdown(forceState) {
+      const isOpen = typeof forceState === 'boolean'
+        ? forceState
+        : !navDropdownMenu.classList.contains('open');
+      navDropdownMenu.classList.toggle('open', isOpen);
+      btnDropdownToggle.setAttribute('aria-expanded', String(isOpen));
+    }
+
+    btnDropdownToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleDropdown();
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!navDropdownWrapper.contains(e.target)) {
+        toggleDropdown(false);
+      }
+    });
+
+    document.getElementById('btnToggleTheme').addEventListener('click', () => {
+      const isLight = document.body.classList.toggle('light-theme');
+      document.getElementById('themeToggleLabel').textContent = isLight
+        ? 'Cambiar a modo oscuro'
+        : 'Cambiar a modo claro';
+      toggleDropdown(false);
+    });
+
+    document.getElementById('btnLogoutOption').addEventListener('click', () => {
+      toggleDropdown(false);
+      openLogoutDialog();
+    });
+
+    // =========================================================================
+    // 2. NAVEGACIÓN ENTRE INICIO, DETALLE DE TIENDA Y PERFIL
+    // =========================================================================
+    function switchActiveView(viewId) {
+      [viewSelectorEl, viewStoreProfileEl, viewUserProfileEl].forEach(v => v.classList.remove('active'));
+      document.getElementById(viewId).classList.add('active');
+
+      navBtnHome.classList.toggle('active', viewId === 'viewSelector' || viewId === 'viewStoreProfile');
+      navBtnProfile.classList.toggle('active', viewId === 'viewUserProfile');
+    }
+
+    navBtnHome.addEventListener('click', () => {
+      renderSelectorCard('right');
+      switchActiveView('viewSelector');
+    });
+
+    navBtnProfile.addEventListener('click', () => {
+      switchActiveView('viewUserProfile');
+    });
+
+    document.getElementById('btnBrandHome').addEventListener('click', () => {
+      renderSelectorCard('right');
+      switchActiveView('viewSelector');
+    });
+
+    document.getElementById('btnBackToSelector').addEventListener('click', () => {
+      renderSelectorCard('right');
+      switchActiveView('viewSelector');
+    });
+
+    // =========================================================================
+    // 3. TARJETA PRINCIPAL (NOMBRE ARRIBA + IMAGEN GRANDE + TARJETA RECOMPENSA)
+    // =========================================================================
+    function renderSelectorCard(direction = 'right') {
+      const biz = BUSINESSES[currentIndex];
+      const nextReward = biz.rewards[biz.nextRewardIndex] || biz.rewards[0];
+
+      businessSelectCardEl.classList.remove('slide-right', 'slide-left');
+      void businessSelectCardEl.offsetWidth;
+      businessSelectCardEl.classList.add(direction === 'right' ? 'slide-right' : 'slide-left');
+
+      // 1. Nombre y categoría arriba de la imagen
+      document.getElementById('cardBizTitle').textContent = biz.name;
+      document.getElementById('cardCategoryBadge').textContent = biz.category;
+
+      // 2. Imagen del negocio grande con puntos actuales
+      document.getElementById('cardHeroStage').style.background = biz.stageBg;
+      document.getElementById('cardSpriteBox').innerHTML = biz.spriteSvg;
+      document.getElementById('cardPointsNumber').textContent = biz.points.toLocaleString('es-CO');
+
+      // 3. Tarjeta de la recompensa más próxima con foto de la recompensa
+      const nextRewardThumbEl = document.getElementById('nextRewardThumb');
+      nextRewardThumbEl.style.background = nextReward.bg;
+      nextRewardThumbEl.innerHTML = nextReward.svg;
+
+      document.getElementById('cardNextRewardTitle').textContent = nextReward.name;
+      document.getElementById('cardNextRewardDesc').textContent = nextReward.desc;
+
+      const pct = Math.min(100, Math.round((biz.points / nextReward.cost) * 100));
+      const fillEl = document.getElementById('cardXpFill');
+      fillEl.style.width = `${pct}%`;
+
+      if (pct >= 100) {
+        document.getElementById('cardXpFraction').textContent = '¡LISTA PARA CANJEAR!';
+        fillEl.classList.add('ready');
+      } else {
+        document.getElementById('cardXpFraction').textContent =
+          `${biz.points.toLocaleString('es-CO')} / ${nextReward.cost.toLocaleString('es-CO')} PTS`;
+        fillEl.classList.remove('ready');
+      }
+
+      // 4. Estadísticas
+      document.getElementById('cardStatVisits').textContent = biz.visits;
+      document.getElementById('cardStatReady').textContent = biz.rewardsReady;
+      document.getElementById('cardStatStreak').textContent = biz.streak;
+    }
+
+    document.getElementById('btnPrevBiz').addEventListener('click', (e) => {
+      e.stopPropagation();
+      currentIndex = (currentIndex - 1 + BUSINESSES.length) % BUSINESSES.length;
+      renderSelectorCard('left');
+    });
+
+    document.getElementById('btnNextBiz').addEventListener('click', (e) => {
+      e.stopPropagation();
+      currentIndex = (currentIndex + 1) % BUSINESSES.length;
+      renderSelectorCard('right');
+    });
+
+    businessSelectCardEl.addEventListener('click', () => {
+      openStoreProfileView();
+    });
+
+    businessSelectCardEl.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openStoreProfileView();
+      }
+    });
+
+    window.addEventListener('keydown', (e) => {
+      if (appModal.classList.contains('open')) {
+        if (e.key === 'Escape') closeModal();
+        return;
+      }
+      if (viewSelectorEl.classList.contains('active')) {
+        if (e.key === 'ArrowLeft') {
+          currentIndex = (currentIndex - 1 + BUSINESSES.length) % BUSINESSES.length;
+          renderSelectorCard('left');
+        } else if (e.key === 'ArrowRight') {
+          currentIndex = (currentIndex + 1) % BUSINESSES.length;
+          renderSelectorCard('right');
+        }
+      }
+    });
+
+    // =========================================================================
+    // 4. PANTALLA DE DETALLE DEL NEGOCIO (RECOMPENSAS | CARTA | MOVIMIENTOS)
+    // =========================================================================
+    function renderStoreProfile() {
+      const biz = BUSINESSES[currentIndex];
+
+      document.getElementById('profileHeroBanner').style.background = biz.stageBg;
+      document.getElementById('profileSpriteBox').innerHTML = biz.spriteSvg.replace('width="96" height="96"', 'width="44" height="44"');
+      document.getElementById('profileStoreName').textContent = biz.name;
+      document.getElementById('profileStoreAddress').textContent = biz.address;
+      document.getElementById('profilePointsNumber').textContent = `${biz.points.toLocaleString('es-CO')} PTS`;
+
+      // Tarjetas de Recompensas con imagen y clic para abrir detalle
+      const rewardsGrid = document.getElementById('profileRewardsGrid');
+      rewardsGrid.innerHTML = biz.rewards.map((r, idx) => `
+        <article class="item-pixel-card" data-reward-idx="${idx}" role="button" tabindex="0">
+          <div class="item-card-image" style="background: ${r.bg};">
+            ${r.svg}
+          </div>
+          <div class="item-card-body">
+            <div>
+              <h3 class="item-card-title">${r.name}</h3>
+              <p class="item-card-sub" style="margin-top: 4px;">${r.desc}</p>
+            </div>
+            <div class="item-card-footer">
+              <span class="item-badge-highlight">${r.cost} PTS</span>
+              <span style="font-size: 11px; font-weight: 700; color: ${r.available ? 'var(--xp-main)' : 'var(--text-muted)'};">
+                ${r.available ? 'Disponible' : 'Bloqueado'}
+              </span>
+            </div>
+          </div>
+        </article>
+      `).join('');
+
+      rewardsGrid.querySelectorAll('[data-reward-idx]').forEach(card => {
+        card.addEventListener('click', () => {
+          const idx = Number(card.getAttribute('data-reward-idx'));
+          openRewardDetailModal(biz.rewards[idx], biz);
+        });
+      });
+
+      // Tarjetas de Carta con imagen y clic para abrir detalle
+      const productsGrid = document.getElementById('profileProductsGrid');
+      productsGrid.innerHTML = biz.products.map((p, idx) => `
+        <article class="item-pixel-card" data-product-idx="${idx}" role="button" tabindex="0">
+          <div class="item-card-image" style="background: ${p.bg};">
+            ${p.svg}
+          </div>
+          <div class="item-card-body">
+            <div>
+              <h3 class="item-card-title">${p.name}</h3>
+              <p class="item-card-sub" style="margin-top: 4px;">${p.desc}</p>
+            </div>
+            <div class="item-card-footer">
+              <span class="item-badge-highlight">${p.price}</span>
+              <span class="item-badge-xp">${p.points}</span>
+            </div>
+          </div>
+        </article>
+      `).join('');
+
+      productsGrid.querySelectorAll('[data-product-idx]').forEach(card => {
+        card.addEventListener('click', () => {
+          const idx = Number(card.getAttribute('data-product-idx'));
+          openProductDetailModal(biz.products[idx], biz);
+        });
+      });
+
+      // Movimientos
+      const historyList = document.getElementById('profileHistoryList');
+      historyList.innerHTML = biz.history.map(h => `
+        <div class="history-row">
+          <div>
+            <div style="font-weight: 700; font-size: 14px; color: var(--text-cream);">${h.title}</div>
+            <div style="font-size: 12px; color: var(--text-muted); margin-top: 2px;">${h.date}</div>
+          </div>
+          <span class="pixel-title" style="font-size: 10px; color: ${h.positive ? 'var(--xp-main)' : 'var(--ruby-main)'};">
+            ${h.delta}
+          </span>
+        </div>
+      `).join('');
+    }
+
+    function openStoreProfileView() {
+      renderStoreProfile();
+      switchActiveView('viewStoreProfile');
+    }
+
+    document.querySelectorAll('[data-store-tab]').forEach(tabBtn => {
+      tabBtn.addEventListener('click', () => {
+        const targetId = tabBtn.getAttribute('data-store-tab');
+        document.querySelectorAll('[data-store-tab]').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.store-tab-panel').forEach(p => p.classList.remove('active'));
+        tabBtn.classList.add('active');
+        document.getElementById(targetId).classList.add('active');
+      });
+    });
+
+    // =========================================================================
+    // 5. MODALES DE DETALLE DE RECOMPENSA Y DE PRODUCTO DE LA CARTA
+    // =========================================================================
+    function openRewardDetailModal(reward, biz) {
+      modalHeroImg.style.background = reward.bg;
+      modalSpriteHolder.innerHTML = reward.svg.replace('width="56" height="56"', 'width="84" height="84"');
+      appModalTitle.textContent = reward.name;
+      appModalBadge.textContent = `${reward.cost} PTS`;
+      appModalDesc.textContent = reward.desc;
+
+      appModalExtra.innerHTML = `
+        <div class="pixel-box-dark" style="padding: 10px; font-size: 13px; color: var(--text-muted); margin-bottom: 10px;">
+          ${reward.details}
+        </div>
+        <button
+          type="button"
+          class="pixel-btn ${reward.available ? 'pixel-btn-xp' : 'pixel-btn-secondary'}"
+          style="width: 100%; padding: 11px;"
+          onclick="document.getElementById('appModal').classList.remove('open')"
+        >
+          ${reward.available ? 'CANJEAR RECOMPENSA' : `TE FALTAN ${reward.cost - biz.points} PTS`}
+        </button>
+      `;
+      appModal.classList.add('open');
+    }
+
+    function openProductDetailModal(product, biz) {
+      modalHeroImg.style.background = product.bg;
+      modalSpriteHolder.innerHTML = product.svg.replace('width="56" height="56"', 'width="84" height="84"');
+      appModalTitle.textContent = product.name;
+      appModalBadge.textContent = product.price;
+      appModalDesc.textContent = product.desc;
+
+      appModalExtra.innerHTML = `
+        <div class="pixel-box-dark" style="padding: 10px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+          <span style="font-size: 13px; color: var(--text-muted);">Puntos que acumulas:</span>
+          <span class="pixel-title" style="font-size: 10px; color: var(--xp-main);">${product.points}</span>
+        </div>
+        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 10px;">
+          ${product.details}
+        </p>
+        <button
+          type="button"
+          class="pixel-btn pixel-btn-gold"
+          style="width: 100%; padding: 11px;"
+          onclick="document.getElementById('appModal').classList.remove('open')"
+        >
+          ENTENDIDO
+        </button>
+      `;
+      appModal.classList.add('open');
+    }
+
+    function openLogoutDialog() {
+      modalHeroImg.style.background = 'linear-gradient(135deg, #3B1728, #6B2137)';
+      modalSpriteHolder.innerHTML = ITEM_SVGS.burger;
+      appModalTitle.textContent = 'CERRAR SESIÓN';
+      appModalBadge.textContent = 'CUENTA';
+      appModalDesc.textContent = '¿Seguro que deseas cerrar tu sesión de cliente en Loopoint?';
+      appModalExtra.innerHTML = `
+        <div style="display: flex; gap: 8px; justify-content: flex-end;">
+          <button type="button" class="pixel-btn pixel-btn-secondary" onclick="document.getElementById('appModal').classList.remove('open')">CANCELAR</button>
+          <button type="button" class="pixel-btn pixel-btn-ruby" onclick="document.getElementById('appModal').classList.remove('open')">CERRAR SESIÓN</button>
+        </div>
+      `;
+      appModal.classList.add('open');
+    }
+
+    function closeModal() {
+      appModal.classList.remove('open');
+    }
+
+    document.getElementById('btnCloseModal').addEventListener('click', closeModal);
+    appModal.addEventListener('click', (e) => {
+      if (e.target === appModal) closeModal();
+    });
+
+    // Inicializar
+    renderSelectorCard('right');
+  </script>
+</body>
+</html>

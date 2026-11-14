@@ -24,6 +24,8 @@
 - Redirecciones de compatibilidad: `/admin/config`, `/admin/business`, `/admin/program`, `/admin/economic`, `/admin/settings`.
 
 ## Encargado
-- `/encargado`, `/encargado/venta`, `/encargado/escanear`.
+- `/encargado` — dashboard operativo del encargado (solicitudes pendientes, accesos directos y FAB a registrar venta).
+- `/encargado/venta` — registrar venta con QR y detalle de ventas recientes.
+- `/encargado/solicitudes` — solicitudes de recompensa (pestaña de solicitudes pendientes para aprobación directa y pestaña de clientes ordenados por puntos acumulados).
 
 Guards: `RequireAuth` + `RequireBusinessRole` (por negocio y rol). Selector de negocio persistido por usuario (`BusinessProvider`).
