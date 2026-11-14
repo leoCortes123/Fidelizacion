@@ -1,11 +1,13 @@
 # Loopoint — Maquetación Responsiva Módulo de Clientes (Pixel Art)
 
-Maquetación web responsiva en HTML/CSS/JS con estética de videojuego Pixel Art (16-Bit RPG) para el módulo de clientes de **Loopoint**.
+Maquetación web responsiva fijada a pantalla (`100dvh`) en HTML/CSS/JS para el módulo de clientes de **Loopoint**, con dos opciones de estilo sobre la misma estructura exacta.
 
 ## Archivos del proyecto
-- `index.html` — Aplicación web responsiva real (sin marco de teléfono emulado). Incluye:
-  1. **Barra superior (`header`)** con el nombre de la aplicación (**LOOPOINT**), contador global de monedas y **menú desplegable (`OPCIONES`)**.
-  2. **Pantalla principal (Selector de Negocios):** tarjeta coleccionable de cada negocio con **flechas a los costados (`◀ PREV` / `NEXT ▶`)** para intercambiar entre negocios como en un videojuego.
-  3. **Página de Perfil de la Tienda:** se abre al pulsar **`▶ ENTRAR AL LOCAL`**, mostrando el banner de la tienda, dirección/horario, saldo del cliente en ese local, barra de experiencia (XP), reglas del programa y pestañas interactivas (*Recompensas*, *Carta del Local* y *Tus Movimientos*).
-- `concepto.html` — Página independiente con la explicación del concepto de diseño, la paleta de colores *"Tavern & Treasure"* y el sistema tipográfico.
-- `styles.css` — Hoja de estilos compartida, mobile-first y responsiva.
+- **`index.html` + `styles.css` (Opción 1 — Paleta propuesta *"Tavern & Treasure"*):**
+  Estética consola portátil / RPG con modo claro y modo oscuro.
+- **`opcion-actual.html` + `styles-actual.css` (Opción 2 — Estilos actuales de la página publicada):**
+  Misma estructura exacta de la Opción 1, aplicando el sistema visual actual de la web publicada (`LandingPage.css`):
+  - Papel cálido (`#f6edda`), tarjetas crema (`#fffdf5`), bordes sólidos de `3px`/`4px` en tinta carbón (`#1e1c1a`) y sombras duras desplazadas (`4px 4px 0 #1e1c1a` / `8px 8px 0 #1e1c1a`).
+  - Cabeceras de ventana en azul acero (`#467299`) con LED verde (`#34d399`), acentos en rojo coral (`#e6533f`), miniatura de recompensa en naranja (`#f2a541`), oro (`#ffd166`) y barra de progreso en verde bosque (`#4e8c57`).
+  - Tipografías de la web actual: `Press Start 2P`, `DM Mono` y `Space Grotesk`.
+- **`concepto.html`:** Documento independiente con la explicación del concepto y paleta de colores.

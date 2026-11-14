@@ -1,7 +1,7 @@
 # Estado del proyecto
 
 **Última actualización:** 27/10/2026
-**Workspace:** `/home/leonardo/Fidelizacion`
+**Workspace:** `/mnt/datos/Programacion/Fidelizacion`
 **Estado:** módulo multiempresa **completo y desplegado** (fases 0–7) y rediseño
 Loopoint **cerrado hasta F9** (auditoría legible, pruebas, documentación y
 despliegue final). Web en producción, 31 migraciones en paridad con Supabase remoto
@@ -16,7 +16,7 @@ y suites en verde.
 ## 1. Estructura y repositorios
 
 ```text
-/home/leonardo/Fidelizacion/
+/mnt/datos/Programacion/Fidelizacion/
 ├── fidelizacionWeb/     React + Vite + Tailwind + Playwright
 ├── fidelizacionApi/     Supabase: migraciones, RPC, RLS, seed y pruebas SQL
 ├── fidelizacionApp/     Espacio reservado para Android (sin código aún)
@@ -115,13 +115,13 @@ Verificación remota:
 
 ```bash
 # API
-cd /home/leonardo/Fidelizacion/fidelizacionApi
+cd /mnt/datos/Programacion/Fidelizacion/fidelizacionApi
 npm run db:start
 npm run db:reset
 npm test
 
 # Web
-cd /home/leonardo/Fidelizacion/fidelizacionWeb
+cd /mnt/datos/Programacion/Fidelizacion/fidelizacionWeb
 npm ci
 npm run dev
 npm run test:all      # typecheck + unitarias + E2E (puerto 5199)
@@ -136,7 +136,7 @@ npx playwright install chromium
 Remoto:
 
 ```bash
-cd /home/leonardo/Fidelizacion/fidelizacionApi
+cd /mnt/datos/Programacion/Fidelizacion/fidelizacionApi
 npx supabase migration list --linked
 npx supabase db push
 ```
@@ -144,7 +144,7 @@ npx supabase db push
 Web:
 
 ```bash
-cd /home/leonardo/Fidelizacion/fidelizacionWeb
+cd /mnt/datos/Programacion/Fidelizacion/fidelizacionWeb
 npx vercel deploy --prod --yes
 ```
 
