@@ -15,7 +15,7 @@ Fuente: `documentacion/ARQUITECTURA.md`, `documentacion/ESTADO_PROYECTO.md`. Act
 - Invitaciones QR de miembros: `business_member_invite_create` (admin), `business_member_invite_preview` (anon/authenticated), `business_member_invite_accept` (authenticated; crea membresía o cambia rol si ya era cliente; no degrada admin ni encargado), `business_member_invite_revoke` (admin).
 
 ## Programa y carta
-- `business_program_upsert`, `products_list`, `product_upsert` (acepta `p_image_url` en `business-assets`), `product_combo_set`, `reward_*`.
+- `business_program_upsert`, `products_list` (staff ve activos/inactivos y `cost_cop`; cliente miembro ve solo activos con `cost_cop = null`), `product_upsert` (acepta `p_image_url` en `business-assets`), `product_combo_set`, `reward_*`.
 
 ## Compras
 - `purchase_qr_create`, `purchase_qr_create_with_items`, `purchase_qr_preview`, `purchase_qr_claim`, `purchase_list`, `purchase_detail`.

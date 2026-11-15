@@ -5,8 +5,8 @@
 - `/login`, `/auth/callback`, `/join/:slug`, `/claim/:token`, `/scan/:token`.
 
 ## Cliente (rol customer)
-- `/customer` — selector de negocios y resumen de puntos totales.
-- `/customer/business/:businessId` — inicio por negocio (saldo, recompensas con barra de progreso, movimientos y compras).
+- `/customer` — selector arcade de negocios afiliados (puntos, categoría, descripción, 3 recompensas con barra de progreso y acceso a `MÁS RECOMPENSAS`).
+- `/customer/business/:businessId` — detalle del negocio (cabecera replicada + pestañas `RECOMPENSAS`, `CARTA` y `MOVIMIENTOS`, con modales de detalle).
 - `/customer/purchases`, `/customer/redemptions`, `/customer/perfil` (y `/perfil`).
 
 ## Administrador (rol admin)
