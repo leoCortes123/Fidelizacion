@@ -8,6 +8,8 @@ Fuente: `documentacion/ARQUITECTURA.md`, `documentacion/ESTADO_PROYECTO.md`. Act
 ## Autenticación / perfil
 - `handle_new_user` (trigger) — crea profile (con `account_type` `customer` | `admin`) y roles; bootstrap admin si está en `private.bootstrap_admins`.
 - `profile_set_account_type(p_account_type)` — guarda el tipo de cuenta (`customer` | `admin`) en `profiles` tras OAuth/registro sin otorgar permisos globales legacy.
+- `profile_avatar_set(p_avatar_url)` — guarda o limpia `profiles.avatar_url` dentro de `business-assets/avatars/<user_id>/`.
+- `get_my_profile`, `profile_update` — incluyen `avatar_url`.
 - `get_my_app_roles()` — combina `user_roles`, `business_memberships` y `profiles.account_type = 'admin'`.
 
 ## Negocios y membresías
@@ -15,7 +17,7 @@ Fuente: `documentacion/ARQUITECTURA.md`, `documentacion/ESTADO_PROYECTO.md`. Act
 - Invitaciones QR de miembros: `business_member_invite_create` (admin), `business_member_invite_preview` (anon/authenticated), `business_member_invite_accept` (authenticated; crea membresía o cambia rol si ya era cliente; no degrada admin ni encargado), `business_member_invite_revoke` (admin).
 
 ## Programa y carta
-- `business_program_upsert`, `products_list` (staff ve activos/inactivos y `cost_cop`; cliente miembro ve solo activos con `cost_cop = null`), `product_upsert` (acepta `p_image_url` en `business-assets`), `product_combo_set`, `reward_*`.
+- `business_program_upsert`, `products_list` (staff ve activos/inactivos y `cost_cop`; cliente miembro ve solo activos con `cost_cop = null`), `product_upsert` (acepta `p_image_url` en `business-assets`), `product_combo_set`, `loyalty_reward_upsert` (acepta `p_image_url` en `business-assets`), `loyalty_rewards_list`, `loyalty_rewards_available`.
 
 ## Compras
 - `purchase_qr_create`, `purchase_qr_create_with_items`, `purchase_qr_preview`, `purchase_qr_claim`, `purchase_list`, `purchase_detail`.

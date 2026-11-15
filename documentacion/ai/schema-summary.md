@@ -2,14 +2,14 @@
 
 Tablas clave (multiempresa, todo lleva `business_id`):
 
-- `profiles` — nombre, correo, `nickname`, `account_type` (`customer` | `admin`), fechas.
+- `profiles` — nombre, correo, `nickname`, `avatar_url`, `account_type` (`customer` | `admin`), fechas.
 - `user_roles` — rol global legacy (`customer`, `admin`, `registrar`).
 - `businesses` — negocio, slug, logo, estado.
 - `business_memberships` — usuario ↔ negocio con rol (`admin`/`encargado`/`cliente`).
 - `business_member_invites` — invitaciones QR de un solo uso (hash SHA-256, rol destino, expiración).
 - `business_programs` — reglas de acumulación/canje.
 - `products` — carta (incluye combos y foto `image_url`).
-- `rewards` — recompensas con límites.
+- `rewards` / `loyalty_rewards` — recompensas con límites y foto `image_url`.
 - `purchases` + `purchase_items` — compras con snapshot de reglas.
 - `points_ledger` + `point_lots` — libro inmutable y lotes con `expires_at`.
 - `redemptions` + `redemption_tokens` — canjes y tokens SHA-256.
