@@ -1,0 +1,563 @@
+<template>
+  <style>
+    @font-face { font-family: "Press Start 2P"; src: url("assets/fonts/press-start-2p.woff2") format("woff2"); font-weight: 400; }
+    @font-face { font-family: "Space Grotesk"; src: url("assets/fonts/space-grotesk-latin-500-normal.woff2") format("woff2"); font-weight: 500; }
+    @font-face { font-family: "Space Grotesk"; src: url("assets/fonts/space-grotesk-latin-700-normal.woff2") format("woff2"); font-weight: 700; }
+    @font-face { font-family: "DM Mono"; src: url("assets/fonts/dm-mono-latin-500-normal.woff2") format("woff2"); font-weight: 500; }
+
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      color: #1e1c1a;
+      font-family: "Space Grotesk", sans-serif;
+    }
+
+    #s-paper {
+      position: absolute;
+      inset: 0;
+      background-color: #f6edda;
+      background-image:
+        radial-gradient(rgba(30, 28, 26, 0.13) 1.5px, transparent 1.5px),
+        linear-gradient(to right, rgba(30, 28, 26, 0.04) 2px, transparent 2px),
+        linear-gradient(to bottom, rgba(30, 28, 26, 0.04) 2px, transparent 2px);
+      background-size: 12px 12px, 48px 48px, 48px 48px;
+    }
+
+    /* Columna izquierda: título + contador de visitas */
+    #s-copy-clip {
+      position: absolute;
+      left: 140px;
+      top: 230px;
+      width: 640px;
+    }
+    .s-title {
+      font-weight: 700;
+      font-size: 126px;
+      line-height: 1.02;
+      letter-spacing: -0.03em;
+    }
+    .s-title .w {
+      display: inline-block;
+    }
+    .s-title .red {
+      color: #e6533f;
+      text-shadow: 6px 6px 0 #1e1c1a;
+    }
+    .s-visits {
+      margin-top: 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .s-visit-row {
+      display: inline-flex;
+      align-items: center;
+      gap: 18px;
+      background: #fffdf5;
+      border: 4px solid #1e1c1a;
+      box-shadow: 6px 6px 0 #1e1c1a;
+      padding: 14px 22px;
+      width: fit-content;
+      font: 500 28px/1.2 "DM Mono", monospace;
+    }
+    .s-visit-row img {
+      width: 34px;
+      height: 34px;
+      image-rendering: pixelated;
+    }
+    .s-visit-pts {
+      font: 700 28px/1.2 "DM Mono", monospace;
+      color: #2e6b38;
+    }
+
+    /* Columna derecha: PLAYER CARD real */
+    #s-card-clip {
+      position: absolute;
+      left: 820px;
+      top: 100px;
+      width: 960px;
+    }
+    #s-window {
+      position: relative;
+      width: 100%;
+      background: #fffdf5;
+      border: 6px solid #1e1c1a;
+      box-shadow: inset 4px 4px 0 rgba(255, 255, 255, 0.14), 16px 16px 0 #1e1c1a;
+    }
+    .s-bar {
+      background: #467299;
+      border-bottom: 6px solid #1e1c1a;
+      padding: 16px 26px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #ffffff;
+      font: 700 28px/1.2 "DM Mono", monospace;
+      letter-spacing: 0.04em;
+    }
+    .s-bar-title {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .s-led {
+      width: 16px;
+      height: 16px;
+      background: #34d399;
+      border: 3px solid #1e1c1a;
+      display: inline-block;
+    }
+    .s-hearts {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .s-hearts svg {
+      width: 28px;
+      height: 26px;
+      display: block;
+    }
+    .s-body {
+      padding: 26px 32px 30px;
+    }
+    .s-tabs {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .s-tab {
+      border: 4px solid #1e1c1a;
+      background: #f6edda;
+      color: #1e1c1a;
+      padding: 12px 10px;
+      font: 600 28px/1.2 "Space Grotesk", sans-serif;
+      text-align: center;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .s-tab.active {
+      background: #b83726;
+      color: #fffdf5;
+      box-shadow: 4px 4px 0 #1e1c1a;
+    }
+    .s-hud-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .s-points-label {
+      font: 700 28px/1.2 "DM Mono", monospace;
+      color: #544c3f;
+    }
+    #s-level-pill {
+      background: #ffd166;
+      border: 4px solid #1e1c1a;
+      padding: 10px 14px;
+      font: 700 28px/1.1 "DM Mono", monospace;
+      color: #1e1c1a;
+      white-space: nowrap;
+    }
+    .s-points-row {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      margin: 20px 0 16px;
+    }
+    #s-main-coin {
+      width: 78px;
+      height: 78px;
+      image-rendering: pixelated;
+      filter: drop-shadow(5px 5px 0 #1e1c1a);
+    }
+    #s-points-val {
+      font: 52px/1.1 "Press Start 2P", monospace;
+      color: #e6533f;
+      text-shadow: 4px 4px 0 #1e1c1a;
+    }
+    #s-progress-caption {
+      font: 500 28px/1.2 "DM Mono", monospace;
+      color: #1e1c1a;
+    }
+    .s-progress {
+      height: 34px;
+      border: 5px solid #1e1c1a;
+      background: #e5dcc9;
+      margin: 14px 0 12px;
+      position: relative;
+      overflow: hidden;
+    }
+    #s-progress-fill {
+      display: block;
+      height: 100%;
+      width: 100%;
+      transform-origin: 0% 50%;
+      background: repeating-linear-gradient(
+        to right,
+        #4e8c57 0px,
+        #4e8c57 24px,
+        #3d7345 24px,
+        #3d7345 30px
+      );
+      border-right: 4px solid #1e1c1a;
+    }
+    .s-progress-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font: 500 28px/1.2 "DM Mono", monospace;
+      color: #544c3f;
+    }
+    #s-progress-pct {
+      color: #1e1c1a;
+      font-weight: 700;
+    }
+    .s-reward-box {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      background: #f6edda;
+      border: 5px solid #1e1c1a;
+      box-shadow: 7px 7px 0 #1e1c1a;
+      padding: 18px 22px;
+      margin-top: 20px;
+    }
+    .s-gift-box {
+      width: 78px;
+      height: 78px;
+      background: #f2a541;
+      border: 4px solid #1e1c1a;
+      box-shadow: inset 3px 3px 0 rgba(255, 255, 255, 0.35);
+      display: grid;
+      place-items: center;
+      position: relative;
+      flex: none;
+    }
+    .s-gift-box svg {
+      width: 48px;
+      height: 48px;
+      position: absolute;
+    }
+    #s-reward-tag {
+      display: inline-block;
+      font: 700 28px/1.2 "DM Mono", monospace;
+      color: #b83726;
+      margin-bottom: 6px;
+    }
+    .s-reward-name {
+      display: block;
+      font-weight: 700;
+      font-size: 32px;
+      line-height: 1.15;
+    }
+    .s-reward-cost {
+      display: block;
+      font: 500 28px/1.25 "DM Mono", monospace;
+      color: #544c3f;
+      margin-top: 4px;
+    }
+    .s-footer-row {
+      margin-top: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .s-slug {
+      font: 500 28px/1.2 "DM Mono", monospace;
+      color: #544c3f;
+    }
+    #s-redeem-btn {
+      background: #e6533f;
+      color: #fffdf5;
+      border: 5px solid #1e1c1a;
+      box-shadow: inset 3px 3px 0 rgba(255, 255, 255, 0.25), 6px 6px 0 #1e1c1a;
+      padding: 18px 28px;
+      font: 700 29px/1.2 "DM Mono", monospace;
+      text-transform: uppercase;
+    }
+
+    /* Monedas viajeras */
+    .s-drop-coin-clip {
+      position: absolute;
+      left: 880px;
+      top: 325px;
+      width: 82px;
+      height: 82px;
+      z-index: 25;
+      pointer-events: none;
+    }
+    .s-drop-coin {
+      width: 82px;
+      height: 82px;
+      image-rendering: pixelated;
+      filter: drop-shadow(4px 4px 0 #1e1c1a);
+    }
+
+    /* Cursor */
+    #s-cursor-clip {
+      position: absolute;
+      left: 1540px;
+      top: 840px;
+      width: 112px;
+      height: 112px;
+      z-index: 40;
+    }
+    #s-cursor {
+      width: 112px;
+      height: 112px;
+    }
+
+    /* Inundación roja desde el botón Canjear ahora */
+    #s-flood-clip {
+      position: absolute;
+      inset: 0;
+      z-index: 50;
+      pointer-events: none;
+    }
+    #s-flood {
+      position: absolute;
+      left: 1410px;
+      top: 785px;
+      width: 310px;
+      height: 76px;
+      background: #e6533f;
+    }
+  </style>
+
+  <div id="root" data-composition-id="saldo" data-width="1920" data-height="1080">
+    <div id="s-paper"></div>
+
+    <div id="s-copy-clip" class="clip" data-start="0" data-duration="6.8" data-layout-allow-overflow>
+      <div id="s-copy">
+        <h2 class="s-title">
+          <span class="w">Cada</span> <span class="w">visita</span><br /><span class="w red">suma.</span>
+        </h2>
+        <div class="s-visits">
+          <div id="s-v1" class="s-visit-row">
+            <img src="assets/loopoint-coin.png" alt="" />
+            <span>Visita 1</span>
+            <span class="s-visit-pts">+150 PTS</span>
+          </div>
+          <div id="s-v2" class="s-visit-row">
+            <img src="assets/loopoint-coin.png" alt="" />
+            <span>Visita 2</span>
+            <span class="s-visit-pts">+350 PTS</span>
+          </div>
+          <div id="s-v3" class="s-visit-row">
+            <img src="assets/loopoint-coin.png" alt="" />
+            <span>Visita 3</span>
+            <span class="s-visit-pts">+400 PTS</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="s-card-clip" class="clip" data-start="0" data-duration="7.2" data-layout-allow-overflow>
+      <div id="s-window">
+        <div class="s-bar">
+          <span class="s-bar-title"><span class="s-led"></span>PLAYER CARD · MÁS CERCANAS</span>
+          <span class="s-hearts">
+            <svg viewBox="0 0 12 11" shape-rendering="crispEdges"><path fill="#e6533f" d="M2 1h3v1h2V1h3v1h1v3h-1v2H9v1H8v1H7v1H5V9H4V8H3V7H2V5H1V2h1V1z"/><rect x="2" y="2" width="2" height="1" fill="#fecaca"/></svg>
+            <svg viewBox="0 0 12 11" shape-rendering="crispEdges"><path fill="#e6533f" d="M2 1h3v1h2V1h3v1h1v3h-1v2H9v1H8v1H7v1H5V9H4V8H3V7H2V5H1V2h1V1z"/><rect x="2" y="2" width="2" height="1" fill="#fecaca"/></svg>
+            <svg viewBox="0 0 12 11" shape-rendering="crispEdges"><path fill="#e6533f" d="M2 1h3v1h2V1h3v1h1v3h-1v2H9v1H8v1H7v1H5V9H4V8H3V7H2V5H1V2h1V1z"/><rect x="2" y="2" width="2" height="1" fill="#fecaca"/></svg>
+          </span>
+        </div>
+
+        <div class="s-body">
+          <div class="s-tabs">
+            <div class="s-tab active">Café Aurora</div>
+            <div class="s-tab">El Fogón</div>
+            <div class="s-tab">Panadería Sol</div>
+          </div>
+
+          <div class="s-hud-meta">
+            <span class="s-points-label">SALDO EN CAFÉ AURORA</span>
+            <span id="s-level-pill" data-beat="5.2">JUGADOR ACTIVO</span>
+          </div>
+
+          <div class="s-points-row">
+            <img id="s-main-coin" src="assets/loopoint-coin.png" alt="" />
+            <div id="s-points-val">1.100 PTS</div>
+          </div>
+
+          <div id="s-progress-caption">¡ESTÁS CERCA DE TU PRÓXIMO PREMIO!</div>
+          <div class="s-progress">
+            <span id="s-progress-fill"></span>
+          </div>
+          <div class="s-progress-footer">
+            <span id="s-progress-rem">FALTAN 900 PTS PARA CAFÉ GRATIS</span>
+            <strong id="s-progress-pct">55%</strong>
+          </div>
+
+          <div class="s-reward-box">
+            <div class="s-gift-box">
+              <svg id="s-icon-gift" viewBox="0 0 16 16" shape-rendering="crispEdges">
+                <rect x="4" y="1" width="3" height="2" fill="#e6533f" />
+                <rect x="9" y="1" width="3" height="2" fill="#e6533f" />
+                <rect x="6" y="2" width="4" height="2" fill="#b91c1c" />
+                <rect x="1" y="4" width="14" height="3" fill="#f2a541" />
+                <rect x="2" y="7" width="12" height="7" fill="#d97706" />
+                <rect x="3" y="7" width="10" height="6" fill="#facc15" />
+                <rect x="7" y="4" width="2" height="10" fill="#e6533f" />
+                <rect x="2" y="9" width="12" height="2" fill="#e6533f" />
+              </svg>
+              <svg id="s-icon-trophy" viewBox="0 0 16 16" shape-rendering="crispEdges" style="opacity:0">
+                <rect x="4" y="1" width="8" height="2" fill="#facc15" />
+                <rect x="2" y="2" width="2" height="4" fill="#d97706" />
+                <rect x="12" y="2" width="2" height="4" fill="#d97706" />
+                <rect x="4" y="3" width="8" height="5" fill="#f2a541" />
+                <rect x="5" y="3" width="2" height="4" fill="#fef08a" />
+                <rect x="6" y="8" width="4" height="3" fill="#d97706" />
+                <rect x="4" y="11" width="8" height="2" fill="#facc15" />
+                <rect x="3" y="13" width="10" height="2" fill="#24221f" />
+              </svg>
+            </div>
+            <div>
+              <span id="s-reward-tag">PRÓXIMO CANJE</span>
+              <strong class="s-reward-name">Café gratis</strong>
+              <small class="s-reward-cost">Canjea con 2.000 loopoints</small>
+            </div>
+          </div>
+
+          <div class="s-footer-row">
+            <span class="s-slug">@cafe-aurora</span>
+            <span id="s-redeem-btn">Canjear ahora →</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="s-coin1-clip" class="s-drop-coin-clip clip" data-start="0.4" data-duration="0.7" data-layout-allow-overflow>
+      <img id="s-coin1" class="s-drop-coin" src="assets/loopoint-coin.png" alt="" />
+    </div>
+    <div id="s-coin2-clip" class="s-drop-coin-clip clip" data-start="2.6" data-duration="0.7" data-layout-allow-overflow>
+      <img id="s-coin2" class="s-drop-coin" src="assets/loopoint-coin.png" alt="" />
+    </div>
+    <div id="s-coin3-clip" class="s-drop-coin-clip clip" data-start="4.1" data-duration="0.7" data-layout-allow-overflow>
+      <img id="s-coin3" class="s-drop-coin" src="assets/loopoint-coin.png" alt="" />
+    </div>
+
+    <div id="s-cursor-clip" class="clip" data-start="5.6" data-duration="1.1" data-layout-allow-overflow>
+      <svg id="s-cursor" viewBox="0 0 32 32" shape-rendering="crispEdges">
+        <path d="M6 2 L6 24 L12 19 L16 28 L20 26 L16 17 L24 17 Z" fill="#fffdf5" stroke="#1e1c1a" stroke-width="2.5" stroke-linejoin="miter" />
+      </svg>
+    </div>
+
+    <div id="s-flood-clip" class="clip" data-start="6.45" data-duration="1.05" data-layout-allow-overflow data-layout-allow-occlusion>
+      <div id="s-flood"></div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      const words = gsap.utils.toArray("#s-copy .w");
+      const ptsEl = document.getElementById("s-points-val");
+      const capEl = document.getElementById("s-progress-caption");
+      const remEl = document.getElementById("s-progress-rem");
+      const pctEl = document.getElementById("s-progress-pct");
+      const pillEl = document.getElementById("s-level-pill");
+      const tagEl = document.getElementById("s-reward-tag");
+
+      function fmtNum(n) {
+        return Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+      }
+
+      // Función determinista de saldo según tiempo de timeline
+      function syncMetrics(t) {
+        let pts = 1100;
+        let pct = 55;
+        if (t >= 0.95 && t < 3.15) {
+          const p = Math.min(1, (t - 0.95) / 0.35);
+          const s = Math.floor(p * 6) / 6;
+          pts = 1100 + 150 * (p >= 1 ? 1 : s);
+          pct = 55 + 8 * (p >= 1 ? 1 : s);
+        } else if (t >= 3.15 && t < 4.65) {
+          const p = Math.min(1, (t - 3.15) / 0.35);
+          const s = Math.floor(p * 6) / 6;
+          pts = 1250 + 350 * (p >= 1 ? 1 : s);
+          pct = 63 + 17 * (p >= 1 ? 1 : s);
+        } else if (t >= 4.65) {
+          const p = Math.min(1, (t - 4.65) / 0.35);
+          const s = Math.floor(p * 6) / 6;
+          pts = 1600 + 400 * (p >= 1 ? 1 : s);
+          pct = 80 + 20 * (p >= 1 ? 1 : s);
+        }
+        const roundedPts = Math.round(pts);
+        const roundedPct = Math.round(pct);
+        ptsEl.textContent = fmtNum(roundedPts) + " PTS";
+        pctEl.textContent = roundedPct + "%";
+
+        if (t >= 4.96) {
+          pillEl.textContent = "PREMIO LISTO";
+          pillEl.style.background = "#34d399";
+          capEl.textContent = "¡TIENES UN PREMIO LISTO PARA RECLAMAR!";
+          remEl.textContent = "LISTO PARA CANJEAR EN CAJA";
+          tagEl.textContent = "LISTO PARA CANJEAR";
+        } else {
+          pillEl.textContent = "JUGADOR ACTIVO";
+          pillEl.style.background = "#ffd166";
+          capEl.textContent = "¡ESTÁS CERCA DE TU PRÓXIMO PREMIO!";
+          remEl.textContent = "FALTAN " + fmtNum(Math.max(0, 2000 - roundedPts)) + " PTS PARA CAFÉ GRATIS";
+          tagEl.textContent = "PRÓXIMO CANJE";
+        }
+      }
+
+      tl.eventCallback("onUpdate", function () {
+        syncMetrics(tl.time());
+      });
+      syncMetrics(0);
+
+      // PLAYER CARD entra desde la derecha; título entra por palabra
+      tl.fromTo("#s-window", { x: 1050 }, { x: 0, duration: 0.65, ease: "expo.out" }, 0);
+      tl.fromTo(words, { opacity: 0, filter: "blur(6px)" },
+        { opacity: 1, filter: "blur(0px)", duration: 0.13, stagger: 0.08, ease: "power2.out" }, 0.12);
+      tl.fromTo("#s-progress-fill", { scaleX: 0.55 }, { scaleX: 0.55, duration: 0.01 }, 0);
+
+      // Visita 1 (+150 -> 1.250 PTS) — moneda aterriza a 0.95s (sfx-pop-v1 a 0.98s)
+      tl.fromTo("#s-coin1", { x: -960, y: -220, scale: 1.5, rotation: -20 },
+        { x: 0, y: 0, scale: 1, rotation: 0, duration: 0.55, ease: "power2.in" }, 0.4);
+      tl.to("#s-main-coin", { scaleY: 0.78, scaleX: 1.18, duration: 0.08, ease: "power2.out", transformOrigin: "50% 100%" }, 0.95);
+      tl.to("#s-main-coin", { scaleY: 1, scaleX: 1, duration: 0.25, ease: "back.out(2)", transformOrigin: "50% 100%" }, 1.03);
+      tl.fromTo("#s-v1", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.3, ease: "expo.out" }, 0.95);
+      tl.to("#s-progress-fill", { scaleX: 0.63, duration: 0.35, ease: "steps(6)" }, 0.95);
+
+      // Visita 2 (+350 -> 1.600 PTS) — moneda aterriza a 3.15s (sfx-pop-v2 a 3.18s)
+      tl.fromTo("#s-coin2", { x: -720, y: -380, scale: 1.4, rotation: 24 },
+        { x: 0, y: 0, scale: 1, rotation: 0, duration: 0.55, ease: "power2.in" }, 2.6);
+      tl.to("#s-main-coin", { scaleY: 0.78, scaleX: 1.18, duration: 0.08, ease: "power2.out", transformOrigin: "50% 100%" }, 3.15);
+      tl.to("#s-main-coin", { scaleY: 1, scaleX: 1, duration: 0.25, ease: "back.out(2)", transformOrigin: "50% 100%" }, 3.23);
+      tl.fromTo("#s-v2", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.3, ease: "expo.out" }, 3.15);
+      tl.to("#s-progress-fill", { scaleX: 0.80, duration: 0.35, ease: "steps(6)" }, 3.15);
+
+      // Visita 3 (+400 -> 2.000 PTS, 100%) — moneda aterriza a 4.65s (sfx-pop-v3 a 4.68s)
+      tl.fromTo("#s-coin3", { x: -560, y: -420, scale: 1.5, rotation: -30 },
+        { x: 0, y: 0, scale: 1, rotation: 0, duration: 0.55, ease: "power2.in" }, 4.1);
+      tl.to("#s-main-coin", { scaleY: 0.72, scaleX: 1.24, duration: 0.09, ease: "power2.out", transformOrigin: "50% 100%" }, 4.65);
+      tl.to("#s-main-coin", { scaleY: 1, scaleX: 1, duration: 0.32, ease: "back.out(2.2)", transformOrigin: "50% 100%" }, 4.74);
+      tl.fromTo("#s-v3", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.3, ease: "expo.out" }, 4.65);
+      tl.to("#s-progress-fill", { scaleX: 1.0, duration: 0.35, ease: "steps(6)" }, 4.65);
+
+      // PREMIO LISTO (t=4.96s -> sfx-ready a 5.0s)
+      tl.to("#s-level-pill", { scale: 1.12, duration: 0.16, ease: "back.out(2)" }, 4.96);
+      tl.to("#s-level-pill", { scale: 1, duration: 0.2, ease: "power2.out" }, 5.12);
+      tl.to("#s-icon-gift", { opacity: 0, scale: 0.6, duration: 0.14 }, 4.96);
+      tl.fromTo("#s-icon-trophy", { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 0.28, ease: "back.out(2.4)" }, 5.02);
+
+      // Cursor toca "Canjear ahora" (clic a 6.37s -> sfx-click-redeem a 6.4s)
+      tl.fromTo("#s-cursor", { x: 260, y: 200, opacity: 0 }, { x: 0, y: 0, opacity: 1, duration: 0.55, ease: "expo.out" }, 5.65);
+      tl.to("#s-cursor", { scale: 0.8, y: 8, duration: 0.08, ease: "power2.in", transformOrigin: "20% 10%" }, 6.34);
+      tl.to("#s-redeem-btn", { scale: 0.96, y: 3, duration: 0.08, ease: "power2.in" }, 6.34);
+      tl.to("#s-cursor", { opacity: 0, duration: 0.14 }, 6.44);
+
+      // El botón rojo inunda la pantalla (6.46s -> 7.45s, match cut a canje.html)
+      tl.fromTo("#s-flood", { scaleX: 1, scaleY: 1, borderRadius: "0px" },
+        { scaleX: 16, scaleY: 28, duration: 0.95, ease: "power3.inOut", transformOrigin: "50% 50%" }, 6.46);
+
+      window.__timelines["saldo"] = tl;
+    })();
+  </script>
+</template>

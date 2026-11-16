@@ -1,0 +1,196 @@
+<template>
+  <style>
+    @font-face { font-family: "Press Start 2P"; src: url("assets/fonts/press-start-2p.woff2") format("woff2"); font-weight: 400; }
+    @font-face { font-family: "Space Grotesk"; src: url("assets/fonts/space-grotesk-latin-500-normal.woff2") format("woff2"); font-weight: 500; }
+    @font-face { font-family: "Space Grotesk"; src: url("assets/fonts/space-grotesk-latin-700-normal.woff2") format("woff2"); font-weight: 700; }
+    @font-face { font-family: "DM Mono"; src: url("assets/fonts/dm-mono-latin-500-normal.woff2") format("woff2"); font-weight: 500; }
+
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      color: #1e1c1a;
+      font-family: "Space Grotesk", sans-serif;
+    }
+
+    #f-paper {
+      position: absolute;
+      inset: 0;
+      background-color: #f6edda;
+      background-image:
+        radial-gradient(rgba(30, 28, 26, 0.13) 1.5px, transparent 1.5px),
+        linear-gradient(to right, rgba(30, 28, 26, 0.04) 2px, transparent 2px),
+        linear-gradient(to bottom, rgba(30, 28, 26, 0.04) 2px, transparent 2px);
+      background-size: 12px 12px, 48px 48px, 48px 48px;
+    }
+
+    /* Claim: Compra. Acumula. Gana más. */
+    #f-claim-clip {
+      position: absolute;
+      left: 160px;
+      top: 340px;
+      width: 1600px;
+      text-align: center;
+    }
+    .f-claim {
+      font-weight: 700;
+      font-size: 132px;
+      line-height: 1.06;
+      letter-spacing: -0.03em;
+    }
+    .f-claim .w {
+      display: inline-block;
+    }
+    .f-claim .red {
+      color: #e6533f;
+      text-shadow: 7px 7px 0 #1e1c1a;
+    }
+
+    /* End card lockup centrado (~28% ancho) */
+    #f-endcard-clip {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 260px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .f-lockup {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 28px;
+    }
+    #f-mark-box {
+      width: 148px;
+      height: 148px;
+      background: #1e1c1a;
+      border: 6px solid #1e1c1a;
+      box-shadow: 12px 12px 0 #e6533f;
+      display: grid;
+      place-items: center;
+      flex: none;
+    }
+    #f-coin {
+      width: 108px;
+      height: 108px;
+      image-rendering: pixelated;
+    }
+    #f-wordmark-wrap {
+      overflow: hidden;
+      padding-right: 12px;
+    }
+    #f-wordmark {
+      font-weight: 700;
+      font-size: 132px;
+      line-height: 1;
+      letter-spacing: -0.04em;
+      color: #1e1c1a;
+      white-space: nowrap;
+    }
+    .f-dot {
+      font-family: "Press Start 2P", monospace;
+      font-size: 84px;
+      color: #e6533f;
+      margin-left: 6px;
+    }
+
+    /* CTA + micro */
+    #f-cta-group {
+      margin-top: 64px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 26px;
+    }
+    #f-cta-btn {
+      background: #e6533f;
+      color: #fffdf5;
+      border: 6px solid #1e1c1a;
+      box-shadow: inset 4px 4px 0 rgba(255, 255, 255, 0.25), 10px 10px 0 #1e1c1a;
+      padding: 26px 48px;
+      font: 700 34px/1.2 "DM Mono", monospace;
+      text-transform: uppercase;
+    }
+    .f-url {
+      background: #fffdf5;
+      border: 4px solid #1e1c1a;
+      box-shadow: 6px 6px 0 #1e1c1a;
+      padding: 14px 28px;
+      font: 500 28px/1.2 "DM Mono", monospace;
+      color: #1e1c1a;
+    }
+    .f-micro {
+      font: 500 28px/1.2 "DM Mono", monospace;
+      color: #544c3f;
+      letter-spacing: 0.04em;
+    }
+  </style>
+
+  <div id="root" data-composition-id="final" data-width="1920" data-height="1080">
+    <div id="f-paper"></div>
+
+    <div id="f-claim-clip" class="clip" data-start="0.05" data-duration="2.15" data-layout-allow-overflow>
+      <h2 id="f-claim" class="f-claim">
+        <span class="w">Compra.</span> <span class="w">Acumula.</span><br />
+        <span class="w red">Gana</span> <span class="w red">más.</span>
+      </h2>
+    </div>
+
+    <div id="f-endcard-clip" class="clip" data-start="1.9" data-duration="4.1" data-layout-allow-overflow>
+      <div class="f-lockup" data-beat="4.8">
+        <div id="f-mark-box">
+          <img id="f-coin" src="assets/loopoint-coin.png" alt="" />
+        </div>
+        <div id="f-wordmark-wrap">
+          <div id="f-wordmark">loopoint<span class="f-dot">.</span></div>
+        </div>
+      </div>
+
+      <div id="f-cta-group">
+        <div id="f-cta-btn">Quiero registrarme →</div>
+        <div class="f-url">fidelizacion01.vercel.app</div>
+        <div class="f-micro">UN LUGAR · MUCHOS NEGOCIOS · GRATIS</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      const words = gsap.utils.toArray("#f-claim .w");
+
+      // Claim por palabra (blur 6 -> 0), hold para leer, luego salida limpia
+      tl.fromTo(words, { opacity: 0, filter: "blur(6px)" },
+        { opacity: 1, filter: "blur(0px)", duration: 0.14, stagger: 0.12, ease: "power2.out" }, 0.1);
+      tl.to(words, { opacity: 0, filter: "blur(8px)", duration: 0.22, stagger: 0.04, ease: "power2.in" }, 1.75);
+
+      // End card: la moneda cae en su caja negra y la activa
+      tl.fromTo("#f-mark-box", { scale: 0, x: 240 }, { scale: 1, x: 240, duration: 0.24, ease: "back.out(1.8)" }, 1.95);
+      tl.fromTo("#f-coin",
+        { y: -480, scale: 1.8, rotation: -360 },
+        { y: 0, scale: 1, rotation: 0, duration: 0.52, ease: "power3.in" },
+        1.95
+      );
+      tl.to("#f-coin", { scaleY: 0.76, scaleX: 1.18, duration: 0.08, ease: "power2.out", transformOrigin: "50% 100%" }, 2.47);
+      tl.to("#f-coin", { scaleY: 1, scaleX: 1, duration: 0.22, ease: "back.out(2.2)", transformOrigin: "50% 100%" }, 2.55);
+
+      // La caja se desliza a la izquierda y el wordmark "loopoint." se revela (t=2.76s -> sfx-sparkle-mark a 27.80s)
+      tl.to("#f-mark-box", { x: 0, duration: 0.45, ease: "expo.out" }, 2.74);
+      tl.fromTo("#f-wordmark-wrap",
+        { clipPath: "inset(0% 100% 0% 0%)", opacity: 0 },
+        { clipPath: "inset(0% 0% 0% 0%)", opacity: 1, duration: 0.45, ease: "expo.out" },
+        2.76
+      );
+
+      // CTA aterriza (t=3.15s -> sfx-pop-cta a 28.20s) y se sostiene quieto 2.5s+ hasta 6.0s
+      tl.fromTo("#f-cta-btn", { opacity: 0, scale: 0.88, y: 18 },
+        { opacity: 1, scale: 1, y: 0, duration: 0.28, ease: "back.out(1.7)" }, 3.15);
+      tl.fromTo([".f-url", ".f-micro"], { opacity: 0, y: 10 },
+        { opacity: 1, y: 0, duration: 0.22, stagger: 0.06, ease: "power2.out" }, 3.25);
+
+      window.__timelines["final"] = tl;
+    })();
+  </script>
+</template>

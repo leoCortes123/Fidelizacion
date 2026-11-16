@@ -1,0 +1,124 @@
+<template>
+  <style>
+    @font-face { font-family: "Press Start 2P"; src: url("assets/fonts/press-start-2p.woff2") format("woff2"); font-weight: 400; }
+    @font-face { font-family: "Space Grotesk"; src: url("assets/fonts/space-grotesk-latin-500-normal.woff2") format("woff2"); font-weight: 500; }
+    @font-face { font-family: "Space Grotesk"; src: url("assets/fonts/space-grotesk-latin-700-normal.woff2") format("woff2"); font-weight: 700; }
+    @font-face { font-family: "DM Mono"; src: url("assets/fonts/dm-mono-latin-500-normal.woff2") format("woff2"); font-weight: 500; }
+
+    #root { position: absolute; inset: 0; overflow: hidden; color: #1e1c1a; font-family: "Space Grotesk", sans-serif; }
+    #c-paper {
+      position: absolute; inset: 0;
+      background-color: #f6edda;
+      background-image:
+        radial-gradient(rgba(30, 28, 26, 0.13) 1.5px, transparent 1.5px),
+        linear-gradient(to right, rgba(30, 28, 26, 0.04) 2px, transparent 2px),
+        linear-gradient(to bottom, rgba(30, 28, 26, 0.04) 2px, transparent 2px);
+      background-size: 12px 12px, 48px 48px, 48px 48px;
+    }
+    #c-title { position: absolute; left: 120px; top: 270px; width: 780px; font-weight: 700; font-size: 120px; line-height: 1.04; letter-spacing: -0.03em; }
+    #c-title .w { display: inline-block; }
+    #c-title .red { color: #e6533f; text-shadow: 6px 6px 0 #1e1c1a; }
+
+    #c-window {
+      position: absolute; left: 950px; top: 120px; width: 840px;
+      background: #fffdf5; border: 6px solid #1e1c1a;
+      box-shadow: inset 4px 4px 0 rgba(255,255,255,0.14), 16px 16px 0 #1e1c1a;
+    }
+    .c-bar {
+      background: #467299; border-bottom: 6px solid #1e1c1a; color: #fff;
+      padding: 18px 26px; display: flex; align-items: center; justify-content: space-between;
+      font: 700 28px/1.2 "DM Mono", monospace; letter-spacing: 0.04em;
+    }
+    .c-bar-title { display: inline-flex; align-items: center; gap: 14px; }
+    .c-led { width: 18px; height: 18px; background: #34d399; border: 4px solid #1e1c1a; display: inline-block; }
+    .c-body { padding: 30px 36px 34px; }
+    .c-row { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; }
+    .c-label { font: 500 28px/1.2 "DM Mono", monospace; color: #544c3f; }
+    .c-amount { font: 50px/1.1 "Press Start 2P", monospace; margin-top: 12px; }
+    .c-pill { background: #ffd166; border: 4px solid #1e1c1a; padding: 12px 16px; font: 700 28px/1.1 "DM Mono", monospace; white-space: nowrap; }
+    #c-qrbox {
+      position: relative; width: 440px; height: 440px; margin: 30px auto 0;
+      border: 6px solid #1e1c1a; background: #fffdf5; box-shadow: 8px 8px 0 #1e1c1a;
+    }
+    #c-qr { position: absolute; inset: 14px; }
+    #c-qr img { width: 100%; height: 100%; display: block; image-rendering: pixelated; }
+    #c-hole { position: absolute; left: 50%; top: 50%; width: 132px; height: 132px; margin: -66px 0 0 -66px; background: #fffdf5; }
+    #c-scan { position: absolute; left: -16px; right: -16px; top: 0; height: 10px; background: #e6533f; box-shadow: 0 4px 0 #1e1c1a; }
+    .c-caption { text-align: center; margin-top: 26px; font: 500 30px/1.2 "DM Mono", monospace; }
+
+    #c-coin {
+      position: absolute; left: 1270px; top: 504px; width: 200px; height: 200px;
+      image-rendering: pixelated;
+    }
+  </style>
+
+  <div id="root" data-composition-id="caja" data-width="1920" data-height="1080">
+    <div id="c-paper"></div>
+
+    <h1 id="c-title" class="clip" data-start="0" data-duration="4.3" data-layout-allow-overflow>
+      <span class="w">Cada</span><br /><span class="w">compra</span><br /><span class="w red">cuenta</span>
+    </h1>
+
+    <div id="c-window" class="clip" data-start="0" data-duration="4.6" data-layout-allow-overflow>
+      <div class="c-bar">
+        <span class="c-bar-title"><span class="c-led"></span>QR DE LA VENTA</span>
+        <span>CAFÉ AURORA</span>
+      </div>
+      <div class="c-body">
+        <div class="c-row">
+          <div>
+            <div class="c-label">Importe de la compra (COP)</div>
+            <div class="c-amount">$ 15.000</div>
+          </div>
+          <div class="c-pill">+150 PTS</div>
+        </div>
+        <div id="c-qrbox">
+          <div id="c-qr"><img src="assets/qr-venta.svg" alt="" /></div>
+          <div id="c-hole"></div>
+          <div id="c-scan"></div>
+        </div>
+        <div class="c-caption">Escanéalo para sumar loopoints</div>
+      </div>
+    </div>
+
+    <img id="c-coin" class="clip" data-start="2.9" data-duration="3.1" src="assets/loopoint-coin.png" alt="" data-layout-allow-overflow />
+  </div>
+
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      const words = gsap.utils.toArray("#c-title .w");
+
+      // Title, word by word (blur in, no translate)
+      tl.fromTo(words, { opacity: 0, filter: "blur(6px)" },
+        { opacity: 1, filter: "blur(0px)", duration: 0.13, stagger: 0.09, ease: "power2.out" }, 0.25);
+
+      // QR prints row by row like a receipt
+      tl.fromTo("#c-qr", { clipPath: "inset(0% 0% 100% 0%)" },
+        { clipPath: "inset(0% 0% 0% 0%)", duration: 0.75, ease: "steps(11)" }, 0.8);
+      tl.fromTo("#c-hole", { scale: 0 }, { scale: 0, duration: 0.01 }, 0);
+      tl.fromTo("#c-scan", { opacity: 0, y: 0 }, { opacity: 1, duration: 0.05 }, 2.0);
+      tl.to("#c-scan", { y: 420, duration: 0.7, ease: "power1.inOut" }, 2.05);
+      tl.to("#c-scan", { opacity: 0, duration: 0.08 }, 2.78);
+
+      // Coin is born out of the QR
+      tl.to("#c-hole", { scale: 1, duration: 0.12, ease: "steps(3)" }, 2.9);
+      tl.fromTo("#c-coin", { scale: 0, rotation: -12 },
+        { scale: 1, rotation: 0, duration: 0.45, ease: "back.out(2.4)" }, 2.95);
+      // Anticipation, then leap toward camera
+      tl.to("#c-coin", { scaleY: 0.78, scaleX: 1.16, y: 18, duration: 0.22, ease: "power2.out", transformOrigin: "50% 100%" }, 3.6);
+      tl.to("#c-coin", { x: -410, y: -64, scaleX: 3.4, scaleY: 3.4, duration: 0.6, ease: "power3.out", transformOrigin: "50% 50%" }, 3.88);
+
+      // Scene clears around the coin (exits shorter than entrances)
+      tl.to(words, { opacity: 0, filter: "blur(8px)", duration: 0.18, stagger: 0.04, ease: "power2.in" }, 3.9);
+      tl.to("#c-window", { x: 1100, duration: 0.5, ease: "power3.in" }, 3.92);
+
+      // Coin settles (a breath), then we zoom through its yellow "L"
+      tl.to("#c-coin", { y: -84, duration: 0.5, ease: "sine.inOut" }, 4.5);
+      tl.set("#c-coin", { transformOrigin: "48% 50%" }, 5.0);
+      tl.to("#c-coin", { scaleX: 420, scaleY: 420, y: -60, duration: 0.95, ease: "power3.in" }, 5.02);
+
+      window.__timelines["caja"] = tl;
+    })();
+  </script>
+</template>

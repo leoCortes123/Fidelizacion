@@ -1,0 +1,463 @@
+<template>
+  <style>
+    @font-face { font-family: "Press Start 2P"; src: url("assets/fonts/press-start-2p.woff2") format("woff2"); font-weight: 400; }
+    @font-face { font-family: "Space Grotesk"; src: url("assets/fonts/space-grotesk-latin-500-normal.woff2") format("woff2"); font-weight: 500; }
+    @font-face { font-family: "Space Grotesk"; src: url("assets/fonts/space-grotesk-latin-700-normal.woff2") format("woff2"); font-weight: 700; }
+    @font-face { font-family: "DM Mono"; src: url("assets/fonts/dm-mono-latin-500-normal.woff2") format("woff2"); font-weight: 500; }
+
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      color: #1e1c1a;
+      font-family: "Space Grotesk", sans-serif;
+    }
+
+    #r-bg {
+      position: absolute;
+      inset: 0;
+      background-color: #ffd166;
+      background-image:
+        radial-gradient(rgba(30, 28, 26, 0.12) 1.5px, transparent 1.5px),
+        linear-gradient(to right, rgba(30, 28, 26, 0.04) 2px, transparent 2px),
+        linear-gradient(to bottom, rgba(30, 28, 26, 0.04) 2px, transparent 2px);
+      background-size: 12px 12px, 48px 48px, 48px 48px;
+    }
+
+    /* Columna izquierda: copy editorial */
+    #r-copy-clip {
+      position: absolute;
+      left: 160px;
+      top: 260px;
+      width: 780px;
+    }
+    .r-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      background: #fffdf5;
+      border: 4px solid #1e1c1a;
+      box-shadow: 6px 6px 0 #1e1c1a;
+      padding: 12px 22px;
+      font: 700 28px/1.2 "DM Mono", monospace;
+      margin-bottom: 36px;
+    }
+    .r-eyebrow-dot {
+      width: 16px;
+      height: 16px;
+      background: #4e8c57;
+      border: 3px solid #1e1c1a;
+    }
+    .r-title {
+      font-weight: 700;
+      font-size: 120px;
+      line-height: 1.02;
+      letter-spacing: -0.03em;
+    }
+    .r-title .w {
+      display: inline-block;
+    }
+    .r-title .accent {
+      color: #fffdf5;
+      background: #1e1c1a;
+      padding: 4px 18px 8px;
+      box-shadow: 10px 10px 0 #e6533f;
+      display: inline-block;
+      margin-top: 10px;
+    }
+    .r-sub {
+      margin-top: 40px;
+      font: 500 34px/1.35 "DM Mono", monospace;
+      color: #1e1c1a;
+      max-width: 680px;
+    }
+
+    /* Columna derecha: teléfono con ClaimPage real */
+    #r-phone-clip {
+      position: absolute;
+      left: 1040px;
+      top: 90px;
+      width: 660px;
+      height: 900px;
+    }
+    #r-phone {
+      position: relative;
+      width: 660px;
+      height: 900px;
+      background: #1e1c1a;
+      border-radius: 64px;
+      padding: 22px;
+      box-shadow: 18px 18px 0 rgba(30, 28, 26, 0.35);
+    }
+    .r-screen {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background: #f6edda;
+      border-radius: 44px;
+      overflow: hidden;
+      border: 4px solid #1e1c1a;
+      display: flex;
+      flex-direction: column;
+    }
+    .r-notch {
+      width: 180px;
+      height: 28px;
+      background: #1e1c1a;
+      border-radius: 0 0 18px 18px;
+      margin: 0 auto;
+      flex: none;
+    }
+    .r-brand-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 18px 24px 10px;
+      font: 700 30px/1 "Space Grotesk", sans-serif;
+    }
+    .r-brand-badge {
+      width: 38px;
+      height: 38px;
+      background: #1e1c1a;
+      border: 3px solid #1e1c1a;
+      box-shadow: 3px 3px 0 #e6533f;
+      display: grid;
+      place-items: center;
+    }
+    .r-brand-badge img {
+      width: 26px;
+      height: 26px;
+      image-rendering: pixelated;
+    }
+    .r-card {
+      margin: 14px 28px 0;
+      background: #fffdf5;
+      border: 5px solid #1e1c1a;
+      box-shadow: 10px 10px 0 #1e1c1a;
+      overflow: hidden;
+      position: relative;
+      flex: 1;
+      margin-bottom: 28px;
+    }
+
+    /* Estado 1: Confirmar compra */
+    #r-state-pending {
+      position: relative;
+      padding: 24px 26px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    .r-biz-eyebrow {
+      text-align: center;
+      font: 500 28px/1.2 "DM Mono", monospace;
+      color: #544c3f;
+      text-transform: uppercase;
+    }
+    .r-biz-name {
+      text-align: center;
+      font-weight: 700;
+      font-size: 44px;
+      margin-top: 4px;
+    }
+    .r-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 22px;
+    }
+    .r-cell {
+      background: #eadec5;
+      border: 4px solid #1e1c1a;
+      padding: 18px 12px;
+      text-align: center;
+      position: relative;
+    }
+    .r-cell-pts {
+      background: #fff9ec;
+    }
+    .r-cell-lbl {
+      font: 500 28px/1.1 "DM Mono", monospace;
+      color: #544c3f;
+      text-transform: uppercase;
+    }
+    .r-cell-val {
+      font: 30px/1.2 "Press Start 2P", monospace;
+      margin-top: 12px;
+      color: #1e1c1a;
+    }
+    .r-cell-pts .r-cell-val {
+      color: #e6533f;
+    }
+    .r-info-list {
+      margin-top: 22px;
+      border: 3px dashed #544c3f;
+      background: #f6edda;
+      padding: 18px;
+      font: 500 28px/1.35 "DM Mono", monospace;
+      color: #1e1c1a;
+    }
+    .r-info-list p + p {
+      margin-top: 8px;
+    }
+    #r-confirm-btn {
+      margin-top: auto;
+      background: #467299;
+      color: #fffdf5;
+      border: 5px solid #1e1c1a;
+      box-shadow: 6px 6px 0 #1e1c1a;
+      padding: 20px 16px;
+      text-align: center;
+      font: 700 28px/1.2 "DM Mono", monospace;
+      text-transform: uppercase;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Estado 2: ¡Loopoints acreditados! (el botón crece y se vuelve cabecera) */
+    #r-state-done {
+      position: absolute;
+      inset: 0;
+      background: #fffdf5;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      z-index: 5;
+    }
+    #r-done-header {
+      background: #467299;
+      color: #fffdf5;
+      padding: 32px 24px 28px;
+      text-align: center;
+      border-bottom: 5px solid #1e1c1a;
+    }
+    .r-check-badge {
+      width: 68px;
+      height: 68px;
+      margin: 0 auto 14px;
+      background: #34d399;
+      border: 4px solid #1e1c1a;
+      box-shadow: 5px 5px 0 #1e1c1a;
+      display: grid;
+      place-items: center;
+    }
+    .r-done-title {
+      font-weight: 700;
+      font-size: 38px;
+      line-height: 1.1;
+    }
+    .r-done-sub {
+      margin-top: 8px;
+      font: 500 28px/1.2 "DM Mono", monospace;
+      color: #fff9ec;
+    }
+    .r-done-body {
+      padding: 22px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      flex: 1;
+    }
+    .r-balance-box {
+      border: 4px solid #1e1c1a;
+      background: #f6edda;
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 6px 6px 0 #1e1c1a;
+    }
+    .r-balance-lbl {
+      font: 500 28px/1.2 "DM Mono", monospace;
+      color: #544c3f;
+    }
+    .r-balance-val {
+      font: 30px/1.1 "Press Start 2P", monospace;
+      color: #e6533f;
+    }
+    .r-done-cta {
+      margin-top: auto;
+      background: #e6533f;
+      color: #fffdf5;
+      border: 4px solid #1e1c1a;
+      box-shadow: 6px 6px 0 #1e1c1a;
+      padding: 18px;
+      text-align: center;
+      font: 700 28px/1.2 "DM Mono", monospace;
+      text-transform: uppercase;
+    }
+
+    /* La moneda viajera en reclamo */
+    #r-coin-clip {
+      position: absolute;
+      left: 1410px;
+      top: 380px;
+      width: 112px;
+      height: 112px;
+      z-index: 20;
+    }
+    #r-coin {
+      width: 112px;
+      height: 112px;
+      image-rendering: pixelated;
+      filter: drop-shadow(5px 5px 0 #1e1c1a);
+    }
+
+    /* Cursor grande que toca el botón */
+    #r-cursor-clip {
+      position: absolute;
+      left: 1320px;
+      top: 760px;
+      width: 110px;
+      height: 110px;
+      z-index: 30;
+    }
+    #r-cursor {
+      width: 110px;
+      height: 110px;
+    }
+  </style>
+
+  <div id="root" data-composition-id="reclamo" data-width="1920" data-height="1080">
+    <div id="r-bg"></div>
+
+    <div id="r-copy-clip" class="clip" data-start="0" data-duration="5.6" data-layout-allow-overflow>
+      <div id="r-copy">
+        <div class="r-eyebrow">
+          <span class="r-eyebrow-dot"></span>
+          <span>PASO 01 · RECLAMO</span>
+        </div>
+        <h2 class="r-title">
+          <span class="w">Escanea</span> <span class="w">el</span> <span class="w">QR.</span><br />
+          <span class="w accent">Confirma</span> <span class="w">y</span> <span class="w">suma.</span>
+        </h2>
+        <p class="r-sub">Un toque en tu teléfono y la compra queda en tu cuenta.</p>
+      </div>
+    </div>
+
+    <div id="r-phone-clip" class="clip" data-start="0" data-duration="5.8" data-layout-allow-overflow>
+      <div id="r-phone">
+        <div class="r-screen">
+          <div class="r-notch"></div>
+          <div class="r-brand-bar">
+            <span class="r-brand-badge"><img src="assets/loopoint-coin.png" alt="" /></span>
+            <span>loopoint<span style="color:#e6533f">.</span></span>
+          </div>
+
+          <div class="r-card">
+            <div id="r-state-pending">
+              <div class="r-biz-eyebrow">Compra en</div>
+              <div class="r-biz-name">Café Aurora</div>
+              <div class="r-grid">
+                <div class="r-cell">
+                  <div class="r-cell-lbl">Importe</div>
+                  <div class="r-cell-val">$15.000</div>
+                </div>
+                <div class="r-cell r-cell-pts">
+                  <div class="r-cell-lbl">Loopoints</div>
+                  <div class="r-cell-val">+150</div>
+                </div>
+              </div>
+              <div class="r-info-list">
+                <p>+ Se suman en Café Aurora</p>
+                <p>+ QR de un solo uso</p>
+              </div>
+              <div id="r-confirm-btn">Confirmar y sumar loopoints</div>
+            </div>
+
+            <div id="r-state-done" data-beat="2.4">
+              <div id="r-done-header">
+                <div class="r-check-badge">
+                  <svg viewBox="0 0 24 24" width="42" height="42" fill="none" stroke="#1e1c1a" stroke-width="4" stroke-linecap="square">
+                    <polyline points="4 12 10 18 20 6" />
+                  </svg>
+                </div>
+                <div class="r-done-title">¡Loopoints acreditados!</div>
+                <div class="r-done-sub">Compra en Café Aurora</div>
+              </div>
+              <div class="r-done-body">
+                <div class="r-grid" style="margin-top:0">
+                  <div class="r-cell">
+                    <div class="r-cell-lbl">Compra</div>
+                    <div class="r-cell-val">$15.000</div>
+                  </div>
+                  <div class="r-cell r-cell-pts">
+                    <div class="r-cell-lbl">Sumados</div>
+                    <div class="r-cell-val">+150</div>
+                  </div>
+                </div>
+                <div class="r-balance-box">
+                  <span class="r-balance-lbl">Nuevo saldo</span>
+                  <span class="r-balance-val">1.250</span>
+                </div>
+                <div class="r-done-cta">Ir a mis loopoints →</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="r-coin-clip" class="clip" data-start="0.05" data-duration="5.95" data-layout-allow-overflow>
+      <img id="r-coin" src="assets/loopoint-coin.png" alt="" />
+    </div>
+
+    <div id="r-cursor-clip" class="clip" data-start="1.2" data-duration="1.4" data-layout-allow-overflow>
+      <svg id="r-cursor" viewBox="0 0 32 32" shape-rendering="crispEdges">
+        <path d="M6 2 L6 24 L12 19 L16 28 L20 26 L16 17 L24 17 Z" fill="#fffdf5" stroke="#1e1c1a" stroke-width="2.5" stroke-linejoin="miter" />
+      </svg>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      const words = gsap.utils.toArray("#r-copy .w");
+
+      // Entrada limpia del teléfono desde abajo-derecha (sin fading/sliding genérico)
+      tl.fromTo("#r-phone", { y: 90, scale: 0.96 }, { y: 0, scale: 1, duration: 0.55, ease: "expo.out" }, 0);
+
+      // Título por palabra (blur 6 -> 0, sin translate)
+      tl.fromTo(words, { opacity: 0, filter: "blur(6px)" },
+        { opacity: 1, filter: "blur(0px)", duration: 0.13, stagger: 0.07, ease: "power2.out" }, 0.15);
+      tl.fromTo(".r-eyebrow", { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.35, ease: "expo.out" }, 0.05);
+      tl.fromTo(".r-sub", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, 0.6);
+
+      // Moneda cae desde arriba sobre la celda +150 (aterriza a t=0.52s -> sfx-pop-cell a 0.55s)
+      tl.fromTo("#r-coin",
+        { y: -560, x: 30, scale: 1.8, rotation: -18 },
+        { y: 0, x: 0, scale: 1, rotation: 0, duration: 0.52, ease: "power3.in" },
+        0.05
+      );
+      tl.to("#r-coin", { scaleY: 0.76, scaleX: 1.18, y: 12, duration: 0.1, ease: "power2.out", transformOrigin: "50% 100%" }, 0.57);
+      tl.to("#r-coin", { scaleY: 1, scaleX: 1, y: 0, duration: 0.35, ease: "back.out(2.2)", transformOrigin: "50% 100%" }, 0.67);
+
+      // Cursor grande entra y hace clic en "Confirmar y sumar loopoints" (clic a t=1.87s -> sfx-click-confirm a 1.9s)
+      tl.fromTo("#r-cursor", { x: 280, y: 260, opacity: 0 }, { x: 0, y: 0, opacity: 1, duration: 0.55, ease: "expo.out" }, 1.25);
+      tl.to("#r-cursor", { scale: 0.82, y: 8, duration: 0.08, ease: "power2.in", transformOrigin: "20% 10%" }, 1.84);
+      tl.to("#r-confirm-btn", { y: 4, scale: 0.97, duration: 0.08, ease: "power2.in" }, 1.84);
+      tl.to("#r-cursor", { scale: 1, y: 0, opacity: 0, duration: 0.25, ease: "power2.out" }, 1.95);
+
+      // Morph del botón al estado "¡Loopoints acreditados!" (t=2.12s -> sfx-chime-credit a 2.15s)
+      tl.to("#r-confirm-btn", { y: -480, scaleY: 2.3, duration: 0.36, ease: "power2.inOut" }, 1.96);
+      tl.to("#r-state-pending", { opacity: 0, duration: 0.04 }, 2.08);
+      tl.fromTo("#r-state-done", { opacity: 0 }, { opacity: 1, duration: 0.16, ease: "power2.out" }, 2.12);
+      tl.fromTo("#r-done-header", { y: -30 }, { y: 0, duration: 0.35, ease: "expo.out" }, 2.12);
+
+      // La moneda salta al espacio libre sobre el CTA sin tapar cifras
+      tl.to("#r-coin", { x: -95, y: 342, scale: 0.82, rotation: 12, duration: 0.45, ease: "back.out(1.6)" }, 2.2);
+      tl.to("#r-coin", { rotation: 0, duration: 0.25, ease: "power2.out" }, 2.65);
+
+      // Hold legible para el espectador hasta 5.0s, luego salida hacia la derecha
+      tl.to("#r-copy", { opacity: 0, filter: "blur(6px)", duration: 0.22, ease: "power2.in" }, 5.05);
+      tl.to("#r-phone", { x: -120, opacity: 0, duration: 0.4, ease: "power3.in" }, 5.15);
+
+      // La moneda salta fuera por la derecha (t=5.25s -> sfx-whoosh-out a 5.3s)
+      tl.to("#r-coin", { scaleY: 0.78, scaleX: 1.2, duration: 0.14, ease: "power2.out", transformOrigin: "50% 100%" }, 5.12);
+      tl.to("#r-coin", { x: 650, y: -140, scale: 1.4, rotation: 28, duration: 0.68, ease: "power3.in" }, 5.26);
+
+      window.__timelines["reclamo"] = tl;
+    })();
+  </script>
+</template>
