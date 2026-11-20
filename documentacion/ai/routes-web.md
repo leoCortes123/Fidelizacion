@@ -1,11 +1,11 @@
 # Rutas web (resumen)
 
 ## Públicas
-- `/` — landing con acceso a registro de cliente, registro de negocio e inicio de sesión.
+- `/` — landing enfocada en administradores con animación del proceso, manual de uso de 5 pasos, descarga PWA y acceso a registro de negocio, registro de cliente e inicio de sesión.
 - `/login`, `/auth/callback`, `/join/:slug`, `/claim/:token`, `/scan/:token`.
 
 ## Cliente (rol customer)
-- `/customer` — selector arcade de negocios afiliados (puntos, categoría, descripción, 3 recompensas con barra de progreso y acceso a `VER MÁS`).
+- `/customer` — tarjeta pixel art retro 32x32 de negocios afiliados con navegación por flechas (monedas del cliente en el negocio, progreso, información del negocio y botón `Recompensas y carta`).
 - `/customer/business/:businessId` — detalle del negocio (cabecera replicada + pestañas `RECOMPENSAS`, `CARTA` y `MOVIMIENTOS`, con modales de detalle).
 - `/customer/purchases`, `/customer/redemptions`, `/customer/perfil` (y `/perfil`).
 
