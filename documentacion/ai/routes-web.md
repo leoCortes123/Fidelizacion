@@ -1,7 +1,11 @@
 # Rutas web (resumen)
 
 ## Públicas
-- `/` — landing enfocada en administradores con animación del proceso, manual de uso de 5 pasos, descarga PWA y acceso a registro de negocio, registro de cliente e inicio de sesión.
+- `/` — inicio comercial con animación interactiva del proceso, explorador por rol (Administrador, Encargado, Cliente), hub visual de secciones y descarga PWA.
+- `/como-funciona` — manual operativo interactivo de 5 pasos con animación y puesta en marcha en 3 pasos.
+- `/funciones` — módulos del sistema con ilustraciones pixel art y hoja de ruta de próximas características.
+- `/precios` — planes en COP (Player 1 Gratis, Level Up Pro, Modo Arcade Suite), selector mensual/anual y tabla comparativa filtrable.
+- `/preguntas` — centro de preguntas frecuentes con buscador y filtros por categoría.
 - `/login`, `/auth/callback`, `/join/:slug`, `/claim/:token`, `/scan/:token`.
 
 ## Cliente (rol customer)
