@@ -4,7 +4,7 @@ Tablas clave (multiempresa, todo lleva `business_id`):
 
 - `profiles` — nombre, correo, `nickname`, `avatar_url`, `account_type` (`customer` | `admin`), fechas.
 - `user_roles` — rol global legacy (`customer`, `admin`, `registrar`).
-- `businesses` — negocio, slug, logo, estado.
+- `businesses` — negocio, slug, logo, contacto y redes (`instagram`, `facebook`, `tiktok`, `twitter`, `youtube`, `website`), estado.
 - `business_memberships` — usuario ↔ negocio con rol (`admin`/`encargado`/`cliente`).
 - `business_member_invites` — invitaciones QR de un solo uso (hash SHA-256, rol destino, expiración).
 - `business_programs` — reglas de acumulación/canje.
