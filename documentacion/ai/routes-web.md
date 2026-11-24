@@ -1,12 +1,12 @@
 # Rutas web (resumen)
 
-## Públicas
-- `/` — inicio comercial con animación interactiva del proceso, explorador por rol (Administrador, Encargado, Cliente), hub visual de secciones y descarga PWA.
-- `/como-funciona` — manual operativo interactivo de 5 pasos con animación y puesta en marcha en 3 pasos.
-- `/funciones` — módulos del sistema con ilustraciones pixel art y hoja de ruta de próximas características.
-- `/precios` — planes en COP (Player 1 Gratis, Level Up Pro, Modo Arcade Suite), selector mensual/anual y tabla comparativa filtrable.
-- `/preguntas` — centro de preguntas frecuentes con buscador y filtros por categoría.
-- `/login`, `/auth/callback`, `/join/:slug`, `/claim/:token`, `/scan/:token`.
+## Entrada y públicas (app en Vercel)
+- `/` — `RootRedirect`: si hay sesión redirige al portal del rol (`resolvePostLoginPath`); si no hay sesión redirige a `/login` (conservando `?install=1`). Garantiza que la PWA instalada nunca abra en la página comercial.
+- `/login` (admite `?install=1` para mostrar aviso de instalación PWA y enlaza "Volver al inicio" al sitio comercial `VITE_PUBLIC_SITE_URL`, por defecto `https://fidelapp.pages.dev`), `/auth/callback`, `/join/:slug`, `/claim/:token`, `/scan/:token`.
+
+## Sitio comercial separado (`fidelizacionWebPage`, Cloudflare Pages `https://fidelapp.pages.dev`)
+- `/` (Inicio), `/como-funciona`, `/funciones`, `/precios`, `/preguntas`.
+- Sin sesión ni Supabase; botones de acceso enlazan a `https://fidelizacion01.vercel.app/login` y "Descargar app" a `/login?install=1`.
 
 ## Cliente (rol customer)
 - `/customer` — tarjeta pixel art retro 32x32 de negocios afiliados con navegación por flechas (monedas del cliente en el negocio, progreso, información del negocio y botón `Recompensas y carta`).

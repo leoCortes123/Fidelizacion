@@ -2,12 +2,13 @@
 
 ## Repositorios
 
-El proyecto está separado en tres repositorios independientes y un directorio de
+El proyecto está separado en cuatro repositorios independientes y un directorio de
 documentación compartido:
 
 | Componente | Repositorio | Responsabilidad |
 | --- | --- | --- |
-| Web | `fidelizacionWeb` | Portal del cliente y panel de administración |
+| Web (App/PWA) | `fidelizacionWeb` | Portal del cliente, encargado y panel de administración (Vercel) |
+| Página comercial | `fidelizacionWebPage` | Sitio estático comercial (`/`, `/como-funciona`, `/funciones`, `/precios`, `/preguntas`) sin Supabase (Cloudflare Pages, `https://fidelapp.pages.dev`) |
 | API | `fidelizacionApi` | Supabase: esquema, RPC, RLS, Auth y seed |
 | App | `fidelizacionApp` | App Android (Kotlin/Compose), en fase de espacio reservado |
 | Documentación | `documentacion/` | Arquitectura, negocio y operación (local) |

@@ -16,6 +16,13 @@
 - Un spec E2E: `npx playwright test tests/e2e/<archivo>.spec.ts`.
 - Todo: `npm run test:all`.
 
+## Página comercial (`fidelizacionWebPage`)
+- Tipos: `npm run typecheck` (`tsc -b`).
+- Unitarias: `npm test` (Vitest).
+- Build: `npm run build`.
+- E2E: `npm run test:e2e` (puerto 5198).
+- Todo: `npm run test:all`.
+
 ## Gotchas de ejecución
 - Si el puerto 5199 está ocupado: `E2E_PORT=5200 npm run test:e2e`.
 - Playwright sin navegador: `npx playwright install chromium`.

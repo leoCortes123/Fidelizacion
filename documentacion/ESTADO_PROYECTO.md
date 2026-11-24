@@ -17,7 +17,8 @@ y suites en verde.
 
 ```text
 /mnt/datos/Programacion/Fidelizacion/
-├── fidelizacionWeb/     React + Vite + Tailwind + Playwright
+├── fidelizacionWeb/     App/PWA (React + Vite + Tailwind + Playwright, Vercel)
+├── fidelizacionWebPage/ Sitio comercial estático (React + Vite + Tailwind, Cloudflare Pages)
 ├── fidelizacionApi/     Supabase: migraciones, RPC, RLS, seed y pruebas SQL
 ├── fidelizacionApp/     Espacio reservado para Android (sin código aún)
 ├── documentacion/       Documentación, negocio y datos privados
@@ -27,7 +28,8 @@ y suites en verde.
 
 | Proyecto | GitHub | Estado |
 | --- | --- | --- |
-| Web | `https://github.com/leoCortes123/fidelizacionWeb` | Funcional y desplegada en Vercel |
+| Web (App/PWA) | `https://github.com/leoCortes123/fidelizacionWeb` | Funcional y desplegada en Vercel (`https://fidelizacion01.vercel.app`) |
+| Página comercial | `https://github.com/leoCortes123/fidelizacionWebPage` | Sitio estático separado en Cloudflare Pages (`https://fidelapp.pages.dev`) |
 | API | `https://github.com/leoCortes123/fidelizacionApi` | 31 migraciones aplicadas en local y remoto |
 | App | `https://github.com/leoCortes123/fidelizacionApp` | Espacio reservado |
 

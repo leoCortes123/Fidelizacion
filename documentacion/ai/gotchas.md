@@ -1,6 +1,6 @@
 # Gotchas del proyecto
 
-- El repositorio raíz no contiene el código: `fidelizacionWeb/`, `fidelizacionApi/`, `fidelizacionApp/` son repos independientes. No anidar `.git`.
+- El repositorio raíz no contiene el código: `fidelizacionWeb/`, `fidelizacionWebPage/`, `fidelizacionApi/`, `fidelizacionApp/` son repos independientes. No anidar `.git`.
 - La documentación y `documentacion/privado/` (credenciales) no se versionan en los subrepos; en el meta-repo se ignora `documentacion/privado/`.
 - Los E2E usan backend Supabase en memoria (`fake-supabase.ts`), no Supabase real.
 - El QR apunta siempre al dominio publicado (`VITE_PUBLIC_APP_URL`), aunque se genere en local.

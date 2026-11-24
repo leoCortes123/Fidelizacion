@@ -1,6 +1,7 @@
 {
   "folders": [
     { "name": "Web", "path": "fidelizacionWeb" },
+    { "name": "Página", "path": "fidelizacionWebPage" },
     { "name": "API", "path": "fidelizacionApi" },
     { "name": "App", "path": "fidelizacionApp" },
     { "name": "Documentación", "path": "documentacion" }
