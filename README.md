@@ -1,8 +1,8 @@
 # Fidelización — workspace
 
-**Loopoint**, sistema de fidelización por loopoints **multiempresa**: cada negocio
+**Fideliapp**, sistema de fidelización por monedas **multiempresa**: cada negocio
 configura su programa, su carta y sus recompensas. Cada venta en caja genera un QR con
-su valor; el cliente lo escanea, confirma la compra y recibe los loopoints en su
+su valor; el cliente lo escanea, confirma la compra y recibe las monedas en su
 cuenta (se afilia en ese momento si aún no estaba registrado). Para canjear, el
 cliente muestra un QR y el negocio lo escanea en `/scan/<token>` para confirmar la
 entrega en el acto.
@@ -20,7 +20,7 @@ referencia histórica.
 
 ## Estado
 
-Módulo multiempresa completo (fases 0–7) y rediseño Loopoint **cerrado hasta F9**:
+Módulo multiempresa completo (fases 0–7) y rediseño Fideliapp **cerrado hasta F9**:
 programa, carta con combos, recompensas, campañas, canje escaneado, roles por
 negocio, afiliación, compras con detalle, económico, auditoría legible, cliente
 frecuente, vencimiento FIFO, snapshots, onboarding, pruebas y despliegue final.
@@ -32,7 +32,7 @@ frecuente, vencimiento FIFO, snapshots, onboarding, pruebas y despliegue final.
 | E2E Playwright | 34/34 |
 | SQL + concurrencia | 600 aserciones + 4 pruebas |
 | Migraciones | 31/31 en local y remoto |
-| Web | producción en `https://fidelizacion01.vercel.app` |
+| Web | producción en `https://fideli-app.vercel.app` |
 
 Detalle en [`PLAN_IMPLEMENTACION.md`](PLAN_IMPLEMENTACION.md),
 [`documentacion/PLAN_CAMBIOS_PLATAFORMA.md`](documentacion/PLAN_CAMBIOS_PLATAFORMA.md)

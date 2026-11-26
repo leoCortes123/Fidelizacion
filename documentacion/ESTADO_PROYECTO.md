@@ -1,11 +1,12 @@
 # Estado del proyecto
 
-**Última actualización:** 27/10/2026
+**Última actualización:** 25/11/2026
 **Workspace:** `/mnt/datos/Programacion/Fidelizacion`
-**Estado:** módulo multiempresa **completo y desplegado** (fases 0–7) y rediseño
-Loopoint **cerrado hasta F9** (auditoría legible, pruebas, documentación y
-despliegue final). Web en producción, 31 migraciones en paridad con Supabase remoto
-y suites en verde.
+**Estado:** módulo multiempresa **completo** (fases 0–7), rediseño Fideliapp
+**cerrado hasta F9**, y **Plan de Cumplimiento Legal** (`documentacion/legal/PLAN_CUMPLIMIENTO_LEGAL.md`)
+implementado y verificado en local (**S0–S8**). Pendiente **S9** (datos `TODO_LEGAL`,
+validación legal externa, configuración de Auth/SMTP en Supabase hospedado, commits y
+despliegue final de 6 migraciones + Web + WebPage).
 
 > **Para una sesión nueva:** lee este archivo, `PLAN_IMPLEMENTACION.md` y
 > `documentacion/PRUEBAS.md`. Los valores operativos reales están en
@@ -28,13 +29,13 @@ y suites en verde.
 
 | Proyecto | GitHub | Estado |
 | --- | --- | --- |
-| Web (App/PWA) | `https://github.com/leoCortes123/fidelizacionWeb` | Funcional y desplegada en Vercel (`https://fidelizacion01.vercel.app`) |
-| Página comercial | `https://github.com/leoCortes123/fidelizacionWebPage` | Sitio estático separado en Cloudflare Pages (`https://fidelapp.pages.dev`) |
+| Web (App/PWA) | `https://github.com/leoCortes123/fidelizacionWeb` | Funcional y desplegada en Vercel (`https://fideli-app.vercel.app`) |
+| Página comercial | `https://github.com/leoCortes123/fidelizacionWebPage` | Sitio estático separado en Cloudflare Pages (`https://fideliapp.pages.dev`) |
 | API | `https://github.com/leoCortes123/fidelizacionApi` | 31 migraciones aplicadas en local y remoto |
 | App | `https://github.com/leoCortes123/fidelizacionApp` | Espacio reservado |
 
 Supabase: proyecto `fidelizacion01` (`gxfytcquyobhhbjipbea`).
-Web: `https://fidelizacion01.vercel.app` (con Deployment Protection de Vercel).
+Web: `https://fideli-app.vercel.app` (con Deployment Protection de Vercel).
 
 El repositorio anterior `leoCortes123/fidelizacion01` (`~/Mi_Negocio`) queda como
 referencia histórica.
@@ -63,7 +64,7 @@ referencia histórica.
 
 ### Web
 
-- **Cliente:** portal multi-negocio con tarjetas por negocio (logo, loopoints, badge
+- **Cliente:** portal multi-negocio con tarjetas por negocio (logo, monedas, badge
   verde si hay recompensas listas, frecuencia y última compra), inicio del negocio con
   saldo, recompensas, movimientos y compras, historial global de compras y canjes con
   filtro por negocio y detalle, solicitud con QR, “Mis canjes”, reemisión y perfil.
@@ -83,18 +84,18 @@ referencia histórica.
 
 ---
 
-## 3. Última ejecución verificada (27/10/2026)
+## 3. Última ejecución verificada (25/11/2026)
 
 | Suite | Resultado |
 | --- | --- |
-| TypeScript (`tsc -b`) | Sin errores |
-| Unitarias/componentes | **149/149** |
-| E2E Playwright | **34/34** |
-| SQL (PostgreSQL 16 efímero) | **600 aserciones** + 4 pruebas de concurrencia |
-| Casos de aceptación | **20/20** (`tests/db/loyalty-tests.sql`) |
-| Build + smoke | Correcto (`dist/`) |
-| Paridad de migraciones | 31/31 local y remoto |
-| Despliegue web | Producción actualizada en Vercel |
+| TypeScript (`tsc -b`) | Sin errores (Web y WebPage) |
+| Unitarias Web (`vitest`) | **47/47 archivos** en verde |
+| Unitarias WebPage (`vitest`) | **4/4 archivos** (**32/32**) |
+| E2E Playwright Web | **48/48** |
+| E2E Playwright WebPage | **4/4** |
+| SQL API (`npm test`, PostgreSQL 16) | **44 migraciones** aplicadas + **5 pruebas de concurrencia** en verde |
+| Build producción (`vite build`) | Correcto (`dist/` en Web y WebPage) |
+| Paridad de migraciones | **38/44** aplicadas en remoto (`6` pendientes: `20261123000100` y `20261126000100`–`20261126000500`) |
 
 Verificación remota:
 
@@ -106,7 +107,7 @@ Verificación remota:
   `redemption_redeem_by_token` y `business_audit_log_page` existen en remoto.
 - El barrido de grants deja a `anon` solo con `business_public_get` y
   `purchase_qr_preview`.
-- Web desplegada en producción (`fidelizacion01.vercel.app`): smoke 200 en `/login`,
+- Web desplegada en producción (`fideli-app.vercel.app`): smoke 200 en `/login`,
   `/admin/inicio`, `/admin/config`, `/customer`, `/join/:slug` y `/scan/:token`.
 - El bundle desplegado apunta a `gxfytcquyobhhbjipbea.supabase.co` y el fallback SPA
   responde 200.
@@ -152,27 +153,43 @@ npx vercel deploy --prod --yes
 
 ---
 
-## 5. Pendientes para producción pública
+## 5. Pendientes para producción pública (Sesión 9)
 
-1. **Decidir acceso:** el proyecto de Vercel mantiene Deployment Protection
+1. **Resolver `TODO_LEGAL`:** confirmar DV del NIT contra el RUT y definir dirección
+   física de notificación en `fidelizacionWeb/src/config/legal.config.ts` y
+   `fidelizacionWebPage/src/config/legal.config.ts`.
+2. **Validación legal y formalización:** revisión de textos por abogado colombiano
+   (subir `LEGAL_VERSIONS` si cambian), formalización (RUT/Cámara o S.A.S.), correos
+   activos, procedimiento PQR (10/15 días hábiles), DPA de Supabase/Vercel/Cloudflare,
+   búsqueda de marca en la SIC y confirmación RNBD.
+3. **Auth en Supabase hospedado:** configurar SMTP propio (SPF/DKIM/DMARC), `site_url`,
+   redirect URLs y copiar plantillas en español (`supabase/templates/confirm.html` y
+   `recovery.html`).
+4. **Commits y despliegue sincronizado:** commitear S0–S8 en los 4 repositorios,
+   ejecutar `supabase db push` (6 migraciones pendientes), desplegar `fidelizacionWeb`
+   (Vercel) y `fidelizacionWebPage` (Cloudflare Pages), y correr pruebas de humo.
+5. **Decidir acceso:** el proyecto de Vercel mantiene Deployment Protection
    (`vercel_authentication`). Si la demo debe ser pública, desactivarla.
-2. **Dominio definitivo:** si cambia, actualizar `VITE_PUBLIC_APP_URL`, Site URL y
-   Redirect URLs de Supabase, el JavaScript origin de Google y `vercel.json` (CSP).
-3. **Google OAuth real** con la cuenta titular en el dominio final.
-4. **Prueba manual con dos dispositivos** del QR de canje y del enlace de afiliación.
-5. **Rotar** el token personal de Supabase usado para las migraciones.
-6. **CI de GitHub:** los workflows existen, pero la cuenta tiene un bloqueo de
-   facturación que impide que los jobs arranquen.
-7. **App Android:** crear proyecto Gradle y su CI.
-8. **Cron:** confirmar que `pg_cron` está habilitado en el proyecto remoto; si no,
-   programar el vencimiento y los snapshots con un job externo.
+6. **Google OAuth real:** configurar Homepage, Privacy y Terms con las URLs de
+   `fideliapp.pages.dev` y enviar pantalla de consentimiento a verificación.
+7. **Dominio definitivo:** si cambia, actualizar `VITE_PUBLIC_APP_URL`,
+   `VITE_LEGAL_SITE_URL`, Site URL y Redirect URLs de Supabase, JavaScript origin de
+   Google y `vercel.json` (CSP).
+8. **Prueba manual con dos dispositivos** del QR de canje y del enlace de afiliación.
+9. **Rotar** el token personal de Supabase usado para las migraciones.
+10. **CI de GitHub:** los workflows existen, pero la cuenta tiene un bloqueo de
+    facturación que impide que los jobs arranquen.
+11. **App Android:** crear proyecto Gradle y su CI.
+12. **Cron:** confirmar que `pg_cron` está habilitado en el proyecto remoto; si no,
+    programar el vencimiento y los snapshots con un job externo.
 
 ---
 
 ## 6. Limitaciones conocidas
 
 - Una moneda (COP), una zona horaria de presentación y un local por negocio.
-- El registro por correo no verifica el correo (decisión de esta etapa).
+- La verificación de correo en registro queda habilitada en código/configuración
+  (`enable_confirmations = true`), pendiente de configurar SMTP en el panel remoto.
 - El E2E usa un backend en memoria; RLS y transacciones se prueban en PostgreSQL.
 - El QR es una credencial portadora hasta que se consume (compra) o se aprueba
   (canje).
@@ -205,10 +222,10 @@ npx vercel deploy --prod --yes
 
 - `supabase/migrations/` — 31 migraciones; la última cierra backfill, grants e índices.
 - `tests/db/loyalty-tests.sql` — 20 casos de aceptación.
-- `tests/db/loopoint-f6-tests.sql` — 32 aserciones del canje escaneado.
-- `tests/db/loopoint-f7-tests.sql` — 26 aserciones del portal multi-negocio.
-- `tests/db/loopoint-f8-tests.sql` — 24 aserciones de la auditoría legible.
-- `tests/db/loopoint-f9-tests.sql` — 85 aserciones de cierre (grants, backfill, listas y regresión).
+- `tests/db/fideliapp-f6-tests.sql` — 32 aserciones del canje escaneado.
+- `tests/db/fideliapp-f7-tests.sql` — 26 aserciones del portal multi-negocio.
+- `tests/db/fideliapp-f8-tests.sql` — 24 aserciones de la auditoría legible.
+- `tests/db/fideliapp-f9-tests.sql` — 85 aserciones de cierre (grants, backfill, listas y regresión).
 - `tests/db/loyalty-phase0-tests.sql` — cobertura detallada del módulo.
 - `scripts/test-db.sh` — PostgreSQL efímero y concurrencia.
 
@@ -222,11 +239,11 @@ npx vercel deploy --prod --yes
 ## 8. Handoff para la próxima sesión
 
 > “Lee `ESTADO_PROYECTO.md` y `PRUEBAS.md`. El módulo multiempresa está completo y el
-> rediseño Loopoint cerró en F9 (pruebas, documentación y despliegue). Antes de tocar
+> rediseño Fideliapp cerró en F9 (pruebas, documentación y despliegue). Antes de tocar
 > código ejecuta `npm test` en la API y `npm run test:all` en la web. No edites
 > migraciones ya aplicadas: crea una nueva. Si cambias reglas de negocio, actualiza
-> `tests/db/loyalty-tests.sql`, `tests/db/loopoint-f6-tests.sql`,
-> `tests/db/loopoint-f7-tests.sql`, `tests/db/loopoint-f8-tests.sql`,
-> `tests/db/loopoint-f9-tests.sql` y las pruebas unitarias/E2E correspondientes. Los
+> `tests/db/loyalty-tests.sql`, `tests/db/fideliapp-f6-tests.sql`,
+> `tests/db/fideliapp-f7-tests.sql`, `tests/db/fideliapp-f8-tests.sql`,
+> `tests/db/fideliapp-f9-tests.sql` y las pruebas unitarias/E2E correspondientes. Los
 > pendientes son operativos (dominio, OAuth real, protección de Vercel, cron y app
 > Android).”

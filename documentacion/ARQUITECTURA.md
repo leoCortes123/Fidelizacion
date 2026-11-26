@@ -8,7 +8,7 @@ documentación compartido:
 | Componente | Repositorio | Responsabilidad |
 | --- | --- | --- |
 | Web (App/PWA) | `fidelizacionWeb` | Portal del cliente, encargado y panel de administración (Vercel) |
-| Página comercial | `fidelizacionWebPage` | Sitio estático comercial (`/`, `/como-funciona`, `/funciones`, `/precios`, `/preguntas`) sin Supabase (Cloudflare Pages, `https://fidelapp.pages.dev`) |
+| Página comercial | `fidelizacionWebPage` | Sitio estático comercial (`/`, `/como-funciona`, `/funciones`, `/precios`, `/preguntas`) sin Supabase (Cloudflare Pages, `https://fideliapp.pages.dev`) |
 | API | `fidelizacionApi` | Supabase: esquema, RPC, RLS, Auth y seed |
 | App | `fidelizacionApp` | App Android (Kotlin/Compose), en fase de espacio reservado |
 | Documentación | `documentacion/` | Arquitectura, negocio y operación (local) |
@@ -119,7 +119,7 @@ La base usa `timestamptz`. La interfaz presenta fechas en `America/Bogota` media
 - El token viaja al cliente en la respuesta de `purchase_qr_create` y en el QR,
   no se registra en auditoría.
 - El QR apunta siempre al dominio publicado (`VITE_PUBLIC_APP_URL`, por defecto
-  `https://fidelizacion01.vercel.app`), aunque la venta se genere en local.
+  `https://fideli-app.vercel.app`), aunque la venta se genere en local.
 - `purchase_qr_preview` permite mostrar negocio, importe y puntos estimados antes
   de iniciar sesión; `purchase_qr_claim` acredita los puntos en la cuenta del
   cliente y lo afilia al negocio si aún no era miembro.

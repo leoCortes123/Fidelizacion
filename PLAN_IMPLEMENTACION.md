@@ -5,7 +5,7 @@
 **Sustituye a:** v1 (que declaraba “COMPLETADO” de forma incorrecta)  
 **Objetivo:** llegar a un módulo demostrable de punta a punta y luego al alcance completo del prompt original.
 
-> **Nuevo ciclo (25/10/2026):** rediseño funcional y visual **Loopoint** a partir de
+> **Nuevo ciclo (25/10/2026):** rediseño funcional y visual **Fideliapp** a partir de
 > [`documentacion/cambiosPlataforma.md`](documentacion/cambiosPlataforma.md). El plan de
 > ejecución, las migraciones propuestas y la matriz de trazabilidad están en
 > [`documentacion/PLAN_CAMBIOS_PLATAFORMA.md`](documentacion/PLAN_CAMBIOS_PLATAFORMA.md).
@@ -730,7 +730,7 @@ Copiar tal cual:
 > Trabaja en `/home/leonardo/Fidelizacion`. Lee `PLAN_IMPLEMENTACION.md`,
 > `ENTREGA_FINAL.md`, `documentacion/ESTADO_PROYECTO.md` y
 > `documentacion/PLAN_CAMBIOS_PLATAFORMA.md`. El módulo multiempresa está completo
-> (fases 0–7) y el rediseño Loopoint llegó hasta F6 (canje escaneado): 28
+> (fases 0–7) y el rediseño Fideliapp llegó hasta F6 (canje escaneado): 28
 > migraciones, 124 unitarias, 30 E2E, 465 aserciones SQL y web en Vercel. Antes de
 > tocar código ejecuta `npm test` en `fidelizacionApi` y `npm run test:all` en
 > `fidelizacionWeb`. Reglas: no edites migraciones ya aplicadas (crea una nueva),

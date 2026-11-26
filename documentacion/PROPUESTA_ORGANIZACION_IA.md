@@ -1,6 +1,6 @@
 # Propuesta: organización del repositorio y potenciación del desarrollo con IA
 
-> Generada el 09/11/2026 tras analizar la estructura (sin código), herramientas instaladas y documentación del proyecto Fidelización/Loopoint.
+> Generada el 09/11/2026 tras analizar la estructura (sin código), herramientas instaladas y documentación del proyecto Fidelización/Fideliapp.
 
 ## 1. Diagnóstico actual
 

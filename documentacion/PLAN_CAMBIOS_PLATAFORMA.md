@@ -1,4 +1,4 @@
-# Plan de ejecución — Rediseño Loopoint
+# Plan de ejecución — Rediseño Fideliapp
 
 **Fecha:** 25/10/2026  
 **Fuente funcional:** [`cambiosPlataforma.md`](cambiosPlataforma.md)  
@@ -9,14 +9,14 @@ local/remota, suites en verde y web desplegada en producción.
 
 ### Estado de ejecución (27/10/2026)
 
-- **F0 — completada.** Ramas `feat/loopoint-redesign` creadas en web y API; logo copiado a
-  `public/loopoint-coin.png`; `.env.example` versionado (se corrigió el `.gitignore`);
+- **F0 — completada.** Ramas `feat/fideliapp-redesign` creadas en web y API; logo copiado a
+  `public/fideliapp-coin.png`; `.env.example` versionado (se corrigió el `.gitignore`);
   dependencias de dropdown, tooltip y popover instaladas; baseline verificado.
-- **F1 — completada en su núcleo.** Marca Loopoint, paleta de negocio, modo oscuro
+- **F1 — completada en su núcleo.** Marca Fideliapp, paleta de negocio, modo oscuro
   persistente, shells con menú fijo y contenido con scroll propio, cabecera auto-oculta,
   menú de usuario con cierre de sesión, FAB móvil, tooltips en Programa/Compras, borradores
   persistentes en Programa, Compras, Ajustes, Productos y Recompensas, reemplazo de “puntos”
-  por “loopoints”, `/` redirigido por rol y hub interino `/admin/config`.
+  por “monedas”, `/` redirigido por rol y hub interino `/admin/config`.
 - **Verificación:** `tsc -b` limpio; **108 unitarias** y **20 E2E** en verde; build correcto.
 - **Pendiente inmediato:** ninguno de F1. Los tooltips de Negocio/Recompensas se
   incorporaron en F2/F3 y las pestañas definitivas de Configuración llegaron en F3. La
@@ -52,7 +52,7 @@ local/remota, suites en verde y web desplegada en producción.
   - **Web**: `/perfil` con alias y disponibilidad en vivo; “Mi perfil” en el menú de
     usuario; tarjeta **Negocio** en Configuración con formulario y subida de logo;
     tarjeta **Cliente frecuente** en Programa con explicación dinámica.
-- **Verificación F2:** pruebas SQL nuevas en `tests/db/loopoint-tests.sql` (integradas en
+- **Verificación F2:** pruebas SQL nuevas en `tests/db/fideliapp-tests.sql` (integradas en
   `scripts/test-db.sh`) y `npm test` en verde; **118 unitarias** y **24 E2E** en verde;
   `tsc -b`, build y smoke correctos. Paridad de migraciones local/remota verificada.
 
@@ -84,7 +84,7 @@ local/remota, suites en verde y web desplegada en producción.
     `business_purchase_detail`, `my_purchases_page` y `my_purchase_detail`. La
     vista previa pública incluye las líneas. El historial del cliente muestra el
     negocio, los ítems y el detalle, con filtro por negocio activo.
-  - **Inicio real**: `business_dashboard_summary` (loopoints en circulación,
+  - **Inicio real**: `business_dashboard_summary` (monedas en circulación,
     emitidos y canjeados, solicitudes, clientes frecuentes/activos, ventas y compras
     de hoy/mes, QR pendientes, presupuesto y última actividad) y
     `business_recent_activity`. La pantalla muestra 8 tarjetas compactas, actividad
@@ -92,7 +92,7 @@ local/remota, suites en verde y web desplegada en producción.
   - **PurchaseComposer**: pestañas “Valor manual” / “Elegir de la carta”, buscador,
     steppers de cantidad, total calculado, borrador y resultado con líneas; al pasar
     a manual se descartan los productos elegidos.
-- **Verificación F4:** pruebas SQL nuevas en `tests/db/loopoint-f4-tests.sql`
+- **Verificación F4:** pruebas SQL nuevas en `tests/db/fideliapp-f4-tests.sql`
   (combos, sumas, aislamiento, snapshots, detalle, métricas y grants); **119
   unitarias** y **28 E2E** en verde; `tsc -b`, build y `npm test` correctos.
 - **Nota de orden:** M6 se aplicó como `20261025001300` para mantener el orden
@@ -120,7 +120,7 @@ local/remota, suites en verde y web desplegada en producción.
   - **QR con URL**: el QR de canje codifica `${PUBLIC_APP_URL}/scan/<token>` y el
     diálogo conserva el código manual y el enlace como respaldo copiable.
   - **Pantalla `/scan/:token`**: requiere sesión, resuelve negocio y permisos desde el
-    token (nunca desde el navegador), muestra recompensa, loopoints, nickname, cuenta
+    token (nunca desde el navegador), muestra recompensa, monedas, nickname, cuenta
     atrás y estados inválido/vencido/usado/aprobado/sin permiso.
   - **Entrega atómica**: `redemption_redeem_by_token` aprueba y entrega en una sola
     transacción, consume el token y audita `redemption.scanned` +
@@ -147,7 +147,7 @@ local/remota, suites en verde y web desplegada en producción.
   - **Canjes globales**: `loyalty_my_redemptions` añade `business_slug` y
     `business_logo_url` para identificar el negocio en la lista y el detalle. Se añaden
     índices de apoyo por cliente/negocio y estado.
-  - **`/customer`**: nueva pantalla de negocios con tarjeta por negocio (logo, loopoints,
+  - **`/customer`**: nueva pantalla de negocios con tarjeta por negocio (logo, monedas,
     badge verde “lista” si hay recompensas asequibles, badge de frecuente, programa
     inactivo y última compra), totales consolidados y estado vacío con campo para pegar
     el enlace o código de invitación (`/join/:slug`).
@@ -164,7 +164,7 @@ local/remota, suites en verde y web desplegada en producción.
 - **Verificación F7:** **126 unitarias** (nuevas de tarjetas multi-negocio, invitación y
   filtro/detalle de canjes) y **32 E2E** (nuevas: tres negocios con saldos separados,
   redirección de Balance, compras y canjes globales con filtro y detalle). Pruebas SQL
-  nuevas en `tests/db/loopoint-f7-tests.sql` (26 aserciones: saldos por negocio,
+  nuevas en `tests/db/fideliapp-f7-tests.sql` (26 aserciones: saldos por negocio,
   recompensas listas, frecuencia aislada, permisos y canjes con slug/logo). Total:
   **491 aserciones SQL + 4 pruebas de concurrencia**. `tsc -b`, `vitest`, `playwright`,
   build, smoke y `npm test` en verde.
@@ -215,12 +215,12 @@ npm run build
 ## 1. Objetivo y principios
 
 Convertir la plataforma actual (módulo de fidelización funcional pero con estética y
-navegación de escritorio) en **Loopoint**, un producto mobile-first para usarse desde el
+navegación de escritorio) en **Fideliapp**, un producto mobile-first para usarse desde el
 navegador de un teléfono, con dos experiencias claramente separadas:
 
 - **Negocio:** panel de administración con menú fijo, datos condensados y operación rápida
   de caja (QR de compra, solicitudes, clientes, compras).
-- **Cliente:** acceso a varios negocios, saldo de **loopoints** por negocio, recompensas y
+- **Cliente:** acceso a varios negocios, saldo de **monedas** por negocio, recompensas y
   canjes.
 
 Principios que se mantienen del proyecto actual:
@@ -244,7 +244,7 @@ valores por defecto son configurables por el admin desde la interfaz.
 
 | # | Tema | Propuesta |
 | --- | --- | --- |
-| D1 | Nombre y moneda | App **Loopoint**; moneda **loopoint** (plural **loopoints**). En código/BD se mantiene `points`; solo cambia el texto visible. |
+| D1 | Nombre y moneda | App **Fideliapp**; moneda **moneda** (plural **monedas**). En código/BD se mantiene `points`; solo cambia el texto visible. |
 | D2 | Paleta cliente | Se conserva la actual (fondo crema, primario rojo, acentos ámbar). |
 | D3 | Paleta negocio | **Aprobada:** turquesa/cian profundo + azul noche + acento dorado, alineada con el logo. Se aplica solo al portal de negocio. Tokens concretos en §3.4. |
 | D4 | Modo oscuro | Variables CSS para ambos portales; preferencia guardada por usuario en `localStorage`, con detección inicial de `prefers-color-scheme`. |
@@ -411,10 +411,10 @@ muestra la lista horizontal de negocios en lugar del saludo.
   - `StatCard` compacta para Inicio.
   - `PurchaseComposer` (valor manual vs. carta).
   - `PurchaseDetail`.
-  - `BusinessCard` (cliente, con loopoints y estado de recompensas).
+  - `BusinessCard` (cliente, con monedas y estado de recompensas).
   - `EmptyState`, `ErrorState` ya existentes se reutilizan.
-- Marca: `Brand` usa `/loopoint-coin.png`; se actualiza `index.html` (título, descripción,
-  favicon, `theme-color`) y `VITE_BRAND_NAME=Loopoint`.
+- Marca: `Brand` usa `/fideliapp-coin.png`; se actualiza `index.html` (título, descripción,
+  favicon, `theme-color`) y `VITE_BRAND_NAME=Fideliapp`.
 
 ---
 
@@ -442,7 +442,7 @@ prefiere menos archivos, pero no se mezclan responsabilidades):
 - `nickname text` (nullable, único con `lower(btrim(nickname))` donde no sea null).
 - `nickname_changes smallint not null default 0` con check `between 0 and 2`.
 - Constraint de formato: `^[a-z0-9._-]{3,24}$` y lista de reservados
-  (`admin`, `loopoint`, `soporte`, `sistema`).
+  (`admin`, `fideliapp`, `soporte`, `sistema`).
 - `private.handle_new_user` extendido para generar nickname si viene vacío.
 - Funciones:
   - `profile_update(p_full_name, p_nickname)` → jsonb. Cada cambio explícito de nickname
@@ -620,15 +620,15 @@ prefiere menos archivos, pero no se mezclan responsabilidades):
 **Tareas**
 
 1. Ejecutar el baseline del punto 0 y anotar resultados.
-2. Crear ramas `feat/loopoint-redesign` en web y API (y `feat/loopoint-plan` si se desea
+2. Crear ramas `feat/fideliapp-redesign` en web y API (y `feat/fideliapp-plan` si se desea
    versionar documentación).
 3. Corregir `.gitignore` de la web para que `.env.example` se versione:
    quitar la línea final `.env*` o añadir `!.env.example` después.
-4. Copiar `loopointCoinNoBG.png` a `fidelizacionWeb/public/loopoint-coin.png`.
+4. Copiar `fideliapp-coin.png` a `fidelizacionWeb/public/fideliapp-coin.png`.
 5. Añadir dependencias: `@radix-ui/react-dropdown-menu`, `@radix-ui/react-tooltip`,
    `@radix-ui/react-popover` (si se usa popover móvil).
-6. Actualizar `.env.example` de la web: `VITE_BRAND_NAME=Loopoint`,
-   `VITE_BRAND_TAGLINE=Loopoints por tus compras`.
+6. Actualizar `.env.example` de la web: `VITE_BRAND_NAME=Fideliapp`,
+   `VITE_BRAND_TAGLINE=Monedas por tus compras`.
 
 **Aceptación:** baseline verde; `.env.example` versionado; asset disponible; sin cambios
 funcionales todavía.
@@ -643,18 +643,18 @@ funcionales todavía.
 
 **Tareas**
 
-1. **Marca Loopoint**
-   - `Brand` con `<img src="/loopoint-coin.png">`, tamaños compacto/normal, `alt`.
-   - `index.html`: título `Loopoint`, descripción, favicon PNG, `theme-color` según tema.
-   - `lib/config.ts`: defaults `Loopoint` / `Loopoints por tus compras`.
-   - Sustituir textos visibles “puntos” por “loopoint/loopoints” con un helper
-     `lib/copy.ts` (`loopoint`, `loopoints`, `formatLoopoints`). No renombrar tablas,
+1. **Marca Fideliapp**
+   - `Brand` con `<img src="/fideliapp-coin.png">`, tamaños compacto/normal, `alt`.
+   - `index.html`: título `Fideliapp`, descripción, favicon PNG, `theme-color` según tema.
+   - `lib/config.ts`: defaults `Fideliapp` / `Monedas por tus compras`.
+   - Sustituir textos visibles “puntos” por “moneda/monedas” con un helper
+     `lib/copy.ts` (`coinSingular`, `coinPlural`, `formatCoins`). No renombrar tablas,
      columnas ni RPC.
 2. **Temas y paletas**
    - `ThemeProvider` en `App.tsx`; clases `dark` y `data-portal="admin|customer"`.
    - Variables CSS nuevas para admin y dark; QR siempre sobre fondo blanco.
    - `UserMenu` con “Modo oscuro/claro”, “Mi perfil”, “Cerrar sesión”.
-   - Persistencia `loopoint:theme` y `loopoint:portal`.
+   - Persistencia `fideliapp:theme` y `fideliapp:portal`.
 3. **Layout fijo**
    - `AdminShell` y `CustomerShell` con sidebar fijo (desktop) + contenido scroll propio.
    - `useHideOnScroll` en la barra superior de ambos shells.
@@ -790,7 +790,7 @@ rangos; `customer_is_frequent` respeta ventana/gasto; RLS de Storage.
 1. Migración M3 (combos + purchase items + QR con ítems) y M6 (métricas).
 2. **Inicio (`/admin/inicio`)**
    - `StatCard` compactas (2 columnas móvil / 4 escritorio):
-     loopoints emitidos y en circulación, solicitudes pendientes, clientes frecuentes,
+     monedas emitidos y en circulación, solicitudes pendientes, clientes frecuentes,
      ventas de hoy/mes, presupuesto comprometido.
    - Sin tarjetas gigantes ni placeholders “—”.
    - Actividad reciente breve.
@@ -871,7 +871,7 @@ rangos; `customer_is_frequent` respeta ventana/gasto; RLS de Storage.
 3. Nueva pantalla `/scan/:token`:
    - Requiere sesión; si no hay, va a login con `next`.
    - Resuelve negocio desde el token y valida rol/permiso.
-   - Muestra recompensa, loopoints, cliente (nickname), vencimiento y cuenta atrás.
+   - Muestra recompensa, monedas, cliente (nickname), vencimiento y cuenta atrás.
    - Botón “Confirmar entrega” → `redemption_redeem_by_token` → confirmación → redirección
      a registrar compra (`/admin/purchases/new` o sección de venta del encargado).
    - Estados: token inválido/vencido/usado, sin permiso, ya aprobado.
@@ -887,7 +887,7 @@ rangos; `customer_is_frequent` respeta ventana/gasto; RLS de Storage.
 **Aceptación**
 
 - Cliente solicita → QR → el negocio escanea con la cámara → confirma → se descuentan
-  loopoints → se registra entrega → vuelve a registrar compra.
+  monedas → se registra entrega → vuelve a registrar compra.
 - Token vencido/reutilizado/cliente equivocado rechazado.
 - La solicitud aparece en el listado con su origen.
 - E2E con dos cuentas (cliente y encargado/admin).
@@ -904,7 +904,7 @@ rangos; `customer_is_frequent` respeta ventana/gasto; RLS de Storage.
 
 1. Migración M4.
 2. `/customer` → `CustomerBusinessesPage`:
-   - Tarjetas de negocios inscritos con logo, saldo de loopoints por negocio y badge verde
+   - Tarjetas de negocios inscritos con logo, saldo de monedas por negocio y badge verde
      si hay recompensas por reclamar.
    - Badge de frecuente, última actividad y acceso al detalle.
    - Estado vacío con invitación a afiliarse por enlace/QR.
@@ -977,7 +977,7 @@ rangos; `customer_is_frequent` respeta ventana/gasto; RLS de Storage.
   `actor_name`, filtros por operación (o varias separadas por coma), actor, rango
   de fechas y texto libre; escapa `%` y `_`, rechaza rangos inválidos y exige rol
   `admin`/`encargado` del negocio. Índices por operación y actor.
-- Pruebas: `tests/db/loopoint-f8-tests.sql` (22 aserciones SQL) y
+- Pruebas: `tests/db/fideliapp-f8-tests.sql` (22 aserciones SQL) y
   `tests/unit/auditLabels.test.ts` (13 pruebas) más los flujos E2E de escritorio
   y móvil.
 - La pestaña «Avanzado» (auditoría legada de plataforma) dejó de mostrar
@@ -999,7 +999,7 @@ rangos; `customer_is_frequent` respeta ventana/gasto; RLS de Storage.
 4. Migraciones: `db reset` local, `npm test`, `migration list`, `db push` remoto.
 5. Build de producción + smoke; desplegar en Vercel; verificar `/scan/:token`,
    `/join/:slug`, `/admin/config` y el bundle apuntando al Supabase correcto.
-6. Configurar variables: `VITE_BRAND_NAME=Loopoint`, `VITE_BRAND_TAGLINE`,
+6. Configurar variables: `VITE_BRAND_NAME=Fideliapp`, `VITE_BRAND_TAGLINE`,
    `VITE_PUBLIC_APP_URL` con el dominio definitivo.
 7. Verificación manual con cuentas reales (checklist de la sección 10).
 
@@ -1014,18 +1014,18 @@ rangos; `customer_is_frequent` respeta ventana/gasto; RLS de Storage.
   (ninguna función `SECURITY DEFINER` ejecutable por `PUBLIC`; `anon` solo conserva
   `business_public_get` y `purchase_qr_preview`), comentarios de tablas/columnas e
   índice `products_business_kind_idx`.
-- `tests/db/loopoint-f9-tests.sql` con **85 aserciones**: duplicados de nickname sin
+- `tests/db/fideliapp-f9-tests.sql` con **85 aserciones**: duplicados de nickname sin
   distinguir caja, RLS de perfiles, auditoría del logo, reemplazo de componentes de
   combos, snapshots de precio, aislamiento de compras, paginación/filtros, tokens
   consumidos, dashboard vacío, matriz de grants, idempotencia del backfill y regresión
   de campañas.
-- `tests/db/loopoint-f8-tests.sql` endurecido: el orden de auditoría se comprueba con
+- `tests/db/fideliapp-f8-tests.sql` endurecido: el orden de auditoría se comprueba con
   timestamps explícitos para no depender del orden de dos altas en el mismo segundo.
 - `tests/unit/Brand.test.tsx`: marca, copy singular/plural y enlaces del logo.
 - Verificación: `db reset` local, **31/31 migraciones** en paridad y `db push` remoto;
   API con **600 aserciones SQL** + 4 pruebas de concurrencia; web con **149 unitarias**,
   **34 E2E**, `tsc -b`, build y smoke correctos.
-- Desplegado en producción (`https://fidelizacion01.vercel.app`); smoke 200 en
+- Desplegado en producción (`https://fideli-app.vercel.app`); smoke 200 en
   `/login`, `/admin/inicio`, `/admin/config`, `/customer`, `/join/:slug` y
   `/scan/:token`; el bundle apunta a `gxfytcquyobhhbjipbea.supabase.co`.
 - Documentación cerrada: `BASE_DE_DATOS`, `SEGURIDAD`, `PRUEBAS`, `ESTADO_PROYECTO`,
@@ -1038,7 +1038,7 @@ rangos; `customer_is_frequent` respeta ventana/gasto; RLS de Storage.
 
 | ID | Requisito de `cambiosPlataforma.md` | Fase | Evidencia de aceptación |
 | --- | --- | --- | --- |
-| R01 | Nombre Loopoint y logo | F1 | `Brand`, `index.html`, favicon, título |
+| R01 | Nombre Fideliapp y logo | F1 | `Brand`, `index.html`, favicon, título |
 | R02 | Diseño responsive para teléfono | F1–F8 | Pruebas 360/390/768/1280, sin scroll horizontal |
 | R03 | Menú y contenido separados; menú fijo no scrolleable | F1 | Shell con sidebar fijo + `main` scroll propio |
 | R04 | Barra superior auto-oculta al bajar y aparece al subir | F1 | `useHideOnScroll` + prueba E2E |
@@ -1049,7 +1049,7 @@ rangos; `customer_is_frequent` respeta ventana/gasto; RLS de Storage.
 | R09 | Dos paletas: cliente (conservar) y admin (cambiar) | F1 | Variables por `data-portal` |
 | R10 | Eliminar “Ver portal de cliente” | F1 | Sin botón en `AdminShell` |
 | R11 | FAB móvil a registrar compra | F1/F4 | `Fab` visible en móvil |
-| R12 | Reemplazar “puntos” por “loopoints” | F1 | `lib/copy.ts` + revisión de textos |
+| R12 | Reemplazar “puntos” por “monedas” | F1 | `lib/copy.ts` + revisión de textos |
 | R13 | NickName único opcional con autogeneración y máximo 2 cambios | F2 | Migración + perfil + pruebas SQL |
 | R14 | Eliminar página principal y redirigir | F1 | `/` redirige por sesión |
 | R15 | Inicio: métricas condensadas + QR por valor o carta/combos + QR invitación | F4 | `PurchaseComposer`, `StatCard`, sección colapsable |
@@ -1061,7 +1061,7 @@ rangos; `customer_is_frequent` respeta ventana/gasto; RLS de Storage.
 | R22 | Clientes: quitar redimir + detalle de compra | F5 | `CustomerDetailPage` sin redención |
 | R23 | Compras: detalle con productos de la carta | F4/F5 | `purchase_items` + detalle |
 | R24 | Eliminar pantalla de balance del cliente | F7 | Sin ruta ni menú Balance |
-| R25 | Inicio cliente: lista de negocios con loopoints y verde si hay recompensas | F7 | `customer_businesses_summary` + tarjetas |
+| R25 | Inicio cliente: lista de negocios con monedas y verde si hay recompensas | F7 | `customer_businesses_summary` + tarjetas |
 | R26 | Al elegir negocio, pantalla tipo principal con lista de negocios arriba | F7 | `/customer/business/:id` |
 | R27 | Compras y canjes del cliente con lista y detalle | F5/F7 | Rutas + detalle |
 
@@ -1077,7 +1077,7 @@ rangos; `customer_is_frequent` respeta ventana/gasto; RLS de Storage.
 
 ## 8. Plan de pruebas
 
-### 8.1 SQL (`tests/db/loopoint-tests.sql`)
+### 8.1 SQL (`tests/db/fideliapp-tests.sql`)
 
 Casos mínimos nuevos:
 
@@ -1114,7 +1114,7 @@ Integrar en `scripts/test-db.sh` y actualizar el conteo esperado.
 - `UserMenu`: opciones, cierre de sesión, modo oscuro.
 - `useHideOnScroll`: umbral, dirección, top.
 - `useFormDraft`: restaura, guarda, limpia, TTL, versiones.
-- `Brand`/copy: Loopoint y loopoints.
+- `Brand`/copy: Fideliapp y monedas.
 - `StatCard`/dashboard: formato, ceros, carga/error.
 - `PurchaseComposer`: manual vs. carta, cantidades, total, ítems, edición de importe.
 - `ComboEditor`: validaciones y reemplazo.
@@ -1207,7 +1207,7 @@ producción actualizada y smoke 200 en todas las rutas indicadas.
 
 | Semana | Fases | Entregable |
 | --- | --- | --- |
-| 1 | F0 + F1 | Loopoint, temas, shells fijos, menú, tooltips, drafts, FAB |
+| 1 | F0 + F1 | Fideliapp, temas, shells fijos, menú, tooltips, drafts, FAB |
 | 2 | F2 + F3 | Identidad/perfil, negocio completo, frecuencia, Configuración unificada |
 | 3 | F4 + F5 | Inicio con métricas y QR con carta/combos, detalle de compras y clientes |
 | 4 | F6 | Canje por QR escaneado y solicitudes |
@@ -1236,17 +1236,17 @@ estén aplicadas.
 ```bash
 # 1. Crear ramas de trabajo
 cd /home/leonardo/Fidelizacion/fidelizacionApi
-git switch -c feat/loopoint-redesign
+git switch -c feat/fideliapp-redesign
 
 cd ../fidelizacionWeb
-git switch -c feat/loopoint-redesign
+git switch -c feat/fideliapp-redesign
 
 # 2. Baseline (no seguir si algo falla)
 cd ../fidelizacionApi && npm test
 cd ../fidelizacionWeb && npm run test:all
 
 # 3. F0: asset y .env.example
-cp ../loopointCoinNoBG.png public/loopoint-coin.png   # desde fidelizacionWeb
+cp ../fideliapp-coin.png public/fideliapp-coin.png   # desde fidelizacionWeb
 # editar .gitignore para versionar .env.example
 
 # 4. F1: empezar por ThemeProvider + Brand + shells
@@ -1273,7 +1273,7 @@ cp ../loopointCoinNoBG.png public/loopoint-coin.png   # desde fidelizacionWeb
 - [x] Pruebas SQL nuevas verdes y `scripts/test-db.sh` actualizado.
 - [x] Migraciones aplicadas en local y remoto con paridad total (31/31).
 - [x] Sin botones/textos obsoletos (“Ver portal del cliente”, “Balance”, “puntos” donde
-      deba decir “loopoints”).
+      deba decir “monedas”).
 - [x] Sin formularios que pierdan datos al cambiar de pestaña o recargar.
 - [x] Responsive verificado a 360 px y escritorio; sin scroll horizontal.
 - [x] Modo oscuro y ambas paletas verificados; QR legible.

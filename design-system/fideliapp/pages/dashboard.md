@@ -1,6 +1,6 @@
 # Dashboard Page Overrides
 
-> **PROJECT:** Loopoint
+> **PROJECT:** Fideliapp
 > **Generated:** 2026-11-10 20:12:11
 > **Page Type:** Dashboard / Data View
 

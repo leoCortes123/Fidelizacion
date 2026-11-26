@@ -1,10 +1,10 @@
-# Fidelización (Loopoint) — Workspace
+# Fidelización (Fideliapp) — Workspace
 
 Sistema de fidelización multiempresa: cada negocio configura programa, carta y recompensas. Web (React+Vite) + API (Supabase) + app Android (futuro). Autorización real en PostgreSQL (RLS + RPC).
 
 ## Estructura
 - `fidelizacionWeb/` — app/PWA (portal cliente, encargado y panel admin, repo propio, Vercel).
-- `fidelizacionWebPage/` — sitio comercial estático (repo propio, Cloudflare Pages `https://fidelapp.pages.dev`).
+- `fidelizacionWebPage/` — sitio comercial estático (repo propio, Cloudflare Pages `https://fideliapp.pages.dev`).
 - `fidelizacionApi/` — Supabase: migraciones, RPC, RLS, seed, tests SQL (repo propio).
 - `fidelizacionApp/` — espacio reservado Android (repo propio).
 - `documentacion/` — arquitectura, pruebas, operación, negocio. **Versionada aquí.**

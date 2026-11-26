@@ -42,7 +42,7 @@ legacy de un solo negocio, etiquetado como “Sistema anterior”.
   solicitudes, miembros, compras, económico, auditoría y wizard.
 - Portal del encargado con validación, aprobación y entrega.
 - Guards por rol/negocio, selector persistido y afiliación pública.
-- Rediseño Loopoint: configuración unificada, carta con combos, portal
+- Rediseño Fideliapp: configuración unificada, carta con combos, portal
   multi-negocio, auditoría legible y escaneo de canje.
 - 149 pruebas unitarias, 34 E2E y smoke del bundle.
 
@@ -61,7 +61,7 @@ legacy de un solo negocio, etiquetado como “Sistema anterior”.
 | Casos de aceptación | 20/20 |
 | Build + smoke | Correcto |
 | Migraciones | 28/28 en paridad |
-| Web | producción en `https://fidelizacion01.vercel.app` |
+| Web | producción en `https://fideli-app.vercel.app` |
 
 ### Documentación
 

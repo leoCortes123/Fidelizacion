@@ -33,7 +33,7 @@ npm run test:all    # typecheck + unitarias + E2E
 | Canje con QR | `ClaimPage`, `CustomerRedemptions`, `EncargadoPage`, `ScanRedemptionPage` | QR, reemisión, vencimiento, aprobación, entrega y `/scan/:token` |
 | Cliente | `CustomerBusinessesPage`, `CustomerRedemptions`, `BusinessJoinPage` | Negocios con saldo por negocio, invitación, canjes globales, QR y afiliación pública |
 | Administración | `MembersPage`, `RedemptionsPage`, `AuditPage`, `EconomicPage`, `CampaignsPage`, `OnboardingWizardPage` | Miembros, solicitudes (origen y entrega), auditoría, panel económico, campañas y wizard |
-| Rediseño Loopoint | `ProfilePage`, `BusinessProfileForm`, `FrequentCriteriaCard`, `PurchaseRegistrationPage`, `theme`, `Brand` | Alias, ficha de negocio, frecuencia, combos, marca/copy y tema |
+| Rediseño Fideliapp | `ProfilePage`, `BusinessProfileForm`, `FrequentCriteriaCard`, `PurchaseRegistrationPage`, `theme`, `Brand` | Alias, ficha de negocio, frecuencia, combos, marca/copy y tema |
 | Auditoría legible | `auditLabels` | Etiquetas de las 31 operaciones por negocio, resumen humano, detalle formateado y catálogo legado |
 
 ### E2E
@@ -100,20 +100,20 @@ npm test            # PostgreSQL 16 efímero en Docker
    acumulación, económico, auditoría y Fase 6.
 3. `tests/db/purchase-qr-tests.sql` — venta con QR por negocio.
 4. `tests/db/loyalty-tests.sql` — **20 casos de aceptación** de Fase 7.
-5. `tests/db/loopoint-tests.sql` y `loopoint-f4-tests.sql` — identidad, negocio,
+5. `tests/db/fideliapp-tests.sql` y `fideliapp-f4-tests.sql` — identidad, negocio,
    frecuencia, combos, ítems, detalle y métricas.
-6. `tests/db/loopoint-f6-tests.sql` — **32 aserciones** del canje escaneado:
+6. `tests/db/fideliapp-f6-tests.sql` — **32 aserciones** del canje escaneado:
    contexto sin `business_id`, permisos, entrega atómica, token vencido/reutilizado,
    origen `manual`/`qr_scan`, auditoría y aislamiento.
-7. `tests/db/loopoint-f7-tests.sql` — **26 aserciones** del portal multi-negocio:
+7. `tests/db/fideliapp-f7-tests.sql` — **26 aserciones** del portal multi-negocio:
    saldo, recompensas listas, frecuencia y solicitudes por negocio, aislamiento entre
    clientes, canjes con slug/logo y permisos.
-8. `tests/db/loopoint-f8-tests.sql` — **24 aserciones** de la auditoría legible:
+8. `tests/db/fideliapp-f8-tests.sql` — **24 aserciones** de la auditoría legible:
    nombre del actor, filtro por operación y por varias categorías, filtro por
    actor, rango de fechas (con `p_to` exclusivo), búsqueda libre con comodines
    literales, paginación con `total_count`, orden descendente determinista,
    permisos (admin/encargado leen, cliente y usuario ajeno no) y rango inválido.
-9. `tests/db/loopoint-f9-tests.sql` — **85 aserciones** de cierre: duplicados de
+9. `tests/db/fideliapp-f9-tests.sql` — **85+ aserciones** de cierre: duplicados de
    nickname sin distinguir caja, RLS de perfiles, auditoría del logo, reemplazo de
    componentes de combos, snapshot de precio, aislamiento de compras, paginación y
    filtros, tokens consumidos, dashboard vacío, matriz de grants, backfill

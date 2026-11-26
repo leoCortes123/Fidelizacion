@@ -4,7 +4,7 @@ Documentación funcional, técnica y operativa del sistema de fidelización. Est
 un directorio propio, **al mismo nivel que los repositorios**, para poder trabajar
 en la web, el API y la app sin mezclar documentación con código.
 
-**Estado (27/10/2026):** fases 0–7 completas y rediseño Loopoint cerrado hasta F9; 31
+**Estado (27/10/2026):** fases 0–7 completas y rediseño Fideliapp cerrado hasta F9; 31
 migraciones en paridad, 600 aserciones SQL, 149 unitarias, 34 E2E y web desplegada en
 Vercel. Detalle en [`ESTADO_PROYECTO.md`](ESTADO_PROYECTO.md).
 
@@ -44,7 +44,7 @@ referencia histórica. El desarrollo nuevo se hace en este workspace.
 10. [`APP_ANDROID.md`](APP_ANDROID.md): plan y convenciones de la app.
 11. [`INFORME_FINAL.md`](INFORME_FINAL.md): resumen de lo entregado.
 12. [`PLAN_CAMBIOS_PLATAFORMA.md`](PLAN_CAMBIOS_PLATAFORMA.md): plan del rediseño
-    Loopoint (fases, migraciones, rutas y pruebas).
+    Fideliapp (fases, migraciones, rutas y pruebas).
 13. [`negocio/`](negocio/): propuesta de negocio (Markdown y PDF).
 
 ## Regla de secretos

@@ -83,7 +83,7 @@ cd fidelizacionWeb
 VITE_SUPABASE_URL="https://<PROJECT_REF>.supabase.co" \
 VITE_SUPABASE_ANON_KEY="<CLAVE_PUBLICA>" \
 VITE_PUBLIC_APP_URL="https://<DOMINIO_WEB>" \
-VITE_BRAND_NAME="Mi Negocio" \
+VITE_BRAND_NAME="Fideliapp" \
 VITE_BRAND_TAGLINE="Puntos por tus compras" \
 npm run build
 ```
@@ -103,8 +103,8 @@ las variables se configuran en Project Settings → Environment Variables.
 8. Actualizar Site URL y Redirect URLs en Supabase, y el JavaScript origin en Google
    Cloud.
 
-> **Estado actual:** el proyecto `fidelizacion01` está desplegado en
-> `https://fidelizacion01.vercel.app` con **Deployment Protection**
+> **Estado actual:** el proyecto `fideliapp` está desplegado en
+> `https://fideli-app.vercel.app` con **Deployment Protection**
 > (`vercel_authentication`) activa. Para una demo pública, desactívala en
 > Project Settings → Deployment Protection. Con la protección activa, `vercel curl`
 > genera un token de bypass; un navegador sin sesión de Vercel no verá la app.

@@ -1,6 +1,6 @@
 Cambios para el diseño general de la plataforma:
 RECUERDA QUE LA PLATAFORMA ESTA PENSADA PARA MANIPULARSE DESDE UN NAVEGADOR EN UN TELEFONO ASI QUE EL DISEÑO RESPONSIVO DEBE ESTAR BIEN DISEÑADO
--El nombre de la aplicacion es Loopoint, 
+-El nombre de la aplicacion es Fideliapp, 
 -La seccion del menu y del contenido de la pagina deben ser separados y el menu debe estar fijo y no ser escroleable con la seccion de contenido
 -Configura la barra superior para ocultarse automaticamente cuando se de scroll hac9ia abajo y aparecer con el scroll opuesto
 -Elimina el boton de cerar sesion y deja un menu desplegable con la opcion cerrar sesion y cambiar a modo oscuro
@@ -10,7 +10,7 @@ RECUERDA QUE LA PLATAFORMA ESTA PENSADA PARA MANIPULARSE DESDE UN NAVEGADOR EN U
 -La aplicación debe tener dos paletas de colores una para el negocio y una para los clientes, conserva la del cliente y cambia la de admin
 -Elimina el boton de ver portal de cliente
 -en mobil agrega un boton flotante permanentemente en la parte inferior derecha como acceso rapido a la pantalla de registrar compra
--loopointCoinNoBG.png es el logo diseñado para la aplicacion, reemplazalo y reemplaza las referencias en el frente a puntos y cambialos por loopoints, asi se llama la moneda que se maneja en la aplicacion
+-fideliapp-coin.png es el logo diseñado para la aplicacion, reemplazalo y reemplaza las referencias en el frente a puntos y cambialos por monedas, asi se llama la moneda que se maneja en la aplicacion
 -El cliente debe tener un NickName unico opcional, si no lo llena, automaticamente se creara con el nombre del usuario como nick con un numero consecutivo si el nombre ya esta en uso. 
 
 
@@ -46,7 +46,7 @@ Campañas
 -Esta bien pero quiero que agregues algunas campañas estaticas que se pueden habilitar o deshabilitar dependioendo de la eleccion del negocio, por ejemplo cumpleaños del cliente, primera compra, aniversario de suscripcion del cliente, aniversario de primera compra y recuperacion de cliente (recompensa a un cliente frecuente que volvio despues de un tiempo determinado)
 
 Solicitudes
--Las formas de redimir los premios son: 1. Por solicitud manual (el usuario selecciona redimir un premio en su cuenta y aparece en esta vista para aprobar). 2. el cliente redime con qr desde su plataforma, alli se genera el qr y el negocio escanea el qr que lo redirigira a una pantalla donde se aprobara la redencion de los loopoints, se mostrara una confirmacion de redencion y al aceptar se redirigira de nuevo a la ventana de registrar compra 
+-Las formas de redimir los premios son: 1. Por solicitud manual (el usuario selecciona redimir un premio en su cuenta y aparece en esta vista para aprobar). 2. el cliente redime con qr desde su plataforma, alli se genera el qr y el negocio escanea el qr que lo redirigira a una pantalla donde se aprobara la redencion de las monedas, se mostrara una confirmacion de redencion y al aceptar se redirigira de nuevo a la ventana de registrar compra 
 
 
 Auditoria 
@@ -63,7 +63,7 @@ Pantallas de cliente
 Elimina la pantalla de balance
 
 Inicio
--Un cliente puede estar inscrito a varios negocios asi que los loopoints deben manejarse por negocio asi que como pagina principal de clientes debe verse una lista de los negocios a los cuales esta inscrito el cliente con el numero de puntos y en verde si hay recompensas por reclamar
+-Un cliente puede estar inscrito a varios negocios asi que las monedas deben manejarse por negocio asi que como pagina principal de clientes debe verse una lista de los negocios a los cuales esta inscrito el cliente con el numero de puntos y en verde si hay recompensas por reclamar
 -Al seleccionar un negocio se podra ver una pantalla como la que ve customer como principal y enn lugar del saludo en la parte superior debe estar una lista de negocios a los que esta incrito el cliente
 
 Compras

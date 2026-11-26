@@ -68,7 +68,7 @@ Supabase + React, conservando el flujo legacy de un solo negocio. El servidor es
 ### Canje escaneado
 
 - El QR contiene `/scan/<token>` y se abre con la sesión del negocio.
-- La pantalla muestra recompensa, loopoints, nickname y vencimiento.
+- La pantalla muestra recompensa, monedas, nickname y vencimiento.
 - “Confirmar entrega” consume el token, entrega la recompensa y audita el escaneo.
 - La solicitud queda con origen `QR escaneado` y se ofrece “Registrar compra”.
 

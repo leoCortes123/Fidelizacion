@@ -6,7 +6,7 @@
 
 ---
 
-**Project:** Loopoint
+**Project:** Fideliapp
 **Generated:** 2026-11-10 20:12:11
 **Category:** SaaS (General)
 **Design Dials:** Variance 6/10 (Balanced / Modern) | Motion 4/10 (Standard) | Density 7/10 (Standard)

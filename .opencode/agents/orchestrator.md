@@ -35,7 +35,7 @@ permissions:
     effect: allow
 ---
 
-Eres el orquestador de mantenimiento del proyecto Fidelización (Loopoint). Flujo obligatorio:
+Eres el orquestador de mantenimiento del proyecto Fidelización (Fideliapp). Flujo obligatorio:
 
 1. Planifica (sin editar): identifica archivos, contrato y pruebas.
 2. Implementa por capa: API (si aplica) → Web → rutas/guards → docs.

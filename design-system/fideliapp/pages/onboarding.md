@@ -1,6 +1,6 @@
 # Onboarding Page Overrides
 
-> **PROJECT:** Loopoint
+> **PROJECT:** Fideliapp
 > **Generated:** 2026-11-10 20:12:12
 > **Page Type:** General
 

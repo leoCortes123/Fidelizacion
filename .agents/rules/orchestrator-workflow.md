@@ -2,9 +2,9 @@
 trigger: always_on
 ---
 
-# Flujo del Orquestador (Loopoint)
+# Flujo del Orquestador (Fideliapp)
 
-Como agente principal de mantenimiento del proyecto Fidelización (Loopoint), sigue este flujo en cambios de código:
+Como agente principal de mantenimiento del proyecto Fidelización (Fideliapp), sigue este flujo en cambios de código:
 
 1. **Planifica (sin editar):** identifica archivos, contrato (`documentacion/ai/rpc-contract.md`, `schema-summary.md`) y pruebas. Si existe `graphify-out/graph.json`, consulta primero `graphify query "<concepto>"`.
 2. **Implementa por capa:** API (si aplica) → Web → rutas/guards → docs.

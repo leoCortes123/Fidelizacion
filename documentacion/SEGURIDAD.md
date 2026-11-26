@@ -181,14 +181,11 @@ bloquea el último y la auto-revocación.
 
 ## Registro con correo y contraseña
 
-La confirmación por correo está desactivada (`mailer_autoconfirm = true`) para que el
-registro simple entre directo. Implicaciones:
+La confirmación por correo está activada (`enable_confirmations = true`) tanto en `config.toml` como en el flujo de producción:
 
-- Cualquiera puede crear una cuenta con un correo que no controla; el correo se usa
-  solo como identificador y para iniciar sesión.
-- No se envían enlaces mágicos ni recuperación de contraseña automática.
-- Antes de abrir al público, decide si activas verificación y un proveedor SMTP, o si
-  mantienes solo Google como método de alta.
+- Ninguna cuenta creada por correo puede iniciar sesión sin verificar primero la propiedad de su dirección (`email_not_confirmed` bloqueado con opción de reenvío).
+- La recuperación de contraseña usa `resetPasswordForEmail` con respuesta neutra (no revela si el correo existe) y redirige a `/restablecer-clave` para actualizar la clave con sesión de recuperación.
+- En producción se exige SMTP propio con **SPF, DKIM y DMARC** y plantillas en español (`fidelizacionApi/supabase/templates/`), además de restringir `site_url` y `additional_redirect_urls` al dominio oficial.
 
 ## Google OAuth
 
